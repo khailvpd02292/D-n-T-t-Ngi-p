@@ -1,1 +1,2 @@
 khai
+git push --set-upstream origin khai
