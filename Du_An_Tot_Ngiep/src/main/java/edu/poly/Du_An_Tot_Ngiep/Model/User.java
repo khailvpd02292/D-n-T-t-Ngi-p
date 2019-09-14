@@ -3,12 +3,16 @@ package edu.poly.Du_An_Tot_Ngiep.Model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "User")
 public class User {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 	private String username;
 	private String password;
