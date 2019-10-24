@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <!-- Required meta tags -->
@@ -187,18 +188,18 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Thêm Danh Mục</h4>
-                  <form action="#">
+                  <form th:object="${category}" th:action="@{/manager/addCategory}"  method="post" role="form">
                     <div class="form-group">
-                      <label class="label">Tên Sản Phẩm</label>
+                      <label class="label">Tên Danh mục sản phẩm</label>
                       <div class="input-group">
-                        <input type="text" class="form-control">
+                        <input th:field="*{name}" type="text" class="form-control">
                         
                       </div>
                     </div>
                     
                     <div class="form-group">
                       <button class="btn btn-primary">Thêm</button>
-                      <a href="category.html">Quay Về</a>
+                      <a th:href="@{/manager/listCategory}">Quay Về</a>
                     </div>
                     
                     
