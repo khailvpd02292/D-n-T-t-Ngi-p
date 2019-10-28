@@ -31,9 +31,9 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html">
+        <a class="navbar-brand brand-logo" th:href="@{/manager}">
           <img src="../assets/images/logo.svg" alt="logo" /> </a>
-        <a class="navbar-brand brand-logo-mini" href="index.html">
+        <a class="navbar-brand brand-logo-mini" th:href="@{/manager}">
           <img src="../assets/images/logo-mini.svg" alt="logo" /> </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -153,13 +153,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" th:href="@{/manager/listCategory}">
               <i class="menu-icon typcn typcn-th-large-outline"></i>
               <span class="menu-title">Quản Lý Danh Mục</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" th:href="@{/manager/listProduct}">
               <i class="menu-icon typcn typcn-th-large-outline"></i>
               <span class="menu-title">Quản Lý Sản Phẩm</span>
             </a>
@@ -187,14 +187,40 @@
             <div id="textCenter" class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Thêm Danh Mục</h4>
-                  <form th:object="${category}" th:action="@{/manager/addCategory}"  method="post" role="form">
+                  <h4 class="card-title">Thêm Sản Phẩm</h4>
+                  <form th:object="${product}" th:action="@{/manager/addProduct}" method="post" role="form" enctype="multipart/form-data">
                     <div class="form-group">
-                      <label class="label">Tên Danh mục sản phẩm</label>
+                    	<label class="label">Tên danh mục sản phẩm</label>
+                    	<div class="input-group">
+                    		<select th:field="*{category}" class="form-control">
+                    		 <option th:each="category : ${listCategory}" th:value = "${category.idCategory}" th:utext = "${category.name}"></option>
+                    		</select>
+                    	</div>
+                    </div>
+                    <div class="form-group">
+                      <label class="label">Tên sản phẩm</label>
                       <div class="input-group">
                         <input th:field="*{name}" type="text" class="form-control">
-                        
                       </div>
+                    </div>
+                    
+                    <div class="form-group">
+                    	<label class="label">Ảnh</label>
+                    	<div class="input-group">
+                    		<input th:field="*{image}" type="file" name="file" onchange="readURL(this);" accept="image/x-png,image/jpeg,image/jpg">
+                    		
+                    	</div>
+                    	<div style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 150px;">
+                    		<img style="height: 150px; width: 120px;"  id="blah" />
+                    	</div>
+                    	
+                    </div>
+                    
+                    <div class="form-group">
+                    	<label class="label">Giá</label>
+                    	<div class="input-group">
+                    		<input th:field="*{price}" type="number" class="form-control">
+                    	</div>
                     </div>
                     
                     <div class="form-group">
@@ -241,6 +267,23 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="../assets/js/demo_1/dashboard.js"></script>
+  
+  <script type="text/javascript">
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(120)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+	</script>
   <!-- End custom js for this page-->
 </body>
 
