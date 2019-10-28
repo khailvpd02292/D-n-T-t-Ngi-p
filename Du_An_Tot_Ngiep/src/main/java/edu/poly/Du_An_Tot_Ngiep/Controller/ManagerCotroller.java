@@ -23,7 +23,9 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Category;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
+import edu.poly.Du_An_Tot_Ngiep.Entity.ProductDetail;
 import edu.poly.Du_An_Tot_Ngiep.Service.CategoryService;
+import edu.poly.Du_An_Tot_Ngiep.Service.ProductDetailService;
 import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
 
 @Controller
@@ -34,6 +36,9 @@ public class ManagerCotroller {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductDetailService productDetailService;
 
 	@GetMapping(value = "/manager")
 	public String manager() {
@@ -94,6 +99,7 @@ public class ManagerCotroller {
 	@GetMapping(value = "/manager/listProduct")
 	public String listProduct(ModelMap model) {
 		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("productDetail", this.productDetailService.findAll());
 		return "/manager/listProduct";
 	}
 
@@ -154,6 +160,25 @@ public class ManagerCotroller {
 	@GetMapping(value = "/manager/deleteProduct/{idProduct}")
 	public String deleteProduct(@PathVariable(name = "idProduct") int id) {
 		this.productService.deleteById(id);
+		return "redirect:/manager/listProduct";
+	}
+	
+	// product Detail
+	
+	@GetMapping(value = "/manager/addProductDetail")
+	public String addProductDetail(ModelMap model) {
+		model.addAttribute("productDetail", new ProductDetail());
+		model.addAttribute("product", this.productService.findAll());
+		return "/manager/addProductDetail";
+	}
+	@PostMapping(value = "/manager/addProductDetail")
+	public String addProductDetail(@ModelAttribute("productDetail")@Valid ProductDetail productDetail, BindingResult result, @RequestParam(value = "image_1") MultipartFile image_1,@RequestParam(value = "image_2") MultipartFile image_2) {
+		
+		if (result.hasErrors()) {
+			return "/manager/addProductDetail";
+		} else {
+			this.productDetailService.save(productDetail);
+		}
 		return "redirect:/manager/listProduct";
 	}
 }

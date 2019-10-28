@@ -202,9 +202,23 @@
 
 
 						<div class="col-lg-12 grid-margin stretch-card">
-							<div class="card">
+						
+						
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Danh sách</h4>
+                        <p class="card-description"></p>
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" th:href="@{/manager/listProduct}" role="tab" aria-controls="nav-home" aria-selected="true">Danh Sách Sản Phẩm</a>
+                              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" th:href="@{/manager/listProduct}" role="tab" aria-controls="nav-profile" aria-selected="false">Danh Sách Sản Phẩm Chi Tiết</a>
+                            </div>
+                          </nav>
+                          <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Danh Sách Thông Sản Phẩm</h4>
+									<h4 class="card-title">Danh Sách Thông Tin Sản Phẩm</h4>
 									<p class="card-description">
 										<a class="btn btn-inverse-success btn-fw"
 											th:href="@{/manager/addProduct}">Thêm Sản Phẩm</a>
@@ -228,10 +242,10 @@
 													th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}">
 												</td>
 												<td th:text="${product.category.name}"></td>
-												<td><a class="btn btn-info"
-													th:href="@{'/manager/updateProduct/'+${product.idProduct}}">Cập
-														Nhập</a> <a class="btn btn-danger"
-													th:href="@{'/manager/deleteProduct/'+${product.idProduct}}">Xóa</a>
+												<td>
+												 <!-- <a class="btn btn-warning" href="">Thêm Chi Tiết</a> -->
+												 <a class="btn btn-info" th:href="@{'/manager/updateProduct/'+${product.idProduct}}">Cập Nhập</a>
+												 <a class="btn btn-danger" th:href="@{'/manager/deleteProduct/'+${product.idProduct}}">Xóa</a>
 												</td>
 
 											</tr>
@@ -241,8 +255,61 @@
 									</table>
 								</div>
 							</div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                              <div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Danh Sách Thông Tin Chi Tiết Sản Phẩm</h4>
+									<p class="card-description">
+										<a class="btn btn-inverse-success btn-fw"
+											th:href="@{/manager/addProductDetail}">Thêm Thông Tin Chi Tiết</a>
+									</p>
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Tên Sản Phẩm</th>
+												<th>Ảnh 1</th>
+												<th>Ảnh 2</th>
+												<th>Ngày Hết Hạn</th>
+												<th>Nguồn Gốc</th>
+												<th>Chi Tiết</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="prods : ${productDetail}">
+
+												<td th:text="${prods.product.name}"></td>
+												<td>
+													<img id="anh"
+													th:src="@{'data:image_1/png;base64,' + ${prods.getImageBase64()}}">
+												</td>
+												<td><img id="anh"
+													th:src="@{'data:image_2/png;base64,' + ${prods.getImageBase64()}}">
+												</td>
+												<td th:text="${prods.dateOfManufacture}"></td>
+												<td th:text="${prods.origin}"></td>
+												<td th:text="${prods.description}"></td>
+												<td>
+												 <!-- <a class="btn btn-warning" href="">Thêm Chi Tiết</a> -->
+												 <a class="btn btn-info" th:href="@{'/manager/updateProduct/'+${product.idProduct}}">Cập Nhập</a>
+												 <a class="btn btn-danger" th:href="@{'/manager/deleteProduct/'+${product.idProduct}}">Xóa</a>
+												</td>
+
+											</tr>
 
 
+										</tbody>
+									</table>
+								</div>
+							</div>
+                            </div>
+                            
+                          </div>
+                      </div>
+                    </div>
+                 
+         	
 						</div>
 					</div>
 				</div>
