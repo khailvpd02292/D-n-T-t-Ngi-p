@@ -64,7 +64,7 @@ body {
   
   
  #imageBack{
- background-image: url('images/bg_1.jpg');
+ background-image: url('/images/bg_1.jpg');
  }
 
 hr {
@@ -8261,7 +8261,7 @@ h1, h2, h3, h4, h5,
     position: relative; }
     .hero-wrap .slider-text .breadcrumbs {
       text-transform: uppercase;
-      font-size: 12px;
+      font-size: 12px;x	
       letter-spacing: 3px;
       margin-bottom: 0;
       z-index: 99;
