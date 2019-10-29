@@ -202,38 +202,46 @@
 						<div class="col-lg-12 grid-margin stretch-card">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Danh Sách Thông Tin Sản Phẩm</h4>
+									<h4 class="card-title">Danh Sách Thông Tin Chi Tiết Sản
+										Phẩm</h4>
 									<p class="card-description">
+									<a class="btn btn-inverse-success btn-fw"
+											th:href="@{/manager/listProduct}">Danh Sách Sản Phẩm
+											</a>
 										<a class="btn btn-inverse-success btn-fw"
-											th:href="@{/manager/listProductDetail}">Danh sách Chi Tiết</a>
-											<a class="btn btn-inverse-success btn-fw"
-											th:href="@{/manager/addProduct}">Thêm Sản Phẩm</a>
+											th:href="@{/manager/addProductDetail}">Thêm Thông Tin Chi
+											Tiết</a>
 									</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
 												<th>Tên Sản Phẩm</th>
-												<th>Giá</th>
-												<th>Ảnh</th>
-												<th>Danh Mục</th>
+												<th>Ảnh 1</th>
+												<th>Ảnh 2</th>
+												<th>Ngày Hết Hạn</th>
+												<th>Nguồn Gốc</th>
+												<th>Chi Tiết</th>
 												<th></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="product : ${product}">
+											<tr th:each="prods : ${productDetail}">
 
-												<td th:text="${product.name}"></td>
-												<td th:text="${product.price}"></td>
+												<td th:text="${prods.product.name}"></td>
 												<td><img id="anh"
-													th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}">
+													th:src="@{'data:image_1/png;base64,' + ${prods.getBase64Image_1()}}">
 												</td>
-												<td th:text="${product.category.name}"></td>
+												<td><img id="anh"
+													th:src="@{'data:image_2/png;base64,' + ${prods.getBase64Image_2()}}">
+												</td>
+												<td th:text="${prods.dateOfManufacture}"></td>
+												<td th:text="${prods.origin}"></td>
+												<td th:text="${prods.description}"></td>
 												<td>
-													<!-- <a class="btn btn-warning" href="">Thêm Chi Tiết</a> -->
 													<a class="btn btn-info"
-													th:href="@{'/manager/updateProduct/'+${product.idProduct}}">Cập
+													th:href="@{'/manager/updateProductDetail/'+${prods.idProductDetail}}">Cập
 														Nhập</a> <a class="btn btn-danger"
-													th:href="@{'/manager/deleteProduct/'+${product.idProduct}}">Xóa</a>
+													th:href="@{'/manager/deleteProductDetail/'+${prods.idProductDetail}}">Xóa</a>
 												</td>
 											</tr>
 										</tbody>
@@ -243,26 +251,26 @@
 						</div>
 					</div>
 				</div>
-				<!-- content-wrapper ends -->
-				<!-- partial:partials/_footer.html -->
-				<footer class="footer">
-					<div class="container-fluid clearfix">
-						<span
-							class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright
-							© 2019 <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>.
-							All rights reserved.
-						</span> <span
-							class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted
-							& made with <i class="mdi mdi-heart text-danger"></i>
-						</span>
-					</div>
-				</footer>
-				<!-- partial -->
+			<!-- content-wrapper ends -->
+			<!-- partial:partials/_footer.html -->
+			<footer class="footer">
+				<div class="container-fluid clearfix">
+					<span
+						class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright
+						© 2019 <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>.
+						All rights reserved.
+					</span> <span
+						class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted
+						& made with <i class="mdi mdi-heart text-danger"></i>
+					</span>
+				</div>
+			</footer>
+			<!-- partial -->
 			</div>
-			<!-- main-panel ends -->
 		</div>
-		<!-- page-body-wrapper ends -->
+		<!-- main-panel ends -->
 	</div>
+	<!-- page-body-wrapper ends -->
 	<!-- container-scroller -->
 	<!-- plugins:js -->
 	<script src="../assets/vendors/js/vendor.bundle.base.js"></script>

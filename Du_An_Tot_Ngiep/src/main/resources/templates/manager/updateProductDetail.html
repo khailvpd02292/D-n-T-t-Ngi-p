@@ -188,44 +188,62 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Sửa Danh Mục</h4>
-                  <form th:action="@{/manager/updateProduct}" th:object="${product}" enctype="multipart/form-data" method="post" role="form">
+                  <form th:action="@{/manager/updateProductDetail}" th:object="${productDetail}" enctype="multipart/form-data" method="post" role="form">
                       <div class="form-group">
                           
                           <div class="input-group">
-                            <input type="hidden" th:field="*{idProduct}">
+                            <input type="hidden" th:field="*{idProductDetail}">
                             
                           </div>
                         </div>
                    <div class="form-group">
-                    	<label class="label">Tên danh mục sản phẩm</label>
+                    	<label class="label">Tên sản phẩm</label>
                     	<div class="input-group">
-                    		<select th:field="*{category}" class="form-control">
-                    		 <option th:each="category : ${listCategory}" th:value = "${category.idCategory}" th:utext = "${category.name}"></option>
+                    		<select th:field="*{product}" class="form-control">
+                    		 <option th:each="product : ${product}" th:value = "${product.idProduct}" th:utext = "${product.name}"></option>
                     		</select>
                     	</div>
                     </div>
+                    
                     <div class="form-group">
-                      <label class="label">Tên sản phẩm</label>
-                      <div class="input-group">
-                        <input th:field="*{name}" type="text" class="form-control">
-                      </div>
-                    </div>
-                   <div class="form-group">
-                    	<label class="label">Ảnh</label>
+                    	<label class="label">Ảnh 1</label>
                     	<div class="input-group">
-                    		<input th:field="*{image}" type="file" name="file" onchange="readURL(this);" accept="image/x-png,image/jpeg,image/jpg">
+                    		<input th:field="*{image_1}" type="file" name="file" onchange="readURL(this);" accept="image_1/x-png,image_1/jpeg,image_1/jpg">
                     		
                     	</div>
                     	<div style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 150px;">
-                    		<img style="height: 150px; width: 120px;"  id="blah" th:src="@{'data:image/png;base64,'+${product.getImageBase64()}}" />
+                    		<img style="height: 150px; width: 120px;"  id="blah" th:src="@{'data:image_1/png;base64,'+${productDetail.getBase64Image_1()}}" />
+                    	</div>
+                    	
+                    </div>
+                    <div class="form-group">
+                    	<label class="label">Ảnh 2</label>
+                    	<div class="input-group">
+                    		<input th:field="*{image_2}" type="file" name="file" onchange="readURL_1(this);" accept="image_2/x-png,image_2/jpeg,image_2/jpg">
+                    		
+                    	</div>
+                    	<div style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 150px;">
+                    		<img style="height: 150px; width: 120px;"  id="blah1" th:src="@{'data:image_2/png;base64,'+${productDetail.getBase64Image_2()}}" />
                     	</div>
                     	
                     </div>
                     
                     <div class="form-group">
-                    	<label class="label">Giá</label>
+                    	<label class="label">Ngày Hết Hạn</label>
                     	<div class="input-group">
-                    		<input th:field="*{price}" type="number" class="form-control">
+                    		<input th:field="*{dateOfManufacture}" type="date" class="form-control">
+                    	</div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="label">Nguồn Gốc Sản Phẩm</label>
+                    	<div class="input-group">
+                    		<input th:field="*{origin}" type="text" class="form-control">
+                    	</div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="label">Chi Tiết Sản Phẩm</label>
+                    	<div class="input-group">
+                    		<input th:field="*{description}" type="text" class="form-control">
                     	</div>
                     </div>
                     
@@ -276,20 +294,34 @@
   <!-- End custom js for this page-->
   
    <script type="text/javascript">
-	function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+   function readURL(input) {
+       if (input.files && input.files[0]) {
+           var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(120)
-                    .height(150);
-            };
+           reader.onload = function (e) {
+               $('#blah')
+                   .attr('src', e.target.result)
+                   .width(120)
+                   .height(150);
+           };
 
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+           reader.readAsDataURL(input.files[0]);
+       }
+   }
+	function readURL_1(input) {
+       if (input.files && input.files[0]) {
+           var reader = new FileReader();
+
+           reader.onload = function (e) {
+               $('#blah1')
+                   .attr('src', e.target.result)
+                   .width(120)
+                   .height(150);
+           };
+
+           reader.readAsDataURL(input.files[0]);
+       }
+   }
 	</script>
 </body>
 

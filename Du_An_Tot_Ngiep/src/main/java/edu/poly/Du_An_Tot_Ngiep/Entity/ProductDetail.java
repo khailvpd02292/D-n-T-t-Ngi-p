@@ -95,7 +95,7 @@ public class ProductDetail implements Serializable {
 		return image_2;
 	}
 	public String getBase64Image_2() {
-		if (this.getBase64Image_2() == null) {
+		if (this.getImage_2() == null) {
 			return "";
 		} else {
 			return Base64.getEncoder().encodeToString(this.getImage_2());

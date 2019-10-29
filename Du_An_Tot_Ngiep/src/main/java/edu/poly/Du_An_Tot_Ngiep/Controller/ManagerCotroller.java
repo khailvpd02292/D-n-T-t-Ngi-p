@@ -36,7 +36,7 @@ public class ManagerCotroller {
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private ProductDetailService productDetailService;
 
@@ -99,14 +99,13 @@ public class ManagerCotroller {
 	@GetMapping(value = "/manager/listProduct")
 	public String listProduct(ModelMap model) {
 		model.addAttribute("product", this.productService.findAll());
-		model.addAttribute("productDetail", this.productDetailService.findAll());
 		return "/manager/listProduct";
 	}
 
 	@GetMapping(value = "/manager/addProduct")
 	public String addProduct(ModelMap model) {
 		model.addAttribute("product", new Product());
-		model.addAttribute("listCategory",categoryService.findAll());
+		model.addAttribute("listCategory", categoryService.findAll());
 		return "/manager/addProduct";
 	}
 
@@ -129,7 +128,8 @@ public class ManagerCotroller {
 	@GetMapping(value = "/manager/updateProduct/{idProduct}")
 	public String updateProduct(ModelMap model, @PathVariable(name = "idProduct") int id) {
 		model.addAttribute("listCategory", this.categoryService.findAll());
-		model.addAttribute("product", this.productService.findById(id).isPresent()? this.productService.findById(id).get(): null);
+		model.addAttribute("product",
+				this.productService.findById(id).isPresent() ? this.productService.findById(id).get() : null);
 		return "/manager/updateProduct";
 	}
 
@@ -153,7 +153,7 @@ public class ManagerCotroller {
 			product.setImage(productService.findById(product.getIdProduct()).get().getImage());
 
 		}
-		
+
 		return "redirect:/manager/listProduct";
 	}
 
@@ -162,23 +162,86 @@ public class ManagerCotroller {
 		this.productService.deleteById(id);
 		return "redirect:/manager/listProduct";
 	}
-	
+
 	// product Detail
-	
+
+	@GetMapping(value = "/manager/listProductDetail")
+	public String listProductDetail(ModelMap model) {
+		model.addAttribute("productDetail", this.productDetailService.findAll());
+		return "/manager/listProductDetail";
+	}
+
 	@GetMapping(value = "/manager/addProductDetail")
 	public String addProductDetail(ModelMap model) {
 		model.addAttribute("productDetail", new ProductDetail());
 		model.addAttribute("product", this.productService.findAll());
 		return "/manager/addProductDetail";
 	}
+
 	@PostMapping(value = "/manager/addProductDetail")
-	public String addProductDetail(@ModelAttribute("productDetail")@Valid ProductDetail productDetail, BindingResult result, @RequestParam(value = "image_1") MultipartFile image_1,@RequestParam(value = "image_2") MultipartFile image_2) {
-		
+	public String addProductDetail(@ModelAttribute("productDetail") @Valid ProductDetail productDetail,
+			BindingResult result, @RequestParam(value = "image_1") MultipartFile image_1,
+			@RequestParam(value = "image_2") MultipartFile image_2) {
+
 		if (result.hasErrors()) {
 			return "/manager/addProductDetail";
 		} else {
 			this.productDetailService.save(productDetail);
 		}
-		return "redirect:/manager/listProduct";
+		return "redirect:/manager/listProductDetail";
+	}
+
+	@GetMapping(value = "/manager/updateProductDetail/{idProductDetail}")
+	public String updateProductDetail(ModelMap model, @PathVariable("idProductDetail") int idProductDetail) {
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("productDetail",
+				this.productDetailService.findById(idProductDetail).isPresent()
+						? this.productDetailService.findById(idProductDetail).get()
+						: null);
+		return "/manager/updateProductDetail";
+	}
+
+	@PostMapping(value = "/manager/updateProductDetail")
+	public String updateProductDetail(@ModelAttribute("productDetail") @Valid ProductDetail productDetail,
+			BindingResult result, @RequestParam(value = "image_1") MultipartFile image_1,
+			@RequestParam(value = "image_2") MultipartFile image_2) {
+
+		if (result.hasErrors()) {
+			return "/manager/updateProductDetail";
+		} else {
+			this.productDetailService.save(productDetail);
+		}
+		if (!image_1.isEmpty()) {
+			try {
+				productDetail.setImage_1(image_1.getBytes());
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} else {
+			productDetail
+					.setImage_1(productDetailService.findById(productDetail.getIdProductDetail()).get().getImage_1());
+		}
+
+		if (!image_2.isEmpty()) {
+			try {
+				productDetail.setImage_2(image_2.getBytes());
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} else {
+			productDetail
+					.setImage_2(productDetailService.findById(productDetail.getIdProductDetail()).get().getImage_2());
+
+		}
+
+		return "redirect:/manager/listProductDetail";
+	}
+
+	@GetMapping(value = "/manager/deleteProductDetail/{idProductDetail}")
+	public String deleteProductDetail(@PathVariable(name = "idProductDetail") int id) {
+		this.productDetailService.deleteById(id);
+		return "redirect:/manager/listProductDetail";
 	}
 }
