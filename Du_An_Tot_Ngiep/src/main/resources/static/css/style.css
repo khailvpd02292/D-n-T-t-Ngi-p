@@ -61,6 +61,11 @@ body {
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
+  
+  
+ #imageBack{
+ background-image: url('images/bg_1.jpg');
+ }
 
 hr {
   -webkit-box-sizing: content-box;

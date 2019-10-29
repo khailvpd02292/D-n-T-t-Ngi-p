@@ -795,6 +795,13 @@
       height: 3px;
       border-radius: 0px; }
 
+#anh{
+	height: 150px;
+	width: 120px;
+	border: none;
+}
+
+
 #net-profit-legend .chartjs-legend li {
   font-weight: 500;
   color: #212529; }

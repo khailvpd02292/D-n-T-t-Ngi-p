@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <!-- Required meta tags -->
@@ -126,7 +127,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item nav-profile">
-            <a href="#" class="nav-link">
+            <a th:href="@{/manager}" class="nav-link">
               <div class="profile-image">
                 <img class="img-xs rounded-circle" src="../assets/images/faces/face8.jpg" alt="profile image">
                 <div class="dot-indicator bg-success"></div>
@@ -139,7 +140,7 @@
           </li>
           <li class="nav-item nav-category">Main Menu</li>
           <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" href="index.html">
               <i class="menu-icon typcn typcn-document-text"></i>
               <span class="menu-title">Thống Kê</span>
             </a>
@@ -152,19 +153,19 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="category.html">
+            <a class="nav-link" href="pages/charts/chartjs.html">
               <i class="menu-icon typcn typcn-th-large-outline"></i>
               <span class="menu-title">Quản Lý Danh Mục</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="product.html">
+            <a class="nav-link" href="pages/charts/chartjs.html">
               <i class="menu-icon typcn typcn-th-large-outline"></i>
               <span class="menu-title">Quản Lý Sản Phẩm</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="user.html">
+            <a class="nav-link" href="pages/tables/basic-table.html">
               <i class="menu-icon typcn typcn-bell"></i>
               <span class="menu-title">Quản Lý Tài Khoản</span>
             </a>
@@ -175,112 +176,57 @@
               <span class="menu-title">Quản Lý Nhân Viên</span>
             </a>
           </li>
-         
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-            <div class="row">
-              
-             
-                <div class="col-lg-12 grid-margin stretch-card">
-                  <div class="card">
-                    <div class="card-body">
-                      <h4 class="card-title">Danh Sách Tài Khoản</h4>
-                      <p class="card-description"> <a class="btn btn-inverse-success btn-fw" href="#">Thêm Danh Mục</a> </p>
-                      <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th> Id </th>
-                            <th> Tên Danh Mục </th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="py-1">
-                              <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                            <td> Herman Beck </td>
-                            <td>
-                                <a class="btn btn-info" href="#">Cập Nhập</a>
-                                <a class="btn btn-danger" href="#">Xóa</a>
-                            </td>
-                            
-                          </tr>
-                           <tr>
-                            <td class="py-1">
-                              <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                            <td> Messsy Adam </td>
-                            <td>
-                                <a class="btn btn-info" href="#">Cập Nhập</a>
-                                <a class="btn btn-danger" href="#">Xóa</a>
-                            </td>
-                           
-                          </tr>
-                          <tr>
-                            <td class="py-1">
-                              <img src="../assets/images/faces-clipart/pic-3.png" alt="image" /> </td>
-                            <td> John Richards </td>
-                            <td>
-                                <a class="btn btn-info" href="#">Cập Nhập</a>
-                                <a class="btn btn-danger" href="#">Xóa</a>
-                            </td>
-                           
-                          </tr>
-                          <tr>
-                            <td class="py-1">
-                              <img src="../assets/images/faces-clipart/pic-4.png" alt="image" /> </td>
-                            <td> Peter Meggik </td>
-                            <td class="py-1">
-                                <a class="btn btn-info" href="#">Cập Nhập</a>
-                                <a class="btn btn-danger" href="#">Xóa</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="py-1">
-                              <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                            <td> Edward </td>
-                            <td>
-                                <a class="btn btn-info" href="#">Cập Nhập</a>
-                                <a class="btn btn-danger" href="#">Xóa</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="py-1">
-                              <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                            <td> John Doe </td>
-                            <td class="py-1">
-                                <a class="btn btn-info" href="#">Cập Nhập</a>
-                                <a class="btn btn-danger" href="#">Xóa</a>
-                            </td>
-                          </tr>
-                          
-                        </tbody>
-                      </table>
+          <div class="row">
+
+
+            <div id="textCenter" class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Thêm Danh Mục</h4>
+                  <form th:object="${category}" th:action="@{/manager/addCategory}"  method="post" role="form">
+                    <div class="form-group">
+                      <label class="label">Tên Danh mục sản phẩm</label>
+                      <div class="input-group">
+                        <input th:field="*{name}" type="text" class="form-control">
+                        
+                      </div>
                     </div>
-                  </div>
-               
-                
+                    
+                    <div class="form-group">
+                      <button class="btn btn-primary">Thêm</button>
+                      <a th:href="@{/manager/listCategory}">Quay Về</a>
+                    </div>
+                    
+                    
+                  </form>
                 </div>
+              </div>
+
+
+            </div>
+          </div>
         </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019 <a
+                href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
+                class="mdi mdi-heart text-danger"></i>
+            </span>
+          </div>
+        </footer>
+        <!-- partial -->
       </div>
-      <!-- content-wrapper ends -->
-      <!-- partial:partials/_footer.html -->
-      <footer class="footer">
-        <div class="container-fluid clearfix">
-          <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019 <a
-              href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
-          <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-              class="mdi mdi-heart text-danger"></i>
-          </span>
-        </div>
-      </footer>
-      <!-- partial -->
+      <!-- main-panel ends -->
     </div>
-    <!-- main-panel ends -->
-  </div>
-  <!-- page-body-wrapper ends -->
+    <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->

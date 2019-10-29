@@ -36,7 +36,7 @@
     img {
       &:not(.thumb-image) {
         @extend .img-ss;
-        border-radius: 100%;
+       
       }
 
       &.thumb-image {

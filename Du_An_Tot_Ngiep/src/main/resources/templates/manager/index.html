@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -28,7 +29,7 @@
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-          <a class="navbar-brand brand-logo" href="index.html">
+          <a class="navbar-brand brand-logo" th:href="@{/manager}">
             <img src="../assets/images/logo.svg" alt="logo" /> </a>
           <a class="navbar-brand brand-logo-mini" href="index.html">
             <img src="../assets/images/logo-mini.svg" alt="logo" /> </a>
@@ -117,17 +118,17 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-profile">
-              <a href="#" class="nav-link">
-                <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="../assets/images/faces/face8.jpg" alt="profile image">
-                  <div class="dot-indicator bg-success"></div>
-                </div>
-                <div class="text-wrapper">
-                  <p class="profile-name">Hạ Tấn Bình</p>
-                  <p class="designation">Nhân Viên</p>
-                </div>
-              </a>
-            </li>
+            <a th:href="@{/manager}" class="nav-link">
+              <div class="profile-image">
+                <img class="img-xs rounded-circle" src="../assets/images/faces/face8.jpg" alt="profile image">
+                <div class="dot-indicator bg-success"></div>
+              </div>
+              <div class="text-wrapper">
+                <p class="profile-name">Hạ Tấn Bình</p>
+                <p class="designation">Nhân Viên</p>
+              </div>
+            </a>
+          </li>
             <li class="nav-item nav-category">Main Menu</li>
             <li class="nav-item">
               <a class="nav-link" href="tables.html">
@@ -137,19 +138,19 @@
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="tables.html">
+              <a class="nav-link" href="import.html">
                 <i class="menu-icon typcn typcn-shopping-bag"></i>
                 <span class="menu-title">Quản Lý Kho Hàng</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="category.html">
+              <a class="nav-link" th:href="@{/manager/listCategory}">
                 <i class="menu-icon typcn typcn-th-large-outline"></i>
                 <span class="menu-title">Quản Lý Danh Mục</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="product.html">
+              <a class="nav-link" th:href="@{/manager/listProduct}">
                 <i class="menu-icon typcn typcn-th-large-outline"></i>
                 <span class="menu-title">Quản Lý Sản Phẩm</span>
               </a>
@@ -160,12 +161,7 @@
                 <span class="menu-title">Quản Lý Tài Khoản</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pages/icons/font-awesome.html">
-                <i class="menu-icon typcn typcn-user-outline"></i>
-                <span class="menu-title">Quản Lý Nhân Viên</span>
-              </a>
-            </li>
+            
           </ul>
         </nav>
         <div class="main-panel">
@@ -248,13 +244,11 @@
                                 <table class="table table-hover">
                                     <thead>
                                       <tr>
-                                        <th> Id </th>
-                                        <th> Tên Sản Phẩm</th>
-                                        <th>Ảnh</th>
-                                        <th>Giá</th>
-                                        <th>Số Lượng</th>
-                                        <th>Chi Tiết</th>
-                                        <th></th>
+                                        <th> thời gian </th>
+                                        <th> Số lượng giao dịch</th>
+                                        <th>tổng danh thu</th>
+                                        <th>doanh thu thấp nhât</th>
+                                        <th>Doanh thu cao nhất</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -265,11 +259,6 @@
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                         
                                       </tr>
                                        <tr>
@@ -279,11 +268,6 @@
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                        
                                       </tr>
                                       <tr>
@@ -293,11 +277,6 @@
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                        
                                       </tr>
                                       <tr>
@@ -306,12 +285,6 @@
                                         <td> Peter Meggik </td>
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td class="py-1">
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                       </tr>
                                       <tr>
                                         <td class="py-1">
@@ -320,11 +293,6 @@
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                       </tr>
                                       <tr>
                                         <td class="py-1">
@@ -333,126 +301,91 @@
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td class="py-1">
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                       </tr>
                                       
                                     </tbody>
                                   </table>
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <table class="table table-hover">
-                                    <thead>
-                                      <tr>
-                                        <th> Id </th>
-                                        <th> Tên Sản Phẩm</th>
-                                        <th>Ảnh</th>
-                                        <th>Giá</th>
-                                        <th>Số Lượng</th>
-                                        <th>Chi Tiết</th>
-                                        <th></th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
-                                        
-                                      </tr>
-                                       <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                                        <td> Messsy Adam </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
-                                       
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-3.png" alt="image" /> </td>
-                                        <td> John Richards </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
-                                       
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-4.png" alt="image" /> </td>
-                                        <td> Peter Meggik </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td class="py-1">
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                                        <td> Edward </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                                        <td> John Doe </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td class="py-1">
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
-                                      </tr>
-                                      
-                                    </tbody>
-                                  </table>
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th> thời gian </th>
+                                    <th> Số lượng giao dịch</th>
+                                    <th>tổng danh thu</th>
+                                    <th>doanh thu thấp nhât</th>
+                                    <th>Doanh thu cao nhất</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td class="py-1">
+                                      <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    
+                                    
+                                  </tr>
+                                   <tr>
+                                    <td class="py-1">
+                                      <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
+                                    <td> Messsy Adam </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                   
+                                   
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1">
+                                      <img src="../assets/images/faces-clipart/pic-3.png" alt="image" /> </td>
+                                    <td> John Richards </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                   
+                                   
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1">
+                                      <img src="../assets/images/faces-clipart/pic-4.png" alt="image" /> </td>
+                                    <td> Peter Meggik </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                   
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1">
+                                      <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
+                                    <td> Edward </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    
+                                  </tr>
+                                  <tr>
+                                    <td class="py-1">
+                                      <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
+                                    <td> John Doe </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                    <td> Herman Beck </td>
+                                   
+                                  </tr>
+                                  
+                                </tbody>
+                              </table>
                             </div>
                             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 <table class="table table-hover">
                                     <thead>
                                       <tr>
-                                        <th> Id </th>
                                         <th> Tên Sản Phẩm</th>
-                                        <th>Ảnh</th>
-                                        <th>Giá</th>
                                         <th>Số Lượng</th>
-                                        <th>Chi Tiết</th>
-                                        <th></th>
+                                        <th>Tổng số tiền</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -460,14 +393,7 @@
                                         <td class="py-1">
                                           <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
+                                        <td> Herman Beck </td>\
                                         
                                       </tr>
                                        <tr>
@@ -475,13 +401,6 @@
                                           <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
                                         <td> Messsy Adam </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                        
                                       </tr>
                                       <tr>
@@ -489,13 +408,6 @@
                                           <img src="../assets/images/faces-clipart/pic-3.png" alt="image" /> </td>
                                         <td> John Richards </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                        
                                       </tr>
                                       <tr>
@@ -503,39 +415,18 @@
                                           <img src="../assets/images/faces-clipart/pic-4.png" alt="image" /> </td>
                                         <td> Peter Meggik </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td class="py-1">
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                       </tr>
                                       <tr>
                                         <td class="py-1">
                                           <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
                                         <td> Edward </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                       </tr>
                                       <tr>
                                         <td class="py-1">
                                           <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
                                         <td> John Doe </td>
                                         <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td class="py-1">
-                                            <a class="btn btn-info" href="#">Cập Nhập</a>
-                                            <a class="btn btn-danger" href="#">Xóa</a>
-                                        </td>
                                       </tr>
                                       
                                     </tbody>
