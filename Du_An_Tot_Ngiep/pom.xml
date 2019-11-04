@@ -47,30 +47,21 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-=======
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <scope>runtime</scope>
-        </dependency>
->>>>>>> 8d6a717000c8f6d2433d2a7f38c2d50c1ecdc6de
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
+
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 		</dependency>
-=======
-	
->>>>>>> 8d6a717000c8f6d2433d2a7f38c2d50c1ecdc6de
+
 	</dependencies>
 
 	<build>
