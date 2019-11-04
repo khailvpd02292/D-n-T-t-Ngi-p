@@ -88,9 +88,9 @@
 						class="nav-link dropdown-toggle" href="#" id="dropdown04"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Danh
 							Mục</a>
-						<div th:each="cate : ${category}" class="dropdown-menu"
+						<div  class="dropdown-menu"
 							aria-labelledby="dropdown04">
-							<a class="dropdown-item" href="#" th:text="${cate.name}"></a>
+							<a th:each="cate : ${category}" class="dropdown-item" href="#" th:value="${cate.idCategory}" th:utext="${cate.name}"></a>
 						</div></li>
 					<li class="nav-item"><a th:href="@{/index/product}" class="nav-link">Sản
 							Phẩm</a></li>
