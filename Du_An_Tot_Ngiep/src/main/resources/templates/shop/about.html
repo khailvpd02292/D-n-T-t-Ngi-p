@@ -50,7 +50,12 @@
 		<div th:replace="fragment/header::header"></div>
 		<!-- END nav -->
 
+<<<<<<< HEAD
+		<div class="hero-wrap hero-bread"
+			style="background-image: url('/images/bg_1.jpg');">
+=======
 		<div class="hero-wrap hero-bread" style="background-image: url('/images/bg_1.jpg');">
+>>>>>>> 8d6a717000c8f6d2433d2a7f38c2d50c1ecdc6de
 			<div class="container">
 				<div
 					class="row no-gutters slider-text align-items-center justify-content-center">
@@ -70,7 +75,7 @@
 				<div class="row">
 					<div
 						class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center"
-						style="background-image: url(images/about.jpg);">
+						style="background-image: url(/images/about.jpg);">
 						<a href="https://vimeo.com/45830194"
 							class="icon popup-vimeo d-flex justify-content-center align-items-center">
 							<span class="icon-play"></span>
@@ -87,7 +92,7 @@
 							<p></p>
 							<p></p>
 							<p>
-								<a href="#" class="btn btn-primary">Mua ngay</a>
+								<a th:href="@{/index/product}" class="btn btn-primary">Mua ngay</a>
 							</p>
 						</div>
 					</div>

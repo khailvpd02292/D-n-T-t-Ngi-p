@@ -30,6 +30,9 @@
 <link rel="stylesheet" th:href="@{/assets/css/demo_1/style.css}">
 <!-- End Layout styles -->
 <link rel="shortcut icon" href="/assets/images/favicon.png" />
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container-scroller">
@@ -53,7 +56,7 @@
 				</ul>
 				<form class="ml-auto search-form d-none d-md-block" action="#">
 					<div class="form-group">
-						<input type="search" class="form-control"
+						<input id="myInput" type="search" class="form-control"
 							placeholder="Search Here">
 					</div>
 				</form>
@@ -219,7 +222,7 @@
 												<th></th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="dataForm">
 											<tr th:each="product : ${product}">
 
 												<td th:text="${product.name}"></td>
@@ -277,5 +280,15 @@
 	<!-- Custom js for this page-->
 	<script src="../assets/js/demo_1/dashboard.js"></script>
 	<!-- End custom js for this page-->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#myInput").on("keyup", function(){
+				var value = $(this).val().toLowerCase();
+				$("#dataForm tr").filter(function(){
+					$(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
+				});
+			});
+		});
+	</script>
 </body>
 </html>
