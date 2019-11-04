@@ -9256,7 +9256,10 @@ textarea.form-control {
 
 .ftco-footer {
   font-size: 14px;
-  padding: 7em 0;
+ padding-top: 6em;
+    padding-right: 0px;
+    padding-bottom: 1em;
+    padding-left: 0px;
   color: #000000; }
   .ftco-footer .ftco-footer-logo {
     text-transform: uppercase;
