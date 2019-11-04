@@ -20,14 +20,14 @@
 			<div class="image-holder">
 				<img src="images/d1.jpg" alt="">
 			</div>
-			<form action="">
+			<form th:action="@{/login}"  method="post">
 				<h3>Đăng nhập</h3>
 				<div class="form-wrapper">
-					<input type="text" placeholder="Số điện thoại" th:field="*{phone}" class="form-control">
+					<input type="text" placeholder="Số điện thoại" name="email" class="form-control">
 					<i class="zmdi zmdi-email"></i>
 				</div>
 				<div class="form-wrapper">
-					<input type="text" placeholder="Mật khẩu" th:field="*{password}" class="form-control">
+					<input type="text" placeholder="Mật khẩu" name="password" class="form-control">
 					<i class="zmdi zmdi-lock"></i>
 				</div>
 		

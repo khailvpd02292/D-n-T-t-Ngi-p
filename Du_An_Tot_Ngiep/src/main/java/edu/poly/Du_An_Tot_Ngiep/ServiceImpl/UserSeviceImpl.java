@@ -20,28 +20,18 @@ public class UserSeviceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
+	public Optional<User> findByName(String name) {
+		return userRepository.findByName(name);
+	}
+
+	@Override
 	public <S extends User> S save(S entity) {
 		return userRepository.save(entity);
 	}
 
 	@Override
-	public <S extends User> Optional<S> findOne(Example<S> example) {
-		return userRepository.findOne(example);
-	}
-
-	@Override
-	public Page<User> findAll(Pageable pageable) {
-		return userRepository.findAll(pageable);
-	}
-
-	@Override
-	public List<User> findAll() {
-		return userRepository.findAll();
-	}
-
-	@Override
-	public List<User> findAll(Sort sort) {
-		return userRepository.findAll(sort);
+	public <S extends User> Iterable<S> saveAll(Iterable<S> entities) {
+		return userRepository.saveAll(entities);
 	}
 
 	@Override
@@ -50,38 +40,18 @@ public class UserSeviceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findAllById(Iterable<Integer> ids) {
-		return userRepository.findAllById(ids);
-	}
-
-	@Override
-	public <S extends User> List<S> saveAll(Iterable<S> entities) {
-		return userRepository.saveAll(entities);
-	}
-
-	@Override
 	public boolean existsById(Integer id) {
 		return userRepository.existsById(id);
 	}
 
 	@Override
-	public void flush() {
-		userRepository.flush();
+	public Iterable<User> findAll() {
+		return userRepository.findAll();
 	}
 
 	@Override
-	public <S extends User> S saveAndFlush(S entity) {
-		return userRepository.saveAndFlush(entity);
-	}
-
-	@Override
-	public void deleteInBatch(Iterable<User> entities) {
-		userRepository.deleteInBatch(entities);
-	}
-
-	@Override
-	public <S extends User> Page<S> findAll(Example<S> example, Pageable pageable) {
-		return userRepository.findAll(example, pageable);
+	public Iterable<User> findAllById(Iterable<Integer> ids) {
+		return userRepository.findAllById(ids);
 	}
 
 	@Override
@@ -90,18 +60,8 @@ public class UserSeviceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteAllInBatch() {
-		userRepository.deleteAllInBatch();
-	}
-
-	@Override
 	public void deleteById(Integer id) {
 		userRepository.deleteById(id);
-	}
-
-	@Override
-	public User getOne(Integer id) {
-		return userRepository.getOne(id);
 	}
 
 	@Override
@@ -110,18 +70,8 @@ public class UserSeviceImpl implements UserService {
 	}
 
 	@Override
-	public <S extends User> long count(Example<S> example) {
-		return userRepository.count(example);
-	}
-
-	@Override
 	public void deleteAll(Iterable<? extends User> entities) {
 		userRepository.deleteAll(entities);
-	}
-
-	@Override
-	public <S extends User> boolean exists(Example<S> example) {
-		return userRepository.exists(example);
 	}
 
 	@Override
@@ -129,16 +79,6 @@ public class UserSeviceImpl implements UserService {
 		userRepository.deleteAll();
 	}
 
-	@Override
-	public <S extends User> List<S> findAll(Example<S> example) {
-		return userRepository.findAll(example);
-	}
-
-	@Override
-	public <S extends User> List<S> findAll(Example<S> example, Sort sort) {
-		return userRepository.findAll(example, sort);
-	}
-	
 	
 	
 }
