@@ -12,53 +12,31 @@ import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 
 public interface UserService {
 
-	<S extends User> List<S> findAll(Example<S> example, Sort sort);
-
-	<S extends User> List<S> findAll(Example<S> example);
-
 	void deleteAll();
-
-	<S extends User> boolean exists(Example<S> example);
 
 	void deleteAll(Iterable<? extends User> entities);
 
-	<S extends User> long count(Example<S> example);
-
 	void delete(User entity);
-
-	User getOne(Integer id);
 
 	void deleteById(Integer id);
 
-	void deleteAllInBatch();
-
 	long count();
 
-	<S extends User> Page<S> findAll(Example<S> example, Pageable pageable);
+	Iterable<User> findAllById(Iterable<Integer> ids);
 
-	void deleteInBatch(Iterable<User> entities);
-
-	<S extends User> S saveAndFlush(S entity);
-
-	void flush();
+	Iterable<User> findAll();
 
 	boolean existsById(Integer id);
 
-	<S extends User> List<S> saveAll(Iterable<S> entities);
-
-	List<User> findAllById(Iterable<Integer> ids);
-
 	Optional<User> findById(Integer id);
 
-	List<User> findAll(Sort sort);
-
-	List<User> findAll();
-
-	Page<User> findAll(Pageable pageable);
-
-	<S extends User> Optional<S> findOne(Example<S> example);
+	<S extends User> Iterable<S> saveAll(Iterable<S> entities);
 
 	<S extends User> S save(S entity);
+
+	Optional<User> findByName(String name);
+
+
 
 	
 	
