@@ -1,7 +1,6 @@
 package edu.poly.Du_An_Tot_Ngiep.Entity;
 
 import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,28 +14,26 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 	private String fullname;
-	private String password;
-	private String email;
-	private String phone;
-	private Date birthday;
 	private boolean gender;
-	private String address;
+	private Date birthday;
+	private String phone;
+	private String password;
 	private boolean role;
+	private String address;
 	public User() {
 		super();
 	}
-	public User(int userId, String fullname, String password, String email, String phone, Date birthday, boolean gender,
-			String address, boolean role) {
+	public User(int userId, String fullname, boolean gender, Date birthday, String phone, String password, boolean role,
+			String address) {
 		super();
 		this.userId = userId;
 		this.fullname = fullname;
-		this.password = password;
-		this.email = email;
-		this.phone = phone;
-		this.birthday = birthday;
 		this.gender = gender;
-		this.address = address;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.password = password;
 		this.role = role;
+		this.address = address;
 	}
 	public int getUserId() {
 		return userId;
@@ -50,23 +47,11 @@ public class User {
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
-	public String getPassword() {
-		return password;
+	public boolean isGender() {
+		return gender;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setGender(boolean gender) {
+		this.gender = gender;
 	}
 	public Date getBirthday() {
 		return birthday;
@@ -74,17 +59,17 @@ public class User {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	public boolean isGender() {
-		return gender;
+	public String getPhone() {
+		return phone;
 	}
-	public void setGender(boolean gender) {
-		this.gender = gender;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	public String getAddress() {
-		return address;
+	public String getPassword() {
+		return password;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public boolean isRole() {
 		return role;
@@ -92,7 +77,13 @@ public class User {
 	public void setRole(boolean role) {
 		this.role = role;
 	}
-
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	
 
 }
