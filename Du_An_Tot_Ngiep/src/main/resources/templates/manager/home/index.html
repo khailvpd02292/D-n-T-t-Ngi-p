@@ -115,30 +115,30 @@
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-profile">
-            <a th:href="@{/manager}" class="nav-link">
-              <div class="profile-image">
-                <img class="img-xs rounded-circle" src="../assets/images/faces/face8.jpg" alt="profile image">
-                <div class="dot-indicator bg-success"></div>
-              </div>
-              <div class="text-wrapper">
-                <p class="profile-name">Hạ Tấn Bình</p>
-                <p class="designation">Nhân Viên</p>
-              </div>
-            </a>
-          </li>
+              <a th:href="@{/manager}" class="nav-link">
+                <div class="profile-image">
+                  <img class="img-xs rounded-circle" src="../assets/images/faces/face8.jpg" alt="profile image">
+                  <div class="dot-indicator bg-success"></div>
+                </div>
+                <div class="text-wrapper">
+                  <p class="profile-name">Hạ Tấn Bình</p>
+                  <p class="designation">Nhân Viên</p>
+                </div>
+              </a>
+            </li>
             <li class="nav-item nav-category">Main Menu</li>
             <li class="nav-item">
-              <a class="nav-link" href="tables.html">
+              <a class="nav-link" th:href="@{/manager/statistical}">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Thống Kê</span>
               </a>
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="import.html">
+              <a class="nav-link" th:href="@{/manager/import}">
                 <i class="menu-icon typcn typcn-shopping-bag"></i>
                 <span class="menu-title">Quản Lý Kho Hàng</span>
               </a>
