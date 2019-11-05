@@ -6,13 +6,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ShopController {
-//	@GetMapping("/index/about")
-//	public String ShowAbout(ModelMap model) {
-//		return "shop/about";
-//	}
-//
-//	@GetMapping("/index/contact")
-//	public String ShowContact(ModelMap model) {
-//		return "shop/contact";
-//	}
+
 }
