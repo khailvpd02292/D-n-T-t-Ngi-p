@@ -30,7 +30,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password,
 			ModelMap model) {
-
+// find account
 		if (userService.findByName(email).isPresent()) {
 			User users = userService.findByName(email).get();
 			if (users.getPassword().equals(password)) {
@@ -42,7 +42,7 @@ public class UserController {
 					return "redirect:/index";
 				}
 			} else {
-//				model.addAttribute("invalid", true);
+				model.addAttribute("invalid", true);
 				return "login/login1";
 			}
 
