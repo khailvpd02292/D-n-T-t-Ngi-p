@@ -29,7 +29,7 @@ import edu.poly.Du_An_Tot_Ngiep.Service.ProductDetailService;
 import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
 
 @Controller
-public class ManagerCotroller {
+public class ManagerController {
 
 	@Autowired
 	private CategoryService categoryService;
@@ -42,20 +42,20 @@ public class ManagerCotroller {
 
 	@GetMapping(value = "/manager")
 	public String manager() {
-		return "/manager/index";
+		return "/manager/home/index";
 	}
 
 	@GetMapping(value = "/manager/listCategory")
 	public String listCategory(ModelMap model) {
 		List<Category> list = categoryService.findAll();
 		model.addAttribute("category", list);
-		return "/manager/listCategory";
+		return "/manager/category/listCategory";
 	}
 
 	@GetMapping(value = "/manager/addCategory")
 	public String addCategory(ModelMap model) {
 		model.addAttribute("category", new Category());
-		return "/manager/addCategory";
+		return "/manager/category/addCategory";
 
 	}
 
@@ -75,7 +75,7 @@ public class ManagerCotroller {
 
 		model.addAttribute("category", categoryService.findById(idCategory));
 
-		return "/manager/updateCategory";
+		return "/manager/category/updateCategory";
 	}
 
 	@PostMapping(value = "/manager/updateCategory")
@@ -99,14 +99,14 @@ public class ManagerCotroller {
 	@GetMapping(value = "/manager/listProduct")
 	public String listProduct(ModelMap model) {
 		model.addAttribute("product", this.productService.findAll());
-		return "/manager/listProduct";
+		return "/manager/product/listProduct";
 	}
 
 	@GetMapping(value = "/manager/addProduct")
 	public String addProduct(ModelMap model) {
 		model.addAttribute("product", new Product());
 		model.addAttribute("listCategory", categoryService.findAll());
-		return "/manager/addProduct";
+		return "/manager/product/addProduct";
 	}
 
 	@PostMapping(value = "/manager/addProduct")
@@ -130,7 +130,7 @@ public class ManagerCotroller {
 		model.addAttribute("listCategory", this.categoryService.findAll());
 		model.addAttribute("product",
 				this.productService.findById(id).isPresent() ? this.productService.findById(id).get() : null);
-		return "/manager/updateProduct";
+		return "/manager/product/updateProduct";
 	}
 
 	@PostMapping(value = "/manager/updateProduct")
@@ -168,14 +168,14 @@ public class ManagerCotroller {
 	@GetMapping(value = "/manager/listProductDetail")
 	public String listProductDetail(ModelMap model) {
 		model.addAttribute("productDetail", this.productDetailService.findAll());
-		return "/manager/listProductDetail";
+		return "/manager/productDetail/listProductDetail";
 	}
 
 	@GetMapping(value = "/manager/addProductDetail")
 	public String addProductDetail(ModelMap model) {
 		model.addAttribute("productDetail", new ProductDetail());
 		model.addAttribute("product", this.productService.findAll());
-		return "/manager/addProductDetail";
+		return "/manager/productDetail/addProductDetail";
 	}
 
 	@PostMapping(value = "/manager/addProductDetail")
@@ -198,7 +198,7 @@ public class ManagerCotroller {
 				this.productDetailService.findById(idProductDetail).isPresent()
 						? this.productDetailService.findById(idProductDetail).get()
 						: null);
-		return "/manager/updateProductDetail";
+		return "/manager/productDetail/updateProductDetail";
 	}
 
 	@PostMapping(value = "/manager/updateProductDetail")
