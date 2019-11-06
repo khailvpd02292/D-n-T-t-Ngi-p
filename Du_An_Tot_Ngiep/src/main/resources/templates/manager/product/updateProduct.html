@@ -216,11 +216,51 @@
                     	</div>
                     	
                     </div>
+                    <div class="form-group">
+                    	<label class="label">Ảnh 1</label>
+                    	<div class="input-group">
+                    		<input th:field="*{image_1}" type="file" name="file" onchange="readURL_2(this);" accept="image_1/x-png,image_1/jpeg,image_1/jpg">
+                    		
+                    	</div>
+                    	<div style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 150px;">
+                    		<img style="height: 150px; width: 120px;"  id="blah2" />
+                    	</div>
+                    	
+                    </div>
+                    <div class="form-group">
+                    	<label class="label">Ảnh 2</label>
+                    	<div class="input-group">
+                    		<input th:field="*{image_2}" type="file" name="file" onchange="readURL_1(this);" accept="image_2/x-png,image_2/jpeg,image_2/jpg">
+                    		
+                    	</div>
+                    	<div style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 150px;">
+                    		<img style="height: 150px; width: 120px;"  id="blah1" />
+                    	</div>
+                    	
+                    </div>
                     
                     <div class="form-group">
                     	<label class="label">Giá</label>
                     	<div class="input-group">
                     		<input th:field="*{price}" type="number" class="form-control">
+                    	</div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="label">Ngày Hết Hạn</label>
+                    	<div class="input-group">
+                    		<input th:field="*{dateOfManufacture}" type="date" class="form-control">
+                    	</div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="label">Nguồn Gốc Sản Phẩm</label>
+                    	<div class="input-group">
+                    		<input th:field="*{origin}" type="text" class="form-control">
+                    	</div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="label">Chi Tiết Sản Phẩm</label>
+                    	<div class="input-group">
+                    		<input th:field="*{description}" type="text" class="form-control">
                     	</div>
                     </div>
                     
@@ -277,6 +317,34 @@
 
             reader.onload = function (e) {
                 $('#blah')
+                    .attr('src', e.target.result)
+                    .width(120)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+	function readURL_2(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah2')
+                    .attr('src', e.target.result)
+                    .width(120)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+	function readURL_1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah1')
                     .attr('src', e.target.result)
                     .width(120)
                     .height(150);

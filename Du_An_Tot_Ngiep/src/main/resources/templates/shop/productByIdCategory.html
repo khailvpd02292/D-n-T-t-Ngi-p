@@ -70,7 +70,7 @@
 		<section class="ftco-section">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6 col-lg-3 ftco-animate" th:each="product : ${product}">
+					<div class="col-md-6 col-lg-3 ftco-animate" th:each="product : ${showProductByIdCategory}">
 						<div class="product">
 							<a th:href="@{'/index/showProductSingle/'+${product.idProduct}}" class="img-prod"><img class="img-fluid"
 								th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}" alt="Colorlib Template"> <span

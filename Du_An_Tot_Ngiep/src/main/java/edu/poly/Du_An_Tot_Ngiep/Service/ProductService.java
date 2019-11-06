@@ -60,4 +60,8 @@ public interface ProductService {
 
 	<S extends Product> S save(S entity);
 
+	List<Product> showListProductByIdCategory(int idCategory);
+
+	List<Product> showProductDetaiList(int productId);
+
 }

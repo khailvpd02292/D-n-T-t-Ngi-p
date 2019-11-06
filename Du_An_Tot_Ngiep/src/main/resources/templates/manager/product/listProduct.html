@@ -226,6 +226,11 @@
 												<th>Tên Sản Phẩm</th>
 												<th>Giá</th>
 												<th>Ảnh</th>
+												<th>Ảnh 1</th>
+												<th>Ảnh 2</th>
+												<th>Ngày Hết Hạn</th>
+												<th>Nguồn Gốc</th>
+												<th>Chi Tiết</th>
 												<th>Danh Mục</th>
 												<th></th>
 											</tr>
@@ -237,6 +242,15 @@
 												<td><img id="anh"
 													th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}">
 												</td>
+												<td><img id="anh"
+													th:src="@{'data:image_1/png;base64,' + ${product.getBase64Image_1()}}">
+												</td>
+												<td><img id="anh"
+													th:src="@{'data:image_2/png;base64,' + ${product.getBase64Image_2()}}">
+												</td>
+												<td th:text="${product.dateOfManufacture}"></td>
+												<td th:text="${product.origin}"></td>
+												<td th:text="${product.description}"></td>
 												<td th:text="${product.category.name}"></td>
 												<td>
 													<!-- <a class="btn btn-warning" href="">Thêm Chi Tiết</a> -->

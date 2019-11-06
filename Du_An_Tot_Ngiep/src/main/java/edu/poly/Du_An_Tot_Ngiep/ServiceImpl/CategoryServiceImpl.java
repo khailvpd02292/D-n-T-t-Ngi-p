@@ -30,9 +30,10 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.findOne(example);
 	}
 
+
 	@Override
-	public Page<Category> findAll(Pageable pageable) {
-		return categoryRepository.findAll(pageable);
+	public List<Category> showCategoryByProduct(int idCategory) {
+		return categoryRepository.showCategoryByProduct(idCategory);
 	}
 
 	@Override
@@ -65,25 +66,13 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.existsById(id);
 	}
 
-	@Override
-	public void flush() {
-		categoryRepository.flush();
-	}
 
 	@Override
 	public <S extends Category> S saveAndFlush(S entity) {
 		return categoryRepository.saveAndFlush(entity);
 	}
 
-	@Override
-	public void deleteInBatch(Iterable<Category> entities) {
-		categoryRepository.deleteInBatch(entities);
-	}
 
-	@Override
-	public <S extends Category> Page<S> findAll(Example<S> example, Pageable pageable) {
-		return categoryRepository.findAll(example, pageable);
-	}
 
 	@Override
 	public long count() {

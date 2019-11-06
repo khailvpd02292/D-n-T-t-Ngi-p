@@ -26,6 +26,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<Product> showProductDetaiList(int productId) {
+		return productRepository.showProductDetaiList(productId);
+	}
+
+	@Override
 	public <S extends Product> Optional<S> findOne(Example<S> example) {
 		return productRepository.findOne(example);
 	}
@@ -33,6 +38,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findAll(Pageable pageable) {
 		return productRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<Product> showListProductByIdCategory(int idCategory) {
+		return productRepository.showListProductByIdCategory(idCategory);
 	}
 
 	@Override

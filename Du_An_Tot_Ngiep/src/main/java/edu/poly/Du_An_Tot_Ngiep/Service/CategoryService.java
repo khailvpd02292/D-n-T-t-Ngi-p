@@ -34,13 +34,7 @@ public interface CategoryService {
 
 	long count();
 
-	<S extends Category> Page<S> findAll(Example<S> example, Pageable pageable);
-
-	void deleteInBatch(Iterable<Category> entities);
-
 	<S extends Category> S saveAndFlush(S entity);
-
-	void flush();
 
 	boolean existsById(Integer id);
 
@@ -54,10 +48,10 @@ public interface CategoryService {
 
 	List<Category> findAll();
 
-	Page<Category> findAll(Pageable pageable);
-
 	<S extends Category> Optional<S> findOne(Example<S> example);
 
 	<S extends Category> S save(S entity);
+
+	List<Category> showCategoryByProduct(int idCategory);
 
 }
