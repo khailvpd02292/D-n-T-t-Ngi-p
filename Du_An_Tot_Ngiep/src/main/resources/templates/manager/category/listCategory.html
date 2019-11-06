@@ -177,7 +177,8 @@
                   <div class="card-body">
                     <h4 class="card-title">Danh Sách Danh Mục</h4>
                     <p class="card-description"> <a class="btn btn-inverse-success btn-fw" th:href="@{/manager/addCategory}">Thêm Danh Mục</a> </p>
-                    <table class="table table-hover">
+                    
+                    <table id="dataTable-listCategory" class="table table-hover">
                       <thead>
                         <tr>
                           <th> Tên Danh Mục </th>
@@ -234,5 +235,18 @@
     <!-- Custom js for this page-->
     <script src="../assets/js/demo_1/dashboard.js"></script>
     <!-- End custom js for this page-->
+    
+    <!-- DataTables -->
+	<script th:src="@{/assets/vendors/datatables/jquery.dataTables.js}"></script>
+	<script th:src="@{/assets/vendors/datatables/dataTables.bootstrap4.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#dataTable-listCategory').DataTable({
+				"lengthChange" : false,
+				"info" : false,
+				"pageLength" : 2
+			});
+		});
+	</script>
   </body>
 </html>
