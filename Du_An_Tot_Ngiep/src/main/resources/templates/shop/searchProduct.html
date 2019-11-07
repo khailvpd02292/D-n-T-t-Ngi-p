@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Bán Hàng Nông Sản</title>
+<title>Bán hàng nông sản</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,121 +45,50 @@
 <link rel="stylesheet" th:href="@{/css/slick.css}">
 <link rel="stylesheet" th:href="@{/css/nouislider.min.css}">
 
-<style type="text/css">
-#idImage {
-	height: 350px;
-	width: 400px;
-}
-</style>
 </head>
 <body class="goto-here">
-	<div class="py-1 bg-primary">
-		<div th:replace="fragment/header::header"></div>
+<div class="py-1 bg-primary">
+	<div th:replace="fragment/header::header"></div>
 		<!-- END nav -->
 
-		<div class="hero-wrap hero-bread"
-			style="background-image: url('/images/bg_1.jpg');">
+		<div class="hero-wrap hero-bread" id="imageBack">
+
 			<div class="container">
 				<div
 					class="row no-gutters slider-text align-items-center justify-content-center">
 					<div class="col-md-9 ftco-animate text-center">
 						<p class="breadcrumbs">
-							<span class="mr-2"><a href="index.html">Home</a></span> <span
-								class="mr-2"><a href="index.html">Product</a></span> <span>Product
-								Single</span>
+							<span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span>
 						</p>
-						<h1 class="mb-0 bread">Chi Tiết Sản Phẩm</h1>
+						<h1 class="mb-0 bread">Products</h1>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 
 		<section class="ftco-section">
-			<div class="container">
-				<div class="row" th:object="${showProductSingle}">
-					<input hidden=true th:value="*{idProduct}">
-					<div class="col-lg-6 mb-5 ftco-animate">
-						<a href="#" class="image-popup"><img id="idImage"
-							th:src="@{'data:image/png;base64,' + *{getImageBase64()}}"
-							class="img-fluid" alt="Colorlib Template"></a>
-					</div>
-					<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-						<h3 th:text="*{name}"></h3>
-						<h2 th:text="*{price}"></h2>
-						<ul class="list">
-							<li><span>Danh mục: </span><a class="active" href="#"
-								th:text=*{category.name}></a></li>
-							<li><span>Nguồn gốc: </span><a href="#" th:text="*{origin}"></a></li>
-							<li><span>Ngày hết hạn: </span><a href="#"
-								th:text="*{dateOfManufacture}"></a></li>
-						</ul>
-						<p>
-							<span>Thông tin chi tiết: </span>
-						<p th:text="*{description}"></p>
-						</p>
-						<div class="product_count">
-							<div class="input-group col-md-6 d-flex mb-3">
-								<span class="input-group-btn mr-2">
-									<button type="button" class="quantity-left-minus btn"
-										data-type="minus" data-field="">
-										<i class="ion-ios-remove"></i>
-									</button>
-								</span> <input type="text" id="quantity" name="quantity"
-									class="form-control input-number" value="1" min="1" max="100">
-								<span class="input-group-btn ml-2">
-									<button type="button" class="quantity-right-plus btn"
-										data-type="plus" data-field="">
-										<i class="ion-ios-add"></i>
-									</button>
-								</span>
-							</div>
-						</div>
-						<div class="card_area">
-							<p>
-								<a href="cart.html" class="btn btn-black py-3 px-5">Thanh
-									Toán</a>
-							</p>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="ftco-section">
-			<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-					<div class="col-md-12 heading-section text-center ftco-animate">
-						<span class="subheading">Sản Phẩm</span>
-						<h2 class="mb-4">Sản phẩm liên quan</h2>
-						<p>Far far away, behind the word mountains, far from the
-							countries Vokalia and Consonantia</p>
-					</div>
-				</div>
-			</div>
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6 col-lg-3 ftco-animate">
+					<div class="col-md-6 col-lg-3 ftco-animate" th:each="product : ${searchProduct}">
 						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid"
-								src="/images/a1.jpg" alt="Colorlib Template"> <span
-								class="status">30%</span>
-								<div class="overlay"></div> </a>
+							<a th:href="@{'/index/showProductSingle/'+${product.idProduct}}" class="img-prod"><img class="img-fluid"
+								th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}" alt="Colorlib Template"> <span
+								class="status"></span> </a>
 							<div class="text py-3 pb-4 px-3 text-center">
 								<h3>
-									<a href="#">Bell Pepper</a>
+									<a href="#" th:text="${product.name}"></a>
 								</h3>
 								<div class="d-flex">
 									<div class="pricing">
 										<p class="price">
-											<span class="mr-2 price-dc">$120.00</span><span
-												class="price-sale">$80.00</span>
+											<span class="price-sale" th:text="${product.price}"></span>
 										</p>
 									</div>
 								</div>
 								<div class="bottom-area d-flex px-3">
 									<div class="m-auto d-flex">
-										<a href="#"
+										<a th:href="@{'/index/showProductSingle/'+${product.idProduct}}"
 											class="buy-now d-flex justify-content-center align-items-center mx-1">
 											<span><i class="ion-ios-cart"></i></span>
 										</a>
@@ -168,98 +97,27 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid"
-								src="/images/a2.jpg" alt="Colorlib Template">
-								<div class="overlay"></div> </a>
-							<div class="text py-3 pb-4 px-3 text-center">
-								<h3>
-									<a href="#">Strawberry</a>
-								</h3>
-								<div class="d-flex">
-									<div class="pricing">
-										<p class="price">
-											<span>$120.00</span>
-										</p>
-									</div>
-								</div>
-								<div class="bottom-area d-flex px-3">
-									<div class="m-auto d-flex">
-										<a href="#"
-											class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid"
-								src="/images/a3.jpg" alt="Colorlib Template">
-								<div class="overlay"></div> </a>
-							<div class="text py-3 pb-4 px-3 text-center">
-								<h3>
-									<a href="#">Green Beans</a>
-								</h3>
-								<div class="d-flex">
-									<div class="pricing">
-										<p class="price">
-											<span>$120.00</span>
-										</p>
-									</div>
-								</div>
-								<div class="bottom-area d-flex px-3">
-									<div class="m-auto d-flex">
-										<a href="#"
-											class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid"
-								src="/images/a4.jpg" alt="Colorlib Template">
-								<div class="overlay"></div> </a>
-							<div class="text py-3 pb-4 px-3 text-center">
-								<h3>
-									<a href="#">Purple Cabbage</a>
-								</h3>
-								<div class="d-flex">
-									<div class="pricing">
-										<p class="price">
-											<span>$120.00</span>
-										</p>
-									</div>
-								</div>
-								<div class="bottom-area d-flex px-3">
-									<div class="m-auto d-flex">
-										<a href="#"
-											class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a>
-									</div>
-								</div>
-							</div>
+					
+					
+
+
+				</div>
+				<div class="row mt-5">
+					<div class="col text-center">
+						<div class="block-27">
+							<ul>
+								<li><a href="#">&lt;</a></li>
+								<li class="active"><span>1</span></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#">&gt;</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-
-		<section class="ftco-section">
-		<p style="margin-left: 100px">Comment</p>
-			<div style="margin-left: 100px; width: 900px; " class="fb-comments"
-				data-href="https://developers.facebook.com/docs/plugins/comments#configurator"
-				data-width="" data-numposts="5" data-action="like"
-				data-size="small" data-show-faces="true" data-share="true"></div>
-		
 		</section>
 
 		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
@@ -283,8 +141,6 @@
 				</div>
 			</div>
 		</section>
-
-
 		<footer class="ftco-footer ftco-section">
 			<div class="container">
 				<div class="row">
@@ -360,10 +216,10 @@
 						</div>
 					</div>
 				</div>
-				>
 			</div>
 	</div>
 	</footer>
+
 
 
 	<!-- loader -->
@@ -375,12 +231,7 @@
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
 
-	<script async defer crossorigin="anonymous"
-		src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=414066249542428&autoLogAppEvents=1"></script>
-	<script async defer crossorigin="anonymous"
-		src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=493676438025990&autoLogAppEvents=1"></script>
-	<script async defer crossorigin="anonymous"
-		src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=493676438025990&autoLogAppEvents=1"></script>
+
 	<script th:src="@{/js/jquery.min.js}"></script>
 	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 	<script th:src="@{/js/popper.min.js}"></script>
@@ -398,42 +249,6 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script th:src="@{/js/google-map.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-
-	<script>
-		$(document).ready(function() {
-
-			var quantitiy = 0;
-			$('.quantity-right-plus').click(function(e) {
-
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				$('#quantity').val(quantity + 1);
-
-				// Increment
-
-			});
-
-			$('.quantity-left-minus').click(function(e) {
-				// Stop acting like a button
-				e.preventDefault();
-				// Get the field name
-				var quantity = parseInt($('#quantity').val());
-
-				// If is not undefined
-
-				// Increment
-				if (quantity > 0) {
-					$('#quantity').val(quantity - 1);
-				}
-			});
-
-		});
-	</script>
 
 </body>
 </html>
