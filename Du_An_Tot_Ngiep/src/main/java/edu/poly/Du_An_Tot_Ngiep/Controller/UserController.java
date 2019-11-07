@@ -19,8 +19,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	@Autowired
-	public HttpSession session;
+//	@Autowired
+//	public HttpSession session;
 	
 	@GetMapping(value = "/login")
 	public String login(ModelMap model) {
@@ -29,29 +29,37 @@ public class UserController {
 
 	@PostMapping("/login")
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password,
-			ModelMap model) {
+			ModelMap model, HttpSession session) {
 // find account
 		if (userService.findByName(email).isPresent()) {
 			User users = userService.findByName(email).get();
+//			session.setAttribute("account", users);
 			if (users.getPassword().equals(password)) {
 				if (users.isRole() == false) {
-					session.setAttribute("accLoginC", users);
+					session.setAttribute("account", users);
 					return "redirect:/manager";
 				}else {
-					session.setAttribute("accLoginC", users);
+					session.setAttribute("account", users);
 					return "redirect:/index";
 				}
 			} else {
-				model.addAttribute("invalid", true);
+//				model.addAttribute("invalid", true);
 				return "login/login1";
 			}
 
 		}
 		return "login/login1";
 	}
-	@GetMapping("/logout")
-	public String getlogout(ModelMap model) {
-		session.removeAttribute("accLoginC");
-		return "login/login";
+//	@GetMapping("/logout")
+//	public String getlogout(ModelMap model) {
+//		session.removeAttribute("accLoginC");
+//		return "login/login1";
+//	}
+	
+	
+	@GetMapping(value = "/manager/listUser")
+	public String listProduct(ModelMap model) {
+		model.addAttribute("listuser", this.userService.findAll());
+		return "/manager/users/listUser";
 	}
 }
