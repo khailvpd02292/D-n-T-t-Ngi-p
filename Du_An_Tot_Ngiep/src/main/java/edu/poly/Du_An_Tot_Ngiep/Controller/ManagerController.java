@@ -104,8 +104,7 @@ public class ManagerController {
 	}
 
 	@PostMapping(value = "/manager/addProduct")
-	public String addProduct(@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "image_1") MultipartFile image_1,
-			@RequestParam(value = "image_2") MultipartFile image_2,
+	public String addProduct(@RequestParam(value = "image") MultipartFile image,
 			@ModelAttribute(name = "product") @Valid Product product, BindingResult result) {
 		if (result.hasErrors()) {
 			return "/manager/addProduct";
@@ -129,8 +128,7 @@ public class ManagerController {
 	}
 
 	@PostMapping(value = "/manager/updateProduct")
-	public String updateProduct(@RequestParam(value = "image") MultipartFile image,@RequestParam(value = "image_1") MultipartFile image_1,
-			@RequestParam(value = "image_2") MultipartFile image_2,
+	public String updateProduct(@RequestParam(value = "image") MultipartFile image,
 			@ModelAttribute(name = "product") @Valid Product product, BindingResult result) {
 		if (result.hasErrors()) {
 			return "/manager/updateProduct";
@@ -149,28 +147,6 @@ public class ManagerController {
 			product.setImage(productService.findById(product.getIdProduct()).get().getImage());
 
 		}
-		if (!image_1.isEmpty()) {
-			try {
-				product.setImage_1(image_1.getBytes());
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-		} else {
-			product.setImage_1(productService.findById(product.getIdProduct()).get().getImage_1());
-		}
-
-		if (!image_2.isEmpty()) {
-			try {
-				product.setImage_2(image_2.getBytes());
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-		} else {
-			product.setImage_2(productService.findById(product.getIdProduct()).get().getImage_2());
-
-		}
 
 		return "redirect:/manager/listProduct";
 	}
@@ -183,7 +159,4 @@ public class ManagerController {
 
 	// product Detail
 
-	
-
-	
 }

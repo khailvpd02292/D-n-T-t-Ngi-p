@@ -34,13 +34,7 @@ public class Product {
 	@Lob
 	@Column(name = "image")
 	private byte[] image;
-	@Lob
-	@Column(name = "image_1")
-	private byte[] image_1;
-	@Lob
-	@Column(name = "image_2")
-	private byte[] image_2;
-	@Column(columnDefinition = "nvarchar(100)" , name = "origin")
+	@Column(columnDefinition = "nvarchar(100)", name = "origin")
 	private String origin;
 	@Column(columnDefinition = "nvarchar(255)", name = "description")
 	private String description;
@@ -48,7 +42,7 @@ public class Product {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "dateOfManufacture")
 	private Date dateOfManufacture;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "idCategory", insertable = true, updatable = true)
@@ -58,15 +52,13 @@ public class Product {
 		super();
 	}
 
-	public Product(int idProduct, @NotNull String name, @Min(1000) double price, byte[] image, byte[] image_1,
-			byte[] image_2, String origin, String description, Date dateOfManufacture, @NotNull Category category) {
+	public Product(int idProduct, @NotNull String name, @Min(1000) double price, byte[] image, String origin,
+			String description, Date dateOfManufacture, @NotNull Category category) {
 		super();
 		this.idProduct = idProduct;
 		this.name = name;
 		this.price = price;
 		this.image = image;
-		this.image_1 = image_1;
-		this.image_2 = image_2;
 		this.origin = origin;
 		this.description = description;
 		this.dateOfManufacture = dateOfManufacture;
@@ -100,7 +92,7 @@ public class Product {
 	public byte[] getImage() {
 		return image;
 	}
-	
+
 	public String getImageBase64() {
 		if (this.getImage() == null) {
 			return "";
@@ -111,38 +103,6 @@ public class Product {
 
 	public void setImage(byte[] image) {
 		this.image = image;
-	}
-
-	public byte[] getImage_1() {
-		return image_1;
-	}
-	
-	public String getBase64Image_1() {
-		if (this.getImage_1() == null) {
-			return "";
-		} else {
-			return Base64.getEncoder().encodeToString(this.getImage_1());
-		}
-	}
-
-	public void setImage_1(byte[] image_1) {
-		this.image_1 = image_1;
-	}
-
-	public byte[] getImage_2() {
-		return image_2;
-	}
-	
-	public String getBase64Image_2() {
-		if (this.getImage_2() == null) {
-			return "";
-		} else {
-			return Base64.getEncoder().encodeToString(this.getImage_2());
-		}
-	}
-
-	public void setImage_2(byte[] image_2) {
-		this.image_2 = image_2;
 	}
 
 	public String getOrigin() {
@@ -176,7 +136,5 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	
 
 }
