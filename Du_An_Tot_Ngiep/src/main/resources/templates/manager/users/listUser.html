@@ -194,9 +194,10 @@
 							class="menu-icon typcn typcn-th-large-outline"></i> <span
 							class="menu-title">Quản Lý Sản Phẩm</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/manager/listUser}">
-							<i class="menu-icon typcn typcn-bell"></i> <span
-							class="menu-title">Quản Lý Tài Khoản</span>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/manager/listUser}"> <i
+							class="menu-icon typcn typcn-bell"></i> <span class="menu-title">Quản
+								Lý Tài Khoản</span>
 					</a></li>
 
 				</ul>
@@ -208,45 +209,42 @@
 						<div class="col-lg-12 grid-margin stretch-card">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Danh Sách Thông Tin Sản Phẩm</h4>
-									<p class="card-description">
-										<a class="btn btn-inverse-success btn-fw"
-											th:href="@{/manager/listProductDetail}">Danh sách Chi
-											Tiết</a> <a class="btn btn-inverse-success btn-fw"
-											th:href="@{/manager/addProduct}">Thêm Sản Phẩm</a>
-									</p>
+									<h4 class="card-title">Danh Sách Tài Khoản</h4>
+									<!-- 									<p class="card-description"> -->
+									<!-- 										<a class="btn btn-inverse-success btn-fw" -->
+									<!-- 											th:href="@{/manager/listProductDetail}">Danh sách Chi -->
+									<!-- 											Tiết</a> <a class="btn btn-inverse-success btn-fw" -->
+									<!-- 											th:href="@{/manager/addProduct}">Thêm Sản Phẩm</a> -->
+									<!-- 									</p> -->
 
 									<table id="dataTable-listProduct" class="table table-hover">
 										<thead>
 											<tr>
-												<th>Tên Sản Phẩm</th>
-												<th>Giá</th>
-												<th>Ảnh</th>
-												<th>Ngày hết hạn</th>
-												<th>Nguồn gốc</th>
-												<th>Chi Tiết</th>
-												<th>Danh Mục</th>
+												<th>Họ và tên</th>
+												<th>Email</th>
+												<th>Giới tính</th>
+												<th>Ngày sinh</th>
+												<th>Số điện thoại</th>
+												<th>Chức danh</th>
+												<th>Địa chỉ</th>
 												<th></th>
 											</tr>
 										</thead>
 										<tbody id="dataForm">
-											<tr th:each="product : ${product}">
-												<td th:text="${product.name}"></td>
-												<td th:text="${product.price}"></td>
-												<td><img id="anh"
-													th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}">
-												</td>
-												<td th:text="${product.dateOfManufacture}"></td>
-												<td th:text="${product.origin}"></td>
-												<td th:text="${product.description}"></td>
-												<td th:text="${product.category.name}"></td>
-												<td>
-													<!-- <a class="btn btn-warning" href="">Thêm Chi Tiết</a> -->
-													<a class="btn btn-info"
-													th:href="@{'/manager/updateProduct/'+${product.idProduct}}">Cập
-														Nhập</a> <a class="btn btn-danger"
-													th:href="@{'/manager/deleteProduct/'+${product.idProduct}}">Xóa</a>
-												</td>
+											<tr th:each="listuser : ${listuser}">
+												<td th:text="${listuser.fullname}"></td>
+												<td th:text="${listuser.email}"></td>
+												<td th:text="${listuser.gender} ? 'Nữ' : 'Nam'">
+<!-- 												<td><span th:if="${listuser.gender == 'false'}">Nam</span> -->
+<!-- 												<span th:unless="${listuser.gender == 'true'}">Nữ</span></td> -->
+<!-- 												<td th:switch="${listuser.gender}"> -->
+<!-- 													<p th:case="'false'" th:text="Nam">Nam</p>  -->
+<!-- 													<p th:case="'true'" th:text="Nữ">Nữ</p></td> -->
+												<td th:text="${listuser.birthday}"></td>
+												<td th:text="${listuser.phone}"></td>
+												<td th:text="${listuser.role} ?'Khách hàng':'Admin'"></td>
+												<td th:text="${listuser.address}"></td>
+												<td><a class="btn btn-info" href="#">Cập Nhập</a></td>
 											</tr>
 										</tbody>
 									</table>
@@ -290,20 +288,31 @@
 	<script src="../assets/js/demo_1/dashboard.js"></script>
 	<!-- End custom js for this page-->
 	<script type="text/javascript">
-		$(document).ready(
-			function() {
-				$("#myInput").on("keyup",function() {
-					var value = $(this).val().toLowerCase();
-				$("#dataForm tr").filter(function() {
-					$(this).toggle($(this).text()
-					.toLowerCase()
-					.indexOf(
-					value) > -1)
-	 		});
-		});
-		});
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#dataForm tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
 	</script>
-	
+
 	<!-- DataTables -->
 	<script th:src="@{/assets/vendors/datatables/jquery.dataTables.js}"></script>
 	<script th:src="@{/assets/vendors/datatables/dataTables.bootstrap4.js}"></script>

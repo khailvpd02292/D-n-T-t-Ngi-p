@@ -1,6 +1,8 @@
 package edu.poly.Du_An_Tot_Ngiep.Entity;
 
 import java.sql.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +16,14 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 	private String email;
+	@Column(columnDefinition = "nvarchar(50)")
 	private String fullname;
 	private boolean gender;
 	private Date birthday;
 	private String phone;
 	private String password;
 	private boolean role;
+	@Column(columnDefinition = "nvarchar(150)")
 	private String address;
 	
 	public User() {
