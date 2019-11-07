@@ -31,6 +31,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<Product> searchListProductByIdCategory(String name) {
+		return productRepository.searchListProductByIdCategory(name);
+	}
+
+	@Override
 	public <S extends Product> Optional<S> findOne(Example<S> example) {
 		return productRepository.findOne(example);
 	}

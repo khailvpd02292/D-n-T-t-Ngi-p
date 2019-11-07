@@ -64,4 +64,6 @@ public interface ProductService {
 
 	List<Product> showProductDetaiList(int productId);
 
+	List<Product> searchListProductByIdCategory(String name);
+
 }
