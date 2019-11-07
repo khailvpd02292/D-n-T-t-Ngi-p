@@ -132,7 +132,7 @@
 								<img class="img-md rounded-circle"
 									src="../assets/images/faces/face8.jpg" alt="Profile image">
 								<p class="mb-1 mt-3 font-weight-semibold">Hạ Tấn Bình</p>
-								<p class="font-weight-light text-muted mb-0">tanbinh1909@gmail.com</p>
+								<p class="font-weight-light text-muted mb-0" th:text="${useremail}" ></p>
 							</div>
 							<a class="dropdown-item">My Profile <span
 								class="badge badge-pill badge-danger">1</span><i
@@ -142,8 +142,8 @@
 								class="dropdown-item">Activity<i
 								class="dropdown-item-icon ti-location-arrow"></i></a> <a
 								class="dropdown-item">FAQ<i
-								class="dropdown-item-icon ti-help-alt"></i></a> <a
-								class="dropdown-item">Sign Out<i
+								class="dropdown-item-icon ti-help-alt"></i></a>
+								 <a	class="dropdown-item" th:href="@{/logout}" >Sign Out<i
 								class="dropdown-item-icon ti-power-off"></i></a>
 						</div>
 					</li>
