@@ -50,10 +50,9 @@
 						<span class="text">
 							<div class="header-search">
 								<form  th:action="@{/index/searchProduct}" method="get">
-									<select class="input-select">
+									<select  class="input-select">
 										<option value="0">Danh Mục</option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
+										<option th:each="ca : ${category}" th:value="${ca.idCategory}" th:utext="${ca.name}"></option>
 									</select> <input type="search" name="key" class="input" placeholder="từ khóa">
 									<button type="submit" class="search-btn">Tìm</button>
 								</form>
