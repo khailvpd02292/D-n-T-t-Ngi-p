@@ -42,11 +42,15 @@ public class HomeController {
 
 	@GetMapping("/about")
 	public String ShowAbout(ModelMap model) {
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
 		return "shop/about";
 	}
 
 	@GetMapping("/contact")
 	public String ShowContact(ModelMap model) {
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
 		return "shop/contact";
 	}
 
@@ -58,6 +62,8 @@ public class HomeController {
 		if (p == null) {
 			return "shop/productByIdCategory";
 		}
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
 		model.addAttribute("showProductByIdCategory", this.productService.showListProductByIdCategory(idCategory));
 		
 		return "shop/productByIdCategory";
@@ -66,7 +72,8 @@ public class HomeController {
 	@GetMapping(value = "/showProductSingle/{idProduct}")
 	public String ShowProductByIdProductDetail(ModelMap model, @PathVariable("idProduct") int id) {
 		
-		
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
 		model.addAttribute("showProductSingle", this.productService.findById(id).get());
 		
 		return "shop/product-single";
@@ -79,6 +86,8 @@ public class HomeController {
 		if (products.isEmpty() || products.contains(product)) {
 			return "shop/searchProduct";
 		}
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
 		model.addAttribute("searchProduct", this.productService.searchListProductByIdCategory(key));
 		
 		return "shop/searchProduct";
