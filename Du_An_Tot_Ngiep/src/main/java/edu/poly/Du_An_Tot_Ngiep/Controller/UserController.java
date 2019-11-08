@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,15 +44,16 @@ public class UserController {
 			if (users.getPassword().equals(password)) {
 				if (users.isRole() == false) {
 					response.addCookie(cookie);
-					cookie.setHttpOnly(true);
-					model.addAttribute("useremail", cookie.getName());
+//					System.out.println(cookie.getValue());
+//					cookie.setHttpOnly(true);
+//					model.addAttribute("useremail", cookie.getValue());
 //					cookie.getName();
 					
 //					session.setAttribute("account", users.getEmail());
 					return "redirect:/manager";
 				}else {
 					response.addCookie(cookie);
-					cookie.setHttpOnly(true);
+//					cookie.setHttpOnly(true);
 //					session.setAttribute("account", users.getEmail());
 					return "redirect:/index";
 				}
@@ -83,8 +85,9 @@ public class UserController {
 	
 	
 	@GetMapping(value = "/manager/listUser")
-	public String listProduct(ModelMap model) {
+	public String listProduct(ModelMap model, @CookieValue(value = "account") String username) {
 		model.addAttribute("listuser", this.userService.findAll());
+		model.addAttribute("username", username);
 		return "/manager/users/listUser";
 	}
 }

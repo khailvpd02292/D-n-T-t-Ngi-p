@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,7 +36,10 @@ public class ManagerController {
 	private ProductService productService;
 
 	@GetMapping(value = "/manager")
-	public String manager() {
+	public String manager(@CookieValue(value = "account") String username,  ModelMap model) {
+//		@CookieValue(value = "account") String username
+		System.out.println(username);
+		model.addAttribute("username", username);
 		return "/manager/home/index";
 	}
 
