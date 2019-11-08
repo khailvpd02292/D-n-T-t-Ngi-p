@@ -3,7 +3,9 @@ package edu.poly.Du_An_Tot_Ngiep.Controller;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import org.springframework.web.util.WebUtils;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Category;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
@@ -36,11 +39,16 @@ public class ManagerController {
 	private ProductService productService;
 
 	@GetMapping(value = "/manager")
-	public String manager(@CookieValue(value = "account") String username,  ModelMap model) {
-//		@CookieValue(value = "account") String username
-		System.out.println(username);
-		model.addAttribute("username", username);
-		return "/manager/home/index";
+	public String manager(ModelMap model, HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			return "/manager/home/index";
+		} else {
+			return "redirect:/login";
+		}	
+
+//		model.addAttribute("username", username);
+//		return "/manager/home/index";
 	}
 
 	@GetMapping(value = "/manager/listCategory")
