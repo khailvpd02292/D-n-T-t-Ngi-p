@@ -1,5 +1,6 @@
 package edu.poly.Du_An_Tot_Ngiep.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,8 @@ public interface UserService {
 	<S extends User> S save(S entity);
 
 	Optional<User> findByName(String name);
+
+	void insertUser(String address, Date birthday, String email, String fullname, boolean gender, String password, String phone);
 
 
 

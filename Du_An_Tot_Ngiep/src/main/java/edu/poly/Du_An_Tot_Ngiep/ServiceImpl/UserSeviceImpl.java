@@ -1,5 +1,6 @@
 package edu.poly.Du_An_Tot_Ngiep.ServiceImpl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,10 +76,14 @@ public class UserSeviceImpl implements UserService {
 	}
 
 	@Override
+	public void insertUser(String address, Date birthday, String email, String fullname, boolean gender,
+			String password, String phone) {
+		userRepository.insertUser(address, birthday, email, fullname, gender, password, phone);
+	}
+
 	public void deleteAll() {
 		userRepository.deleteAll();
 	}
-
 	
 	
 }

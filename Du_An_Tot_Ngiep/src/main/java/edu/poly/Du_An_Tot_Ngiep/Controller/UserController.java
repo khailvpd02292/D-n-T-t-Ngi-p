@@ -1,20 +1,28 @@
 package edu.poly.Du_An_Tot_Ngiep.Controller;
 
+import java.sql.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import edu.poly.Du_An_Tot_Ngiep.Entity.Category;
+import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
 
@@ -90,4 +98,35 @@ public class UserController {
 		model.addAttribute("username", username);
 		return "/manager/users/listUser";
 	}
+	
+
+	@GetMapping(value = "/registration")
+	public String registration(ModelMap model) {
+		model.addAttribute("registration", new User());
+		return "/login/registred";
+	}
+	
+	@PostMapping(value = "/registration")
+	public String addProduct(@ModelAttribute(name = "registration") User registration) {
+		userService.save(registration);
+		return "redirect:login";
+	}	
+//	
+//	@PostMapping(value = "/registration")
+//	public String addProduct(@ModelAttribute(name = "registration") User registration, ModelMap model,@RequestParam boolean gender,@RequestParam Date birthday) {
+//		model.addAttribute("registration", new User());
+//		User usr = new User();
+//		usr.setAddress(registration.getAddress());
+//		usr.setBirthday(birthday);
+//		usr.setEmail(registration.getEmail());
+//		usr.setFullname(registration.getFullname());
+//		usr.setGender(gender);
+//		usr.setPassword(registration.getPassword());
+//		usr.setPhone(registration.getPhone());
+////		userService.insertUser(usr.setAddress(registration.getAddress()), usr.setBirthday(birthday), usr.setEmail(registration.getEmail()),
+////				usr.setFullname(registration.getFullname()), usr.setGender(gender), usr.setPassword(registration.getPassword()),
+////				usr.setPhone(registration.getPhone()));
+//		userService.save(usr);
+//		return "redirect:login";
+//	}
 }
