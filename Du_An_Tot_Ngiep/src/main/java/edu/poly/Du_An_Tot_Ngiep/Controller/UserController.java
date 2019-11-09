@@ -106,27 +106,25 @@ public class UserController {
 		return "/login/registred";
 	}
 	
-	@PostMapping(value = "/registration")
-	public String addProduct(@ModelAttribute(name = "registration") User registration) {
-		userService.save(registration);
-		return "redirect:login";
-	}	
-//	
 //	@PostMapping(value = "/registration")
-//	public String addProduct(@ModelAttribute(name = "registration") User registration, ModelMap model,@RequestParam boolean gender,@RequestParam Date birthday) {
-//		model.addAttribute("registration", new User());
-//		User usr = new User();
-//		usr.setAddress(registration.getAddress());
-//		usr.setBirthday(birthday);
-//		usr.setEmail(registration.getEmail());
-//		usr.setFullname(registration.getFullname());
-//		usr.setGender(gender);
-//		usr.setPassword(registration.getPassword());
-//		usr.setPhone(registration.getPhone());
-////		userService.insertUser(usr.setAddress(registration.getAddress()), usr.setBirthday(birthday), usr.setEmail(registration.getEmail()),
-////				usr.setFullname(registration.getFullname()), usr.setGender(gender), usr.setPassword(registration.getPassword()),
-////				usr.setPhone(registration.getPhone()));
-//		userService.save(usr);
+//	public String addProduct(@ModelAttribute(name = "registration") User registration) {
+//		userService.save(registration);
 //		return "redirect:login";
-//	}
+//	}	
+//	
+	@PostMapping(value = "/registration")
+	public String addProduct(@ModelAttribute(name = "registration") User registration, ModelMap model,@RequestParam boolean gender,@RequestParam Date birthday) {
+		model.addAttribute("registration", new User());
+		User usr = new User();
+		usr.setAddress(registration.getAddress());
+		usr.setBirthday(birthday);
+		usr.setEmail(registration.getEmail());
+		usr.setFullname(registration.getFullname());
+		usr.setGender(gender);
+		usr.setPassword(registration.getPassword());
+		usr.setPhone(registration.getPhone());
+		usr.setRole(true);
+		userService.save(usr);
+		return "redirect:login";
+	}
 }
