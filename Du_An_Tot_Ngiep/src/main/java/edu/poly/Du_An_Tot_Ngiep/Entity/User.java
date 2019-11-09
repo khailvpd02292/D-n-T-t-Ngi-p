@@ -1,6 +1,6 @@
 package edu.poly.Du_An_Tot_Ngiep.Entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "users")
@@ -19,9 +24,14 @@ public class User {
 	@Column(columnDefinition = "nvarchar(50)")
 	private String fullname;
 	private boolean gender;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "birthday")
 	private Date birthday;
 	private String phone;
 	private String password;
+//	@Value("${some.key:true}")
+	@Column(columnDefinition = "bit default 1")
 	private boolean role;
 	@Column(columnDefinition = "nvarchar(150)")
 	private String address;
