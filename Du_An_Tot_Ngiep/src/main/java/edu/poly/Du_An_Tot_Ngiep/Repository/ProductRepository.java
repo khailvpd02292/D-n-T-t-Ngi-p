@@ -11,13 +11,21 @@ import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-	
 	@Query(value = "select * from product where id_category = ?", nativeQuery = true)
 	List<Product> showListProductByIdCategory(int idCategory);
-	
-	@Query(value = "select * from product where id_product = ?", nativeQuery = true )
+
+	@Query(value = "select * from product where id_product = ?", nativeQuery = true)
 	List<Product> showProductDetaiList(int productId);
-	
+
 	@Query(value = "select * from product where  name like %?% ", nativeQuery = true)
 	List<Product> searchListProductByIdCategory(String name);
+
+	@Query(value = "select * from product where id_category like %?% ", nativeQuery = true)
+	List<Product> showListCategoryByIdCategory(int idCateogry);
+	
+	@Query(value = "select top 8 * from product", nativeQuery = true)
+	List<Product> showListProductForIndex();
+	
+	@Query(value = "select * from product", nativeQuery = true)
+	List<Product> listProduct();
 }

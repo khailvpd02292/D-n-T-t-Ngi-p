@@ -66,4 +66,10 @@ public interface ProductService {
 
 	List<Product> searchListProductByIdCategory(String name);
 
+	List<Product> showListCategoryByIdCategory(int idCateogry);
+
+	List<Product> showListProductForIndex();
+
+	List<Product> listProduct();
+
 }

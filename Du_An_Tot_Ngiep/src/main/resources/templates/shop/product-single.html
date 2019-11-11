@@ -63,8 +63,8 @@
 					class="row no-gutters slider-text align-items-center justify-content-center">
 					<div class="col-md-9 ftco-animate text-center">
 						<p class="breadcrumbs">
-							<span class="mr-2"><a href="index.html">Home</a></span> <span
-								class="mr-2"><a href="index.html">Product</a></span> <span>Product
+							<span class="mr-2"><a th:href="@{/index}">Home</a></span> <span
+								class="mr-2"><a th:href="@{/index/product}">Product</a></span> <span>Product
 								Single</span>
 						</p>
 						<h1 class="mb-0 bread">Chi Tiết Sản Phẩm</h1>
@@ -131,28 +131,28 @@
 					<div class="col-md-12 heading-section text-center ftco-animate">
 						<span class="subheading">Sản Phẩm</span>
 						<h2 class="mb-4">Sản phẩm liên quan</h2>
-						<p>Far far away, behind the word mountains, far from the
-							countries Vokalia and Consonantia</p>
+						<!-- <p>Far far away, behind the word mountains, far from the
+							countries Vokalia and Consonantia</p> -->
 					</div>
 				</div>
 			</div>
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6 col-lg-3 ftco-animate">
+					<div class="col-md-6 col-lg-3 ftco-animate" th:each="p : ${showProductSingle}">
 						<div class="product">
 							<a href="#" class="img-prod"><img class="img-fluid"
-								src="/images/a1.jpg" alt="Colorlib Template"> <span
-								class="status">30%</span>
-								<div class="overlay"></div> </a>
+								th:src="@{'data:image/png;base64,' + ${p.getImageBase64()}}" alt="Colorlib Template"> 
+								<!-- <span class="status">30%</span> -->
+								</a>
 							<div class="text py-3 pb-4 px-3 text-center">
 								<h3>
-									<a href="#">Bell Pepper</a>
+									<a href="#" th:text="${p.name}"></a>
 								</h3>
 								<div class="d-flex">
 									<div class="pricing">
 										<p class="price">
-											<span class="mr-2 price-dc">$120.00</span><span
-												class="price-sale">$80.00</span>
+											<!-- <span class="mr-2 price-dc">$120.00</span> -->
+											<span class="price-sale" th:text="${p.price}"></span>
 										</p>
 									</div>
 								</div>
@@ -167,99 +167,19 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid"
-								src="/images/a2.jpg" alt="Colorlib Template">
-								<div class="overlay"></div> </a>
-							<div class="text py-3 pb-4 px-3 text-center">
-								<h3>
-									<a href="#">Strawberry</a>
-								</h3>
-								<div class="d-flex">
-									<div class="pricing">
-										<p class="price">
-											<span>$120.00</span>
-										</p>
-									</div>
-								</div>
-								<div class="bottom-area d-flex px-3">
-									<div class="m-auto d-flex">
-										<a href="#"
-											class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid"
-								src="/images/a3.jpg" alt="Colorlib Template">
-								<div class="overlay"></div> </a>
-							<div class="text py-3 pb-4 px-3 text-center">
-								<h3>
-									<a href="#">Green Beans</a>
-								</h3>
-								<div class="d-flex">
-									<div class="pricing">
-										<p class="price">
-											<span>$120.00</span>
-										</p>
-									</div>
-								</div>
-								<div class="bottom-area d-flex px-3">
-									<div class="m-auto d-flex">
-										<a href="#"
-											class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-3 ftco-animate">
-						<div class="product">
-							<a href="#" class="img-prod"><img class="img-fluid"
-								src="/images/a4.jpg" alt="Colorlib Template">
-								<div class="overlay"></div> </a>
-							<div class="text py-3 pb-4 px-3 text-center">
-								<h3>
-									<a href="#">Purple Cabbage</a>
-								</h3>
-								<div class="d-flex">
-									<div class="pricing">
-										<p class="price">
-											<span>$120.00</span>
-										</p>
-									</div>
-								</div>
-								<div class="bottom-area d-flex px-3">
-									<div class="m-auto d-flex">
-										<a href="#"
-											class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</section>
 
-		<section class="ftco-section">
+		<!-- <section class="ftco-section">
 		<p style="margin-left: 100px">Comment</p>
 			<div style="margin-left: 100px; width: 900px; " class="fb-comments"
 				data-href="https://developers.facebook.com/docs/plugins/comments#configurator"
 				data-width="" data-numposts="5" data-action="like"
 				data-size="small" data-show-faces="true" data-share="true"></div>
 		
-		</section>
+		</section> -->
 
 		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
 			<div class="container py-4">
