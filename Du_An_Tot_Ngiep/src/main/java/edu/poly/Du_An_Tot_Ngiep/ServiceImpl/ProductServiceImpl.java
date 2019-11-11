@@ -26,6 +26,21 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<Product> listProduct() {
+		return productRepository.listProduct();
+	}
+
+	@Override
+	public List<Product> showListCategoryByIdCategory(int idCateogry) {
+		return productRepository.showListCategoryByIdCategory(idCateogry);
+	}
+
+	@Override
+	public List<Product> showListProductForIndex() {
+		return productRepository.showListProductForIndex();
+	}
+
+	@Override
 	public List<Product> showProductDetaiList(int productId) {
 		return productRepository.showProductDetaiList(productId);
 	}

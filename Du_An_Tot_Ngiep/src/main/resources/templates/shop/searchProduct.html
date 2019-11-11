@@ -58,7 +58,7 @@
 					class="row no-gutters slider-text align-items-center justify-content-center">
 					<div class="col-md-9 ftco-animate text-center">
 						<p class="breadcrumbs">
-							<span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span>
+							<span class="mr-2"><a th:href="@{/index}">Home</a></span> <span>Products</span>
 						</p>
 						<h1 class="mb-0 bread">Products</h1>
 					</div>
@@ -105,15 +105,30 @@
 				<div class="row mt-5">
 					<div class="col text-center">
 						<div class="block-27">
-							<ul>
-								<li><a href="#">&lt;</a></li>
-								<li class="active"><span>1</span></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">&gt;</a></li>
-							</ul>
+							<!-- <ul>
+								<li th:class="${currentIndex  == 1}? 'page-item disabled' : 'page-item'">
+								<a th:href="@{/index/searchProduct}">First</a>
+								</li>
+								<li class="active" th:class="${currentIndex  == 1}? 'page-item disabled' : 'page-item'">
+								<a th:href="@{|/index${baseUrl}${currentIndex- 1}|}" title='Go to previous page'>
+									<span aria-hidden="true">«</span>
+									<span class="sr-only">Previous</span>
+								</a>
+								</li>
+								<li th:each="item : ${#numbers.sequence(beginIndex, endIndex)}" th:class = "${item == currentIndex ? 'page-item active' : 'page-item'}">
+									<a th:href="@{|/index${baseUrl}${item}|}">
+									<span th:text="${item}">1</span>
+									</a>
+								</li>
+								<li th:class="${currentIndex == totalPageCount}? 'page-item disabled' : 'page-item'">
+									<a th:href="@{|/index${baseUrl}${currentIndex+1}|}" title='Go to next page'>
+										<span aria-hidden="true">»</span> <span class="sr-only">Next</span>
+									</a>
+								</li>
+								<li th:class="${currentIndex == totalPageCount}? 'page-item disabled' : 'page-item'">
+								<a th:href="@{|/index${baseUrl}${totalPageCount}|}">Last</a>
+								</li>
+							</ul> -->
 						</div>
 					</div>
 				</div>
