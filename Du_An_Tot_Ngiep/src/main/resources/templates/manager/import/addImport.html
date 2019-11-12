@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -32,7 +31,6 @@
 <!-- End Layout styles -->
 <link rel="shortcut icon" href="../assets/images/favicon.png" />
 </head>
-
 <body>
 	<div class="container-scroller">
 		<!-- partial:partials/_navbar.html -->
@@ -42,8 +40,8 @@
 				class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
 				<a class="navbar-brand brand-logo" th:href="@{/manager}"> <img
 					src="../assets/images/logo.svg" alt="logo" />
-				</a> <a class="navbar-brand brand-logo-mini" th:href="@{/manager}">
-					<img src="../assets/images/logo-mini.svg" alt="logo" />
+				</a> <a class="navbar-brand brand-logo-mini" href="index.html"> <img
+					src="../assets/images/logo-mini.svg" alt="logo" />
 				</a>
 			</div>
 			<div class="navbar-menu-wrapper d-flex align-items-center">
@@ -192,98 +190,71 @@
 							class="menu-icon typcn typcn-th-large-outline"></i> <span
 							class="menu-title">Quản Lý Sản Phẩm</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="user.html">
-							<i class="menu-icon typcn typcn-bell"></i> <span
-							class="menu-title">Quản Lý Tài Khoản</span>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/manager/listUser}"> <i
+							class="menu-icon typcn typcn-bell"></i> <span class="menu-title">Quản
+								Lý Tài Khoản</span>
 					</a></li>
-
 				</ul>
 			</nav>
 			<!-- partial -->
 			<div class="main-panel">
 				<div class="content-wrapper">
 					<div class="row">
-
-
 						<div id="textCenter" class="col-lg-6 grid-margin stretch-card">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Thêm Sản Phẩm</h4>
-									<form th:object="${product}" th:action="@{/manager/addProduct}"
+									<h4 class="card-title">Thêm kho hàng</h4>
+									<form th:object="${import}" th:action="@{/manager/addImport}"
 										method="post" role="form" enctype="multipart/form-data">
+										
 										<div class="form-group">
-											<label class="label">Tên danh mục sản phẩm</label>
+											<label class="label">Nhân viên</label>
+											<div class="input-group" >
+												<input  th:field="*{IdUser}" th:value="${username}" type="text" class="form-control">
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="label">Sản phẩm</label>
 											<div class="input-group">
-												<select th:field="*{category}" class="form-control">
-													<option th:each="category : ${listCategory}"
-														th:value="${category.idCategory}"
-														th:utext="${category.name}"></option>
+												<select th:field="*{product}" class="form-control">
+													<option th:each="product : ${listProduct}" 
+														th:value="${product.idProduct}" 
+														th:utext="${product.name}">												
+													</option>
 												</select>
 											</div>
 										</div>
+										
+<!-- 										<div class="form-group"> -->
+<!-- 											<label class="label">Ngày nhập kho</label> -->
+<!-- 											<div class="input-group"> -->
+<!-- 												<input th:field="*{createDate}" type="date" class="form-control"> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+										
+<!-- 										<div class="form-group"> -->
+<!-- 											<label class="label">Ngày cập nhật</label> -->
+<!-- 											<div class="input-group"> -->
+<!-- 												<input th:field="*{updateDate}" type="date" class="form-control"> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+										
 										<div class="form-group">
-											<label class="label">Tên sản phẩm</label>
+											<label class="label">Số lượng</label>
 											<div class="input-group">
-												<input th:field="*{name}" type="text" class="form-control">
+												<input th:field="*{Quantity}" type="number" class="form-control">
 											</div>
 										</div>
-
-										<div class="form-group">
-											<label class="label">Ảnh</label>
-											<div class="input-group">
-												<input th:field="*{image}" type="file" name="file"
-													onchange="readURL(this);"
-													accept="image/x-png,image/jpeg,image/jpg">
-
-											</div>
-											<div
-												style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 150px;">
-												<img style="height: 150px; width: 120px;" id="blah" />
-											</div>
-
-										</div>
-
-
-										<div class="form-group">
-											<label class="label">Giá</label>
-											<div class="input-group">
-												<input th:field="*{price}" type="number"
-													class="form-control">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="label">Ngày Hết Hạn</label>
-											<div class="input-group">
-												<input th:field="*{dateOfManufacture}" type="date"
-													class="form-control">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="label">Nguồn Gốc Sản Phẩm</label>
-											<div class="input-group">
-												<input th:field="*{origin}" type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="label">Chi Tiết Sản Phẩm</label>
-											<div class="input-group">
-												<input th:field="*{description}" type="text"
-													class="form-control">
-											</div>
-										</div>
-
+										
 										<div class="form-group">
 											<button class="btn btn-primary">Thêm</button>
-											<a th:href="@{/manager/listCategory}">Quay Về</a>
+											<a th:href="@{/manager/import}">Quay về</a>
 										</div>
-
-
 									</form>
 								</div>
 							</div>
-
-
 						</div>
 					</div>
 				</div>
@@ -320,46 +291,6 @@
 	<!-- endinject -->
 	<!-- Custom js for this page-->
 	<script src="../assets/js/demo_1/dashboard.js"></script>
-
-	<script type="text/javascript">
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					$('#blah').attr('src', e.target.result).width(120).height(
-							150);
-				};
-
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-		function readURL_2(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					$('#blah2').attr('src', e.target.result).width(120).height(
-							150);
-				};
-
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-		function readURL_1(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					$('#blah1').attr('src', e.target.result).width(120).height(
-							150);
-				};
-
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-	</script>
 	<!-- End custom js for this page-->
 </body>
-
 </html>
