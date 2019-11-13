@@ -231,7 +231,7 @@
 												<td th:text="${import.createDate}"></td>
 												<td th:text="${import.updateDate}"></td>
 												<td th:text="${import.Quantity}"></td>
-												<td><a class="btn btn-info" href="#">Cập Nhập</a>
+												<td><a class="btn btn-info" th:href="@{'/manager/updateImport/'+${import.idImport}}">Cập Nhập</a>
 												<a class="btn btn-danger" th:href="@{'/manager/deleteImport/'+${import.idImport}}">Xóa</a></td>
 											</tr>
 										</tbody>

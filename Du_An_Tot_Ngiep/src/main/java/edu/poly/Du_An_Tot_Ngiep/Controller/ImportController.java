@@ -59,8 +59,9 @@ public class ImportController {
 	
 	
 	@GetMapping(value = "/manager/updateImport/{idImport}")
-	public String updateImport(ModelMap model, @PathVariable(name = "idImport")int idImport ) {
-		model.addAttribute("import", importService.findById(idImport));
+	public String updateImport(ModelMap model, @PathVariable(name = "idImport")int id ) {
+		model.addAttribute("listProduct", productService.findAll());
+		model.addAttribute("import", this.importService.findById(id).isPresent()? this.importService.findById(id).get() : null);
 		
 		return "/manager/import/updateImport";
 	}
