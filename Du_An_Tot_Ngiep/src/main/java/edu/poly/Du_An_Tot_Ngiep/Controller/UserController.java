@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,15 +35,15 @@ public class UserController {
 	private UserService userService;
 //	@Autowired
 //	public HttpSession session;
-	
+
 	@GetMapping(value = "/login")
 	public String login(ModelMap model) {
 		return "/login/login1";
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam("email") String email, @RequestParam("password") String password,
-			ModelMap model,HttpServletResponse response) {
+	public String login(@RequestParam("email") String email, @RequestParam("password") String password, ModelMap model,
+			HttpServletResponse response) {
 // find account
 		if (userService.findByName(email).isPresent()) {
 			User users = userService.findByName(email).get();
@@ -56,10 +57,10 @@ public class UserController {
 //					cookie.setHttpOnly(true);
 //					model.addAttribute("useremail", cookie.getValue());
 //					cookie.getName();
-					
+
 //					session.setAttribute("account", users.getEmail());
 					return "redirect:/manager";
-				}else {
+				} else {
 					response.addCookie(cookie);
 //					cookie.setHttpOnly(true);
 //					session.setAttribute("account", users.getEmail());
@@ -73,39 +74,38 @@ public class UserController {
 		}
 		return "login/login1";
 	}
+
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 //		session.removeAttribute("accLoginC");
-		
+
 		Cookie[] cookies = request.getCookies();
-        for(int i = 0; i< cookies.length ; ++i){
-            if(cookies[i].getName().equals("account")){
-                //Cookie cookie = new Cookie("user", cookies[i].getValue());
-                //cookie.setMaxAge(0);
-                //response.addCookie(cookie);
-                cookies[i].setMaxAge(0);
-                response.addCookie(cookies[i]);
-                break;
-            }
-        } 
+		for (int i = 0; i < cookies.length; ++i) {
+			if (cookies[i].getName().equals("account")) {
+				// Cookie cookie = new Cookie("user", cookies[i].getValue());
+				// cookie.setMaxAge(0);
+				// response.addCookie(cookie);
+				cookies[i].setMaxAge(0);
+				response.addCookie(cookies[i]);
+				break;
+			}
+		}
 		return "login/login1";
 	}
-	
-	
+
 	@GetMapping(value = "/manager/listUser")
 	public String listProduct(ModelMap model, @CookieValue(value = "account") String username) {
 		model.addAttribute("listuser", this.userService.findAll());
 		model.addAttribute("username", username);
 		return "/manager/users/listUser";
 	}
-	
 
 	@GetMapping(value = "/registration")
 	public String registration(ModelMap model) {
 		model.addAttribute("registration", new User());
 		return "/login/registred";
 	}
-	
+
 //	@PostMapping(value = "/registration")
 //	public String addProduct(@ModelAttribute(name = "registration") User registration) {
 //		userService.save(registration);
@@ -113,7 +113,8 @@ public class UserController {
 //	}	
 //	
 	@PostMapping(value = "/registration")
-	public String addProduct(@ModelAttribute(name = "registration") User registration, ModelMap model,@RequestParam boolean gender,@RequestParam Date birthday) {
+	public String addProduct(@ModelAttribute(name = "registration") User registration, ModelMap model,
+			@RequestParam boolean gender, @RequestParam Date birthday) {
 		model.addAttribute("registration", new User());
 		User usr = new User();
 		usr.setAddress(registration.getAddress());
@@ -127,4 +128,40 @@ public class UserController {
 		userService.save(usr);
 		return "redirect:login";
 	}
+
+	@GetMapping(value = "/manager/updateUser/{userId}")
+	public String updateProduct(ModelMap model, @PathVariable(name = "userId") int id) {
+		model.addAttribute("listuser", this.userService.findAll());
+		model.addAttribute("usernameID",
+				this.userService.findById(id).isPresent() ? this.userService.findById(id).get() : null);
+		return "/manager/users/updateUser";
+	}
+
+//	@PostMapping(value = "/manager/updateUser")
+//	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID
+//			, BindingResult result,ModelMap model,@RequestParam boolean gender
+//			,@RequestParam boolean role, @RequestParam Date birthday) {
+////		model.addAttribute("usernameID", new User());
+////		model.addAttribute("usernameID", userService.findAll());
+//		User usr = new User();
+//		usr.setAddress(usernameID.getAddress());
+//		usr.setBirthday(birthday);
+//		usr.setEmail(usernameID.getEmail());
+//		usr.setFullname(usernameID.getFullname());
+//		usr.setGender(gender);
+//		usr.setPassword(usernameID.getPassword());
+//		usr.setPhone(usernameID.getPhone());
+//		usr.setRole(role);
+//		userService.save(usr);
+//
+//		return "redirect:/manager/listUser";
+//	}
+	
+	@PostMapping(value = "/manager/updateUser")
+	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID, BindingResult result) {
+		userService.save(usernameID);
+
+		return "redirect:/manager/listUser";
+	}
+
 }
