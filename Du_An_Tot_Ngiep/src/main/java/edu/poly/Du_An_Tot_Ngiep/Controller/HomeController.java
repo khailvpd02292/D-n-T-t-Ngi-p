@@ -2,10 +2,12 @@ package edu.poly.Du_An_Tot_Ngiep.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -20,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
+import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.CategoryService;
 import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
+import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
+import edu.poly.Du_An_Tot_Ngiep.utils.AppUtils;
 
 @Controller
 @RequestMapping(value = "/index")
@@ -32,6 +37,9 @@ public class HomeController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private UserService userService;
 
 //	@GetMapping()
 //	public String Home(ModelMap model, HttpServletRequest request) {
@@ -49,23 +57,30 @@ public class HomeController {
 //			return "home/index";
 //	
 //	}
-
-	@GetMapping()
-	public String Home(ModelMap model, HttpServletRequest request) {
+	
+	void initHomeResponse(ModelMap model) {
 		model.addAttribute("prods", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					model.addAttribute("email", cookies[i].getValue());
-					break;
-				}
-			}
-		} else {
-			return "home/index";
-		}
 		model.addAttribute("showProduct", this.productService.showListProductForIndex());
+	}
+
+	@GetMapping()
+	public String Home(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+//		Cookie[] cookies = request.getCookies();
+//		if (cookies != null) {
+//			for (int i = 0; i < cookies.length; ++i) {
+//				if (cookies[i].getName().equals("account")) {
+//					model.addAttribute("email", cookies[i].getValue());
+//					break;
+//				}
+//			}
+//		}
+		initHomeResponse(model);
+		AppUtils.getCookie("account", request)
+			.ifPresent(cookie -> {
+				User user = this.userService.findByEmail(cookie.getValue()).get();
+				model.addAttribute("email", user.getFullname());
+			});
 		return "home/index";
 
 	}
@@ -171,6 +186,17 @@ public class HomeController {
 //		request.getSession().setAttribute("productList", null);
 		return "shop/searchProduct";
 	}
+	
+	@RequestMapping("/logout1")
+	public String logout(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		initHomeResponse(model);
+		Cookie cookie = new Cookie("account", null);
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		model.addAttribute("email", null);
+		return "home/index";
+	}
 
 //	@GetMapping("/searchProduct/page/{pageNumber}")
 //	public String showSearchProductByIdCategory(Model model, HttpServletRequest request, @PathVariable int pageNumber, @RequestParam("key") String key) {
@@ -206,21 +232,6 @@ public class HomeController {
 //		model.addAttribute("searchProduct", pages);
 //		
 //		return "shop/searchProduct";
-//	}
-//	@GetMapping()
-//	public String Home(ModelMap model, @CookieValue(value = "account") String email) {
-//		if (email.isEmpty()) {
-//			model.addAttribute("prods", this.productService.findAll());
-//			model.addAttribute("category", this.categoryService.findAll());
-//			model.addAttribute("email", email);
-//			model.addAttribute("showProduct", this.productService.showListProductForIndex());
-//			return "home/index";
-//		} else {
-//			model.addAttribute("prods", this.productService.findAll());
-//			model.addAttribute("category", this.categoryService.findAll());
-//			model.addAttribute("showProduct", this.productService.showListProductForIndex());
-//			return "home/index";
-//		}
 //	}
 
 }
