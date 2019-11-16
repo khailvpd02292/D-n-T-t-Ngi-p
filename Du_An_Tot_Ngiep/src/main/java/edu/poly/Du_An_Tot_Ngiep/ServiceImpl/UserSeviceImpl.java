@@ -21,8 +21,8 @@ public class UserSeviceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public Optional<User> findByName(String name) {
-		return userRepository.findByName(name);
+	public Optional<User> findByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 
 	@Override
@@ -75,14 +75,14 @@ public class UserSeviceImpl implements UserService {
 		userRepository.deleteAll(entities);
 	}
 
-	@Override
-	public void insertUser(String address, Date birthday, String email, String fullname, boolean gender,
-			String password, String phone) {
-		userRepository.insertUser(address, birthday, email, fullname, gender, password, phone);
-	}
 
 	public void deleteAll() {
 		userRepository.deleteAll();
+	}
+
+	@Override
+	public Optional<User> findByName(String name) {
+		return userRepository.findByName(name);
 	}
 	
 	
