@@ -2,7 +2,9 @@ package edu.poly.Du_An_Tot_Ngiep.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,26 +33,41 @@ public class HomeController {
 	@Autowired
 	private CategoryService categoryService;
 
+//	@GetMapping()
+//	public String Home(ModelMap model, HttpServletRequest request) {
+//			model.addAttribute("prods", this.productService.findAll());
+//			model.addAttribute("category", this.categoryService.findAll());
+//			Cookie[] cookies = request.getCookies();
+//			if(cookies != null) {
+//				Cookie account = Stream.of(cookies)
+//						.filter(cookie -> cookie.getName().equalsIgnoreCase("account"))
+//						.findFirst()
+//						.get();
+//				model.addAttribute("email", account.getValue());
+//			}
+//			model.addAttribute("showProduct", this.productService.showListProductForIndex());
+//			return "home/index";
+//	
+//	}
+
 	@GetMapping()
-//	public String Home(ModelMap model, @CookieValue(value = "account") String email) {
-//		if (email != null) {
-//			model.addAttribute("prods", this.productService.findAll());
-//			model.addAttribute("category", this.categoryService.findAll());
-//			model.addAttribute("email", email);
-//			model.addAttribute("showProduct", this.productService.showListProductForIndex());
-//			return "home/index";
-//		} else {
-//			model.addAttribute("prods", this.productService.findAll());
-//			model.addAttribute("category", this.categoryService.findAll());
-//			model.addAttribute("showProduct", this.productService.showListProductForIndex());
-//			return "home/index";
-//		}
-	public String Home(ModelMap model) {
-			model.addAttribute("prods", this.productService.findAll());
-			model.addAttribute("category", this.categoryService.findAll());
-			model.addAttribute("showProduct", this.productService.showListProductForIndex());
+	public String Home(ModelMap model, HttpServletRequest request) {
+		model.addAttribute("prods", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("account")) {
+					model.addAttribute("email", cookies[i].getValue());
+					break;
+				}
+			}
+		} else {
 			return "home/index";
-	
+		}
+		model.addAttribute("showProduct", this.productService.showListProductForIndex());
+		return "home/index";
+
 	}
 
 	@GetMapping("/product")
@@ -189,6 +206,21 @@ public class HomeController {
 //		model.addAttribute("searchProduct", pages);
 //		
 //		return "shop/searchProduct";
+//	}
+//	@GetMapping()
+//	public String Home(ModelMap model, @CookieValue(value = "account") String email) {
+//		if (email.isEmpty()) {
+//			model.addAttribute("prods", this.productService.findAll());
+//			model.addAttribute("category", this.categoryService.findAll());
+//			model.addAttribute("email", email);
+//			model.addAttribute("showProduct", this.productService.showListProductForIndex());
+//			return "home/index";
+//		} else {
+//			model.addAttribute("prods", this.productService.findAll());
+//			model.addAttribute("category", this.categoryService.findAll());
+//			model.addAttribute("showProduct", this.productService.showListProductForIndex());
+//			return "home/index";
+//		}
 //	}
 
 }
