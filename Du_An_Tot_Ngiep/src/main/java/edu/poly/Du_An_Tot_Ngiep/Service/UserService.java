@@ -35,11 +35,11 @@ public interface UserService {
 
 	<S extends User> S save(S entity);
 
+	Optional<User> findByEmail(String email);
+
 	Optional<User> findByName(String name);
 
-	void insertUser(String address, Date birthday, String email, String fullname, boolean gender, String password, String phone);
-
-
+	
 
 	
 	

@@ -15,11 +15,8 @@ import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query(value = "SELECT * FROM users  WHERE email = ?", nativeQuery = true)
+	Optional<User> findByEmail(String email);
+	@Query(value = "SELECT * FROM users  WHERE fullname = ?", nativeQuery = true)
 	Optional<User> findByName(String name);
 
-	@Modifying
-	@Query(value = "insert into Users (address,birthday,email,fullname,gender,password,phone) values (:address, :birthday, :email, :fullname, :gender, :password, :phone)", nativeQuery = true)
-	void insertUser(@Param("address") String address, @Param("birthday") Date birthday, @Param("email") String email,
-			@Param("fullname") String fullname, @Param("gender") boolean gender, @Param("password") String password,
-			@Param("phone") String phone);
 }

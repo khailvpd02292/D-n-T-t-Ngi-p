@@ -39,16 +39,16 @@ public class ManagerController {
 	private ProductService productService;
 
 	@GetMapping(value = "/manager")
-	public String manager(ModelMap model, HttpServletRequest request) {
+	public String manager(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
-			return "/manager/home/index";
-		} else {
-			return "redirect:/login";
-		}	
-
-//		model.addAttribute("username", username);
-//		return "/manager/home/index";
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("account")) {
+					return "/manager/home/index";
+				}
+			}
+		}
+		return "redirect:/login";
 	}
 
 	@GetMapping(value = "/manager/listCategory")
