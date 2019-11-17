@@ -72,4 +72,14 @@ public interface ProductService {
 
 	List<Product> listProduct();
 
+	List<Product> findIdProduct(int idProduct);
+
+	List<Product> listProductPriceAsc();
+
+	List<Product> listProductPriceDesc();
+
+	List<Product> listProductNewBest();
+
+	List<Product> showListProductByIdCategoryFilter(int idCategory);
+
 }

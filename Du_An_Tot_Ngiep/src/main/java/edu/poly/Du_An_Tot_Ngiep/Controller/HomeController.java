@@ -159,13 +159,14 @@ public class HomeController {
 	// code showCategoryById
 	@GetMapping(value = "/showProductByIdCategory/{idCategory}")
 	public String ShowProductByIdCategory(ModelMap model, @PathVariable("idCategory") int idCategory) {
-
+		
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
 		Optional<Product> p = this.productService.findById(idCategory);
 		if (p == null) {
 			return "shop/productByIdCategory";
 		}
-		model.addAttribute("product", this.productService.findAll());
-		model.addAttribute("category", this.categoryService.findAll());
+		
 		model.addAttribute("showProductByIdCategory", this.productService.showListProductByIdCategory(idCategory));
 
 		return "shop/productByIdCategory";
@@ -176,8 +177,15 @@ public class HomeController {
 
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
+		List<Product> list = productService.showProductDetaiList(id);
+		for (int i = 0; i < list.size(); i++) {
+			Product p = new Product();
+			p.getCategory().getIdCategory();
+		}
+		
+		
 		model.addAttribute("showProductSingle", this.productService.findById(id).get());
-
+		
 //			model.addAttribute("showProduct", this.productService.showListCategoryByIdCategory(id));
 //		}
 
@@ -207,44 +215,9 @@ public class HomeController {
 		cookie.setPath("/");
 		response.addCookie(cookie);
 		model.addAttribute("email", null);
-//		return "home/index";
 		return "redirect:/index";
 	}
 
-//	@GetMapping("/searchProduct/page/{pageNumber}")
-//	public String showSearchProductByIdCategory(Model model, HttpServletRequest request, @PathVariable int pageNumber, @RequestParam("key") String key) {
-//		model.addAttribute("product", this.productService.findAll());
-//		model.addAttribute("category", this.categoryService.findAll());
-//		
-//		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productList");
-//		int pageSize = 8;
-//		List<Product> list = productService.searchListProductByIdCategory(key);
-//		System.out.println(list);
-//		
-//		if (pages == null) {
-//			pages = new PagedListHolder<>(list);
-//			pages.setPageSize(pageSize);
-//		} else {
-//			final int goToPage = pageNumber -1;
-//			if (goToPage<= pages.getPageCount() && goToPage >=0) {
-//				pages.setPage(goToPage);
-//			}
-//		}
-//		request.getSession().setAttribute("productList", pages);
-//		int current = pages.getPage() +1;
-//		int begin = Math.max(1, current - list.size());
-//		int end = Math.min(begin +5, pages.getPageCount());
-//		int totalPageCount = pages.getPageCount();
-//		String baseUrl = "/searchProduct/page/";
-//		
-//		model.addAttribute("beginIndex", begin);
-//		model.addAttribute("endIndex", end);
-//		model.addAttribute("currentIndex", current);
-//		model.addAttribute("totalPageCount", totalPageCount);
-//		model.addAttribute("baseUrl", baseUrl);
-//		model.addAttribute("searchProduct", pages);
-//		
-//		return "shop/searchProduct";
-//	}
+
 
 }
