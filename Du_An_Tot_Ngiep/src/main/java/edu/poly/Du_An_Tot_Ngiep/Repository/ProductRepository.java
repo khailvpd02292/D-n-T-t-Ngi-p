@@ -22,10 +22,25 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query(value = "select * from product where id_category like %?% ", nativeQuery = true)
 	List<Product> showListCategoryByIdCategory(int idCateogry);
-	
+
 	@Query(value = "select top 8 * from product", nativeQuery = true)
 	List<Product> showListProductForIndex();
-	
+
 	@Query(value = "select * from product", nativeQuery = true)
 	List<Product> listProduct();
+
+	@Query(value = " select * from product order by id_product desc", nativeQuery = true)
+	List<Product> listProductNewBest();
+
+	@Query(value = "select * from product order by price desc", nativeQuery = true)
+	List<Product> listProductPriceDesc();
+
+	@Query(value = "select * from product order by price asc", nativeQuery = true)
+	List<Product> listProductPriceAsc();
+
+	@Query(value = "select * from product where id_category = ?", nativeQuery = true)
+	List<Product> showListProductByIdCategoryFilter(int idCategory);
+
+	@Query(value = "select * from product where id_product = ?", nativeQuery = true)
+	List<Product> findIdProduct(int idProduct);
 }

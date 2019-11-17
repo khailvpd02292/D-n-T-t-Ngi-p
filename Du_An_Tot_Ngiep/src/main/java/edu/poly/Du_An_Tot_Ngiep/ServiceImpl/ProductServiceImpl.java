@@ -26,6 +26,31 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<Product> listProductNewBest() {
+		return productRepository.listProductNewBest();
+	}
+
+	@Override
+	public List<Product> showListProductByIdCategoryFilter(int idCategory) {
+		return productRepository.showListProductByIdCategoryFilter(idCategory);
+	}
+
+	@Override
+	public List<Product> listProductPriceDesc() {
+		return productRepository.listProductPriceDesc();
+	}
+
+	@Override
+	public List<Product> listProductPriceAsc() {
+		return productRepository.listProductPriceAsc();
+	}
+
+	@Override
+	public List<Product> findIdProduct(int idProduct) {
+		return productRepository.findIdProduct(idProduct);
+	}
+
+	@Override
 	public List<Product> listProduct() {
 		return productRepository.listProduct();
 	}
