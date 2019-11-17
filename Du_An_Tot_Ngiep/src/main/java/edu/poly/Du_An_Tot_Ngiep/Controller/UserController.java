@@ -39,6 +39,17 @@ public class UserController {
 		return "/login/login1";
 	}
 
+	void getName(HttpServletRequest request, ModelMap model) {
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; i < cookies.length; ++i) {
+			if (cookies[i].getName().equals("account")) {
+				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+				model.addAttribute("fullname", user.getFullname());
+				break;
+			}
+		}
+	}
+	
 	@PostMapping("/login")
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password, ModelMap model,
 			HttpServletResponse response) {
@@ -51,9 +62,11 @@ public class UserController {
 				if (users.isRole() == false) {
 					response.addCookie(cookie);
 					cookie.setMaxAge(7 * 24 * 60 * 60);
+//					model.addAttribute("fullname", users.getFullname());
 					return "redirect:/manager";
 				} else {
 					response.addCookie(cookie);
+//					model.addAttribute("fullname", users.getFullname());
 					return "redirect:/index";
 				}
 			} else {
@@ -77,14 +90,14 @@ public class UserController {
 				break;
 			}
 		}
-		return "login/login1";
+		return "redirect:/login";
 	}
 
 	@GetMapping(value = "/manager/listUser")
-	public String listProduct(ModelMap model, @CookieValue(value = "account") String username) {
+	public String listProduct(ModelMap model, @CookieValue(value = "account") String username,HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("listuser", this.userService.findAll());
-		
 		model.addAttribute("username", username);
+		getName(request, model);		
 		return "/manager/users/listUser";
 	}
 

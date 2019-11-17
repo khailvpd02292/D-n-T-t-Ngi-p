@@ -20,15 +20,15 @@
 
 						<div
 							class="col-md-6 pr-4 d-flex topper align-items-center text-lg-right">
-							<span th:if="${email == null}" class="text">
+							<span th:if="${fullname == null}" class="text">
 								<ul class="header-links pull-right">
 									<li> 
 									<a th:href="@{/login}"><i class="fa fa-user-o"></i>Đăng
 											Nhập</a></li>
 								</ul>
 							</span>
-							<span class="text" th:if="${email != null}" th:text="${email}" ></span>
-							<span th:if="${email != null}" style="width: 100px; margin-left: 50px; cursor: pointer;"><a th:href="@{/index/logout1}" >Đăng xuất</a></span>
+							<span class="text" th:if="${fullname != null}" th:text="${fullname}" ></span>
+							<span class="text" th:if="${fullname != null}" style="width: 150px; margin-left: 50px; cursor: pointer;"><a th:href="@{/index/logout1}" style="color: white;" ><i class="fa fa-user-o"></i> Đăng xuất</a></span>
 						</div>
 					</div>
 				</div>

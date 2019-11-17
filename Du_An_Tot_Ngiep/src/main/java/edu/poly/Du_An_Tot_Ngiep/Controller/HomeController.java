@@ -58,6 +58,17 @@ public class HomeController {
 //	
 //	}
 	
+	void getName(HttpServletRequest request, ModelMap model) {
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; i < cookies.length; ++i) {
+			if (cookies[i].getName().equals("account")) {
+				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+				model.addAttribute("fullname", user.getFullname());
+				break;
+			}
+		}
+	}
+	
 	void initHomeResponse(ModelMap model) {
 		model.addAttribute("prods", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
@@ -66,21 +77,22 @@ public class HomeController {
 
 	@GetMapping()
 	public String Home(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-//		Cookie[] cookies = request.getCookies();
-//		if (cookies != null) {
-//			for (int i = 0; i < cookies.length; ++i) {
-//				if (cookies[i].getName().equals("account")) {
-//					model.addAttribute("email", cookies[i].getValue());
-//					break;
-//				}
-//			}
-//		}
-		initHomeResponse(model);
-		AppUtils.getCookie("account", request)
-			.ifPresent(cookie -> {
-				User user = this.userService.findByEmail(cookie.getValue()).get();
-				model.addAttribute("email", user.getFullname());
-			});
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("account")) {
+					User user = this.userService.findByEmail(cookies[i].getValue()).get();
+					model.addAttribute("fullname", user.getFullname());
+					break;
+				}
+			}
+		}
+//		initHomeResponse(model);
+//		AppUtils.getCookie("account", request)
+//			.ifPresent(cookie -> {
+//				User user = this.userService.findByEmail(cookie.getValue()).get();
+//				model.addAttribute("email", user.getFullname());
+//			});
 		return "home/index";
 
 	}
@@ -195,7 +207,8 @@ public class HomeController {
 		cookie.setPath("/");
 		response.addCookie(cookie);
 		model.addAttribute("email", null);
-		return "home/index";
+//		return "home/index";
+		return "redirect:/index";
 	}
 
 //	@GetMapping("/searchProduct/page/{pageNumber}")
