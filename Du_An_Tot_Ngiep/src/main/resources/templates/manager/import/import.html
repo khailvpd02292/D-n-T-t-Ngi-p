@@ -219,7 +219,7 @@
 												<th>Nhân viên</th>
 												<th>Sản phẩm</th>
 												<th>Ngày nhập</th>
-												<th>Ngày Cập nhật</th>
+<!-- 												<th>Ngày Cập nhật</th> -->
 												<th>Số Lượng</th>
 												<th></th>
 											</tr>
@@ -229,10 +229,12 @@
 												<td th:text="${import.IdUser}"></td>
 												<td th:text="${import.product.name}"></td>
 												<td th:text="${import.createDate}"></td>
-												<td th:text="${import.updateDate}"></td>
+<!-- 												<td th:text="${import.updateDate}"></td> -->
 												<td th:text="${import.Quantity}"></td>
-												<td><a class="btn btn-info" th:href="@{'/manager/updateImport/'+${import.idImport}}">Cập Nhập</a>
-												<a class="btn btn-danger" th:href="@{'/manager/deleteImport/'+${import.idImport}}">Xóa</a></td>
+												<td>
+												<a class="btn btn-danger" th:href="@{'/manager/deleteImport/'+${import.idImport}}">Xóa</a>
+												</td>
+<!-- 												<a class="btn btn-info" th:href="@{'/manager/updateImport/'+${import.idImport}}">Cập Nhập</a> -->
 											</tr>
 										</tbody>
 									</table>

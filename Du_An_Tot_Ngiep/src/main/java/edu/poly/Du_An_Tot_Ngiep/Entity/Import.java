@@ -43,27 +43,27 @@ public class Import {
 	@Column(name ="createDate",updatable = false)
 	private Date createDate;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@UpdateTimestamp
-	@Column(name = "updateDate")
-	private Date updateDate;
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@UpdateTimestamp
+//	@Column(name = "updateDate")
+//	private Date updateDate;
 	
 	
 	@Min (value = 1)
-	@Column(name = "Quantity")
+	@Column(name = "Quantity",updatable = false )
 	private int Quantity;
 	
 	public Import() {
 		super();
 	}
 	
-	public Import(int IdImport, @NotNull String IdUser, @NotNull Product product, Date createDate, Date updateDate , @Min(1) int Quantity   ) {
+	public Import(int IdImport, @NotNull String IdUser, @NotNull Product product, Date createDate, @Min(1) int Quantity   ) {
 		super();
 		this.IdImport = IdImport;
 		this.IdUser = IdUser;
 		this.product = product;
 		this.createDate = createDate;
-		this.updateDate = updateDate;
+//		this.updateDate = updateDate;
 		this.Quantity = Quantity;
 	}
 
@@ -98,14 +98,14 @@ public class Import {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
+//
+//	public Date getUpdateDate() {
+//		return updateDate;
+//	}
+//
+//	public void setUpdateDate(Date updateDate) {
+//		this.updateDate = updateDate;
+//	}
 
 	public int getQuantity() {
 		return Quantity;
