@@ -16,33 +16,15 @@ public interface ProductService {
 
 	<S extends Product> List<S> findAll(Example<S> example);
 
-	void deleteAll();
-
-	<S extends Product> boolean exists(Example<S> example);
-
-	void deleteAll(Iterable<? extends Product> entities);
-
 	<S extends Product> long count(Example<S> example);
 
 	void delete(Product entity);
 
-	Product getOne(Integer id);
-
 	void deleteById(Integer id);
-
-	void deleteAllInBatch();
 
 	long count();
 
 	<S extends Product> Page<S> findAll(Example<S> example, Pageable pageable);
-
-	void deleteInBatch(Iterable<Product> entities);
-
-	<S extends Product> S saveAndFlush(S entity);
-
-	void flush();
-
-	boolean existsById(Integer id);
 
 	<S extends Product> List<S> saveAll(Iterable<S> entities);
 
@@ -71,5 +53,14 @@ public interface ProductService {
 	List<Product> showListProductForIndex();
 
 	List<Product> listProduct();
+
+	List<Product> listProductPriceAsc();
+
+	List<Product> listProductPriceDesc();
+
+	List<Product> listProductNewBest();
+
+	List<Product> showListProductByIdCategoryFilter(int idCategory);
+
 
 }

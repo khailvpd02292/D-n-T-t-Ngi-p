@@ -40,50 +40,58 @@ public class HomeController {
 	}
 
 	@GetMapping("/product")
-	public String ShowListProduct(ModelMap model, HttpServletRequest request,RedirectAttributes redirect) {
+	public String showListProduct(ModelMap model) {
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
-		
-		request.getSession().setAttribute("productlist", null);
-		
-		return "redirect:/index/product/page/1";
-	}
-	
-	@GetMapping("/product/page/{pageNumber}")
-	public String showProductPage(HttpServletRequest request, @PathVariable int pageNumber, Model model) {
-		model.addAttribute("product", this.productService.findAll());
-		model.addAttribute("category", this.categoryService.findAll());
-		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
-		int pagesSize = 8;
-		List<Product> list = productService.listProduct();
-		System.out.println(list.size());
-		
-		if (pages == null) {
-			pages = new PagedListHolder<>(list);
-			pages.setPageSize(pagesSize);
-		} else {
-			final int goToPage = pageNumber -1;
-			if (goToPage <= pages.getPageCount() && goToPage >=0) {
-				pages.setPage(goToPage);
-			}
-		}
-		request.getSession().setAttribute("productlist", pages);
-		int current = pages.getPage() +1;
-		int begin = Math.max(1, current - list.size());
-		int end = Math.min(begin +5, pages.getPageCount());
-		int totalPageCount = pages.getPageCount();
-		String baseUrl  = "/product/page/";
-		
-		model.addAttribute("beginIndex", begin);
-		model.addAttribute("endIndex", end);
-		model.addAttribute("currentIndex", current);
-		model.addAttribute("totalPageCount", totalPageCount);
-		model.addAttribute("baseUrl", baseUrl);
-		model.addAttribute("product", pages);
-		
-		
+		model.addAttribute("showProduct", this.productService.listProduct());
 		return "shop/shop";
 	}
+//	@GetMapping("/product")
+//	public String ShowListProduct(ModelMap model, HttpServletRequest request,RedirectAttributes redirect) {
+//		model.addAttribute("product", this.productService.findAll());
+//		model.addAttribute("category", this.categoryService.findAll());
+//		
+//		model.addAttribute("listProduct", this.productService.listProduct());
+//		request.getSession().setAttribute("productlist", null);
+//		
+//		return "redirect:/index/product/page/1";
+//	}
+//	
+//	@GetMapping("/product/page/{pageNumber}")
+//	public String showProductPage(HttpServletRequest request, @PathVariable int pageNumber, Model model) {
+//		model.addAttribute("product", this.productService.findAll());
+//		model.addAttribute("category", this.categoryService.findAll());
+//		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
+//		int pagesSize = 8;
+//		List<Product> list = productService.listProduct();
+//		System.out.println(list.size());
+//		
+//		if (pages == null) {
+//			pages = new PagedListHolder<>(list);
+//			pages.setPageSize(pagesSize);
+//		} else {
+//			final int goToPage = pageNumber -1;
+//			if (goToPage <= pages.getPageCount() && goToPage >=0) {
+//				pages.setPage(goToPage);
+//			}
+//		}
+//		request.getSession().setAttribute("productlist", pages);
+//		int current = pages.getPage() +1;
+//		int begin = Math.max(1, current - list.size());
+//		int end = Math.min(begin +5, pages.getPageCount());
+//		int totalPageCount = pages.getPageCount();
+//		String baseUrl  = "/product/page/";
+//		
+//		model.addAttribute("beginIndex", begin);
+//		model.addAttribute("endIndex", end);
+//		model.addAttribute("currentIndex", current);
+//		model.addAttribute("totalPageCount", totalPageCount);
+//		model.addAttribute("baseUrl", baseUrl);
+//		model.addAttribute("product", pages);
+//		
+//		
+//		return "shop/shop";
+//	}
 
 	@GetMapping("/about")
 	public String ShowAbout(ModelMap model) {
@@ -122,7 +130,7 @@ public class HomeController {
 		model.addAttribute("showProductSingle", this.productService.findById(id).get());
 		
 		
-		
+		Optional<Product> p = productService.findById(product.getIdProduct());
 			
 //			model.addAttribute("showProduct", this.productService.showListCategoryByIdCategory(id));
 //		}
@@ -145,40 +153,5 @@ public class HomeController {
 		return "shop/searchProduct";
 	}
 	
-//	@GetMapping("/searchProduct/page/{pageNumber}")
-//	public String showSearchProductByIdCategory(Model model, HttpServletRequest request, @PathVariable int pageNumber, @RequestParam("key") String key) {
-//		model.addAttribute("product", this.productService.findAll());
-//		model.addAttribute("category", this.categoryService.findAll());
-//		
-//		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productList");
-//		int pageSize = 8;
-//		List<Product> list = productService.searchListProductByIdCategory(key);
-//		System.out.println(list);
-//		
-//		if (pages == null) {
-//			pages = new PagedListHolder<>(list);
-//			pages.setPageSize(pageSize);
-//		} else {
-//			final int goToPage = pageNumber -1;
-//			if (goToPage<= pages.getPageCount() && goToPage >=0) {
-//				pages.setPage(goToPage);
-//			}
-//		}
-//		request.getSession().setAttribute("productList", pages);
-//		int current = pages.getPage() +1;
-//		int begin = Math.max(1, current - list.size());
-//		int end = Math.min(begin +5, pages.getPageCount());
-//		int totalPageCount = pages.getPageCount();
-//		String baseUrl = "/searchProduct/page/";
-//		
-//		model.addAttribute("beginIndex", begin);
-//		model.addAttribute("endIndex", end);
-//		model.addAttribute("currentIndex", current);
-//		model.addAttribute("totalPageCount", totalPageCount);
-//		model.addAttribute("baseUrl", baseUrl);
-//		model.addAttribute("searchProduct", pages);
-//		
-//		return "shop/searchProduct";
-//	}
 	
 }

@@ -190,13 +190,13 @@
                           <th></th>
                         </tr>
                       </thead>
-                      <tbody id="dataCategory">
+                      <tbody>
                         <tr th:each = "category : ${category}">
                         
-                          <td id="nameCategory-${category.idCategory}" th:text = "${category.name}"></td>
+                          <td th:text = "${category.name}"></td>
                           <td>
-                              <button class="btn btn-info" onclick="setDataUpdateCategory('${category.idCategory}')" data-toggle="modal" data-target="#updateCategory">Cập Nhập</button>
-                              <button class="btn btn-danger" th:href="@{'/manager/deleteCategory/'+${category.idCategory}}">Xóa</button>
+                              <a class="btn btn-info" th:href="@{'/manager/updateCategory/'+${category.idCategory}}">Cập Nhập</a>
+                              <a class="btn btn-danger" th:href="@{'/manager/deleteCategory/'+${category.idCategory}}">Xóa</a>
                           </td>
                           
                         </tr>
@@ -232,7 +232,7 @@
     <!-- Modal -->
 		
     
-		 <div id="addCategory" class="modal fade" role="dialog">
+		  <div id="addCategory" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
 		
 		    <!-- Modal content-->
@@ -251,32 +251,6 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-primary" onclick="addAjaxCategory()" data-dismiss="modal">Lưu</button>
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-		      </div>
-		    </div>
-		
-		  </div>
-		</div>
-		
-		<!-- updateCategory -->
-		
-		<div id="updateCategory" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-		
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h4 class="modal-title">Danh Mục</h4>
-		      </div>
-		      <div class="modal-body">
-		        <p>Sửa danh mục</p>
-		        <div class="form-group">
-				    <label for="exampleInputEmail1">Tên Danh Mục</label>
-				    <input type="text" class="form-control" id="nameUpdateCategory">
-				 </div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" onclick="updateAjaxCategory()" data-dismiss="modal">Lưu</button>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
 		      </div>
 		    </div>
@@ -307,41 +281,14 @@
 	<script th:src="@{/assets/vendors/datatables/jquery.dataTables.js}"></script>
 	<script th:src="@{/assets/vendors/datatables/dataTables.bootstrap4.js}"></script>
 	<script type="text/javascript">
-		/* $(document).ready(function() {
+		$(document).ready(function() {
 			$('#dataTable-listCategory').DataTable({
 				"lengthChange" : false,
 				"info" : false,
 				"pageLength" : 2
 			});
-		}); */
-		function listHtml(result){
-			var listCategory = result;
-			
-			var origin   = window.location.origin;
-			var pathname = $(location).attr('pathname');
-			pathname.indexOf(1);
-			pathname.toLowerCase();
-			pathname = pathname.split("/")[1];
-			if(listCategory == null){
-				alert("Failed");
-			}else{
-				$('#dataCategory').empty();
-				
-				$.each(listCategory, function(i, item){
-					
-					var html = '<tr>'
-					
-                    +'<td id="nameCategory-'+item.idCategory+'">'+item.name+'</td>'
-                    +'<td>'
-                        +'<button class="btn btn-info" onclick="setDataUpdateCategory('+item.idCategory+')" data-toggle="modal" data-target="#updateCategory">Cập Nhập</button>'
-                        +'<button class="btn btn-danger" href="' + origin +'/'+ pathname + '/deleteCategory/'+ item.idCategory+ '">Xóa</button>'
-                    +'</td>'
-                  +'</tr>';
-					
-					$('#dataCategory').append(html);
-				});
-			}
-		}
+		});
+		
 		function addAjaxCategory(){
 			var dataCategory = {
 				"name" : $('#nameAddCategory').val()
@@ -353,54 +300,11 @@
 				url : "/manager/addAjaxCategory",
 				data : JSON.stringify(dataCategory),
 				success : function(result){
-					listHtml(result);
+					alert('ok');
 				},
 				error: function(result){
 					alert('failedd');
 				}
-			});
-		}
-		
-		function setDataUpdateCategory(idCategory){
-			$('#nameUpdateCategory').val($('#nameCategory-'+idCategory).text());
-		}
-		
-		function updateAjaxCategory(){
-			var dataCategory = {
-					"name" : $('#nameUpdateCategory').val()
-			}
-			$.ajax({
-				type : "POST",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/manager/updateAjaxCategory",
-				data : JSON.stringify(dataCategory),
-				success : function(result){
-					listHtml(result);
-				},
-				error: function(result){
-					alert('failed');
-				}
-			});
-		}
-		function setDataDeleteProduct(idCategory){
-			$('#idCategoryDelete').val($('#nameCategory'+idCategory).text());
-		}
-		function deleteAjaxCategory(){
-			var idCategory = parseInt($('#idCategoryDetele').parent().find('#idCategoryDelete').val());
-			$.ajax({
-				type : 'POST',
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/index.deleteAjaxCategory/"+idCategory,
-				success : function(result){
-					listHtml(result);
-				},
-				error : function(result){
-					 alert('failed');
-				}
-				
-				
 			});
 		}
 	</script>

@@ -45,6 +45,43 @@
 <link rel="stylesheet" th:href="@{/css/slick.css}">
 <link rel="stylesheet" th:href="@{/css/nouislider.min.css}">
 
+<style type="text/css">
+
+.simple-pagination ul {
+	margin: 0 0 20px;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.simple-pagination li {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.simple-pagination li a,
+.simple-pagination li span {
+	color: #666;
+	padding: 5px 10px;
+	text-decoration: none;
+	border: 1px solid #EEE;
+	background-color: #FFF;
+	box-shadow: 0px 0px 10px 0px #EEE;
+}
+
+.simple-pagination .current {
+	color: #FFF;
+	background-color: #FF7182;
+	border-color: #FF7182;
+}
+
+.simple-pagination .prev.current,
+.simple-pagination .next.current {
+	background: #e04e60;
+}
+
+</style>
+
 </head>
 <body class="goto-here">
 	<div th:replace="fragment/header::header"></div>
@@ -67,13 +104,25 @@
 		
 
 		<section class="ftco-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-lg-3 ftco-animate" th:each="product : ${product.pageList}">
-						<div class="product">
-							<a th:href="@{'/index/showProductSingle/'+${product.idProduct}}" class="img-prod"><img class="img-fluid"
-								th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}" alt="Colorlib Template"> <span
-								class="status"></span> </a>
+			<div class="dropdown" style="margin-left: 120px;">
+				  <button class="btn btn-primary"style="margin-right: 10px;"  data-toggle="modal" data-target="#modalFilter">Lọc theo danh mục</button>				
+				  <a style="margin-right: 10px;" href="#">Sắp Xếp theo:</a>
+				  <button class="btn btn-primary" type="button" onclick="listProductNewBest()">Mới Nhất</button>
+				  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Giá
+			  		<span class="caret"></span></button>
+			  		<ul class="dropdown-menu">
+					    <li><button style="hover: color=red;" class="dropdown-item" onclick="listProductPriceDesc()">Giá cao đến thấp</button></li>
+					    <li><button class="dropdown-item" onclick="listProductPriceAsc()">Giá thấp đến cao</button></li>
+			  		</ul>
+			</div>
+			<div class="container" id="">
+				<div class="row" id="dataProduct">
+					
+						 <div class="col-md-6 col-lg-3 ftco-animate" th:each="product : ${showProduct}">
+							<div class="product">
+							<a th:href="@{'/index/showProductSingle/'+${product.idProduct}}" class="img-prod">
+							<img class="img-fluid" th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}" alt="Colorlib Template"> 
+							<span class="status"></span> </a>
 							<div class="text py-3 pb-4 px-3 text-center">
 								<h3>
 									<a href="#" th:text="${product.name}"></a>
@@ -96,20 +145,19 @@
 							</div>
 						</div>
 					</div>
+						
 					
 					
-
-
 				</div>
 				<div class="row mt-5">
 					<div class="col text-center">
-						<div class="block-27">
-							<ul>
+						<div class="block-27" id="pagination-container">
+							<!--  <ul>
 								<li th:class="${currentIndex  == 1}? 'page-item disabled' : 'page-item'">
 								<a th:href="@{/index/product}">First</a>
 								</li>
 								<li class="active" th:class="${currentIndex  == 1}? 'page-item disabled' : 'page-item'">
-								<a th:href="@{|/index${baseUrl}${currentIndex- 1}|}" title='Go to previous page'>
+								<a id="preeValue" th:href="@{|/index${baseUrl}${currentIndex- 1}|}" title='Go to previous page'>
 									<span aria-hidden="true">«</span>
 									<span class="sr-only">Previous</span>
 								</a>
@@ -120,20 +168,22 @@
 									</a>
 								</li>
 								<li th:class="${currentIndex == totalPageCount}? 'page-item disabled' : 'page-item'">
-									<a th:href="@{|/index${baseUrl}${currentIndex+1}|}" title='Go to next page'>
+									<a id="nextValue" th:href="@{|/index${baseUrl}${currentIndex+1}|}" title='Go to next page'>
 										<span aria-hidden="true">»</span> <span class="sr-only">Next</span>
 									</a>
 								</li>
 								<li th:class="${currentIndex == totalPageCount}? 'page-item disabled' : 'page-item'">
-								<a th:href="@{|/index${baseUrl}${totalPageCount}|}">Last</a>
+								<a th:href="@{|/index${baseUrl}${totalPageCount}|}">Last</a> 
+								
 								</li>
-							</ul>
+							</ul> -->
+							
 						</div>
 					</div>
 				</div>
+				<!-- end -->
 			</div>
 		</section>
-
 		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
 			<div class="container py-4">
 				<div class="row d-flex justify-content-center py-5">
@@ -155,86 +205,8 @@
 				</div>
 			</div>
 		</section>
-		<footer class="ftco-footer ftco-section">
-			<div class="container">
-				<div class="row">
-					<div class="mouse">
-						<a href="#" class="mouse-icon">
-							<div class="mouse-wheel">
-								<span class="ion-ios-arrow-up"></span>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="row mb-5">
-					<div class="col-md">
-						<div class="ftco-footer-widget mb-4">
-							<h2 class="ftco-heading-2">Nông Sản</h2>
-							<p>Far far away, behind the word mountains, far from the
-								countries Vokalia and Consonantia.</p>
-							<ul
-								class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-								<li class="ftco-animate"><a href="#"><span
-										class="icon-twitter"></span></a></li>
-								<li class="ftco-animate"><a href="#"><span
-										class="icon-facebook"></span></a></li>
-								<li class="ftco-animate"><a href="#"><span
-										class="icon-instagram"></span></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md">
-						<div class="ftco-footer-widget mb-4 ml-md-5">
-							<h2 class="ftco-heading-2">Trang Chủ</h2>
-							<ul class="list-unstyled">
-								<li><a href="#" class="py-2 d-block">Danh mục</a></li>
-								<li><a href="#" class="py-2 d-block">Sản Phẩm</a></li>
-								<li><a href="#" class="py-2 d-block">Giới Thiệu</a></li>
-								<li><a href="#" class="py-2 d-block">Liên Hệ</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="ftco-footer-widget mb-4">
-							<h2 class="ftco-heading-2">Trợ Giúp</h2>
-							<div class="d-flex">
-								<ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-									<li><a href="#" class="py-2 d-block">Thông Tin</a></li>
-									<li><a href="#" class="py-2 d-block">Returns &amp;
-											Exchange</a></li>
-									<li><a href="#" class="py-2 d-block">Terms &amp;
-											Conditions</a></li>
-									<li><a href="#" class="py-2 d-block">Privacy Policy</a></li>
-								</ul>
-								<!-- <ul class="list-unstyled">
-						  <li><a href="#" class="py-2 d-block">FAQs</a></li>
-						  <li><a href="#" class="py-2 d-block">Contact</a></li>
-						</ul> -->
-							</div>
-						</div>
-					</div>
-					<div class="col-md">
-						<div class="ftco-footer-widget mb-4">
-							<h2 class="ftco-heading-2">Địa Chỉ</h2>
-							<div class="block-23 mb-3">
-								<ul>
-									<li><span class="icon icon-map-marker"></span><span
-										class="text">457/73 Tôn Đức Thắng Quận Liên Chiểu TP Đà
-											Nẵng</span></li>
-									<li><a href="#"><span class="icon icon-phone"></span><span
-											class="text">+2 392 3929 210</span></a></li>
-									<li><a href="#"><span class="icon icon-envelope"></span><span
-											class="text">info@yourdomain.com</span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	
-	</footer>
-
-
+		
+		<footer class="ftco-footer ftco-section" th:replace="fragment/footer::footer"></footer>
 
 	<!-- loader -->
 	<div id="ftco-loader" class="show fullscreen">
@@ -245,27 +217,237 @@
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
 
+  <!-- modal filter -->
+  
+		  <div id="modalFilter" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Danh mục</h4>
+		      </div>	
+		      <div class="modal-body" th:each= "cate : ${category}">
+		        	<ul>
+		        		<li>
+		        			<input type="checkbox" name="idCategory" th:value="${cate.idCategory}">
+		        			<span th:text="${cate.name}"></span>
+		        		</li>
+		        	</ul>
+		      </div>
+		      <div class="modal-footer">
+		      <button onclick="showListProductByIdFilter()" type="button" class="btn btn-default" data-dismiss="modal">Lọc</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
 
-	<script th:src="@{/js/jquery.min.js}"></script>
-	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+
+	 <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script> 
+	 <!-- <script th:src="@{/js/jquery.min.js}"></script> --> 
+	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script> 
+	<!-- <script th:src="@{/js/jquery.simplePagination.js}"></script> -->
 	<script th:src="@{/js/popper.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/jquery.easing.1.3.js}"></script>
 	<script th:src="@{/js/jquery.waypoints.min.js}"></script>
 	<script th:src="@{/js/jquery.stellar.min.js}"></script>
 	<script th:src="@{/js/owl.carousel.min.js}"></script>
-	<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+	 <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 	<script th:src="@{/js/aos.js}"></script>
-	<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+	 <script th:src="@{/js/jquery.animateNumber.min.js}"></script>
 	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
 	<script th:src="@{/js/scrollax.min.js}"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script th:src="@{/js/google-map.js}"></script>
+	
+	<!-- <script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
+	<!-- <script th:src="@{/js/google-map.js}"></script> -->
 	<script th:src="@{/js/main.js}"></script>
 	<script type="text/javascript">
-		function searchProduct(){
-			var key  = $('#nameProduct').val();
+		
+	
+/* 	var items = $(".container .row");
+    var numItems = items.length;
+    var perPage = 4;
+
+    items.slice(perPage).hide();
+
+    $('#pagination-container').pagination({
+        items: numItems,
+        itemsOnPage: perPage,
+        prevText: "&laquo;",
+        nextText: "&raquo;",
+        onPageClick: function (pageNumber) {
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+            items.hide().slice(showFrom, showTo).show();
+        }
+    });
+	 */
+	
+	
+	
+	
+	var dataPageProduct = "1";
+	function detailHtml(result){
+		var listProduct = result;
+		var origin   = window.location.origin;
+		var pathname = $(location).attr('pathname');
+		pathname.indexOf(1);
+		pathname.toLowerCase();
+		pathname = pathname.split("/")[1];
+		if(listProduct == null){
+			alert("Failed");
+		}else{
+			
+			var dataProduct = $('#dataProduct'); 
+			var max_size = listProduct.length;
+			var start = 0;
+			var element_page = 4;
+			var limit = element_page;
+			
+			/* dataProduct.empty(); */
+			dataProduct.empty();
+			listPageProduct(start, limit);
+			
+			 function listPageProduct(start, limit){
+				var page = max_size / element_page;
+				if(page % 2 == 0){
+					listProductpage = page+1;
+				}else{
+					listProductpage = page;
+				}
+				
+				
+				for(var i = start; i < limit; i++){
+					console.log(listProduct)
+					var html = '<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">'
+						+'<div class="product">'
+					+ '<a href="' + origin +'/'+ pathname + '/showProductSingle/'+ listProduct[i]['idProduct']+ '" class="img-prod">'
+				 	+'<img class="img-fluid" src="data:image/png;base64,'+listProduct[i]['imageBase64']+'" alt="Colorlib Template">'
+					+'<span class="status"></span> </a>'
+						+'<div class="text py-3 pb-4 px-3 text-center">'
+							+'<h3>'
+								+'<a href="#">' +listProduct[i]['name']+ '</a>'
+							+'</h3>'
+							+'<div class="d-flex">'
+								+'<div class="pricing">'
+								+'<p class="price">'
+								+'<span class="price-sale">' +listProduct[i]['price']+ '</span>'
+								+'</p>'
+								+'</div>'
+								+'</div>'
+								+'<div class="bottom-area d-flex px-3">'
+								+'<div class="m-auto d-flex">'
+								+'<a href="' + origin + '/' +pathname+ '/showProductSingle/' +listProduct[i]['idProduct']+ '"'
+								+'class="buy-now d-flex justify-content-center align-items-center mx-1">'
+								+'<span><i class="ion-ios-cart"></i></span>'
+								+'</a>'
+								+'</div>'
+								+'</div>'
+								+'</div>'
+						+'</div>'
+						+'</div>';
+						
+						
+					dataProduct.append(html);
+				}
+			}
+			 detailHtmlPage(listProductpage,dataProduct);
+				$('.pageNumber').click(function(){
+					var numberPage = parseInt($(this).attr("data-page"))+1;
+					if(numberPage > dataPageProduct){
+						limit = element_page + limit;
+						start = (start + element_page);
+						dataProduct.empty();
+						
+						
+						dataPageProduct = numberPage;
+						listPageProduct(start, limit);
+						detailHtmlPage(listProductpage,dataProduct);
+					}else{
+						
+						limit = limit -	element_page;
+						start = start - element_page;
+						dataPageProduct = numberPage;
+						
+						dataProduct.empty();
+						listPageProduct(start, limit);
+						detailHtmlPage(listProductpage,dataProduct);
+					}
+					
+				}); 
+				
+			$('#nextValue').click(function(){
+				var numberPage = parseInt(dataPageProduct) + 1 ;
+				var next = limit;
+				if(next >= dataPageProduct){
+					limit = element_page + limit;
+					start = (start + element_page);
+					dataPageProduct = numberPage;
+					dataProduct.empty();
+					listPageProduct(start, limit);
+					detailHtmlPage(listProductpage,dataProduct);
+				}
+			});
+			
+			$('#preeValue').click(function(){
+				var numberPage = parseInt(dataPageProduct) ;
+				var pre = limit-(2*element_page);
+				if(pre >= 0) {
+					limit = limit -	element_page;
+					start = start - element_page;
+					dataPageProduct = numberPage;
+					dataProduct.empty();
+					listPageProduct(start, limit);
+					detailHtmlPage(listProductpage,dataProduct);
+				}
+			});
+			
+			
+		  }
+			
+		}
+		
+	function detailHtmlPage(listProductpage,dataProduct){
+		 var html = '<div >'
+				+'<button id="preeValue">Pre</button>'
+				+'<span id="pageNumbers"></span>'
+				+'<button id="nextValue">Next</button>'
+				+'</div>';
+				dataProduct.append(html);
+			 for(var j = 1 ; j < listProductpage ; j++){
+					var item = '<button class="pageNumber" data-page="'+j+'">'+j+'</button>';
+					$('#pageNumbers').append(item);
+				}
+				
+	}
+	
+	/* 
+	$(document).ready(function(){
+		  $('#showProduct').click(function(){
+		    $('#dataProduct').show("slow",function listProduct(){
+				$.ajax({
+					type : "POST",
+					contentType : "application/json; charset=utf-8",
+					dataType : 'json',
+					url : "/index/listProductAjax",
+					sussess : function(result){
+						detailHtml(result);
+					},
+					errror : function(result){
+						alert('failed');
+					}
+				}); 
+		  });
+		}); */
+	function searchProduct(){
+		var key  = $('#nameProduct').val();
 			$.ajax({
 				type: "POST",
 				contentType : "application/json; charset=utf-8",
@@ -274,6 +456,76 @@
 				success: function(result){
 					
 				},
+				
+			});
+		}
+		
+	function listProductNewBest(){
+			$.ajax({
+				type: "GET",
+				contentType : "application/json; charset=utf-8",
+				dataType : 'json',
+				async : false,
+				url : "/index/listProductNewBest",
+				success : function(result){
+					/* alert('ok'); */
+					detailHtml(result);
+				},
+				error: function(result){
+					
+					console.log(result);
+					alert('failedd');
+				}
+				
+			});
+		}
+	function listProductPriceDesc(){
+			$.ajax({
+				type: "GET",
+				contentType : "application/json; charset=utf-8",
+				dataType : 'json',
+				url : "/index/listProductPriceDesc",
+				success : function(result){
+					detailHtml(result);
+				},
+				error: function(result){
+					alert('failedd');
+				}
+			});
+		}
+	function listProductPriceAsc(){
+			$.ajax({
+				type: "GET",
+				contentType : "application/json; charset=utf-8",
+				dataType : 'json',
+				url : "/index/listProductPriceAsc",
+				success : function(result){
+					detailHtml(result);
+				},
+				error: function(result){
+					alert('failedd');
+				}
+			});
+		}
+		
+		// filter
+	function showListProductByIdFilter(){
+			var id = [];
+	        $.each($("input[name='idCategory']:checked"), function(){
+	            id.push($(this).val());
+	        });
+			$.ajax({
+				type: "POST",
+				contentType : "application/json; charset=utf-8",
+				dataType : 'json',
+				url : "/index/listProductByIdCategoryFilter/" +id,
+				success : function(result){
+					detailHtml(result);
+					$('idCategory').val('');
+				},
+				error: function(result){
+					alert('failed');
+				}
 				
 			});
 		}

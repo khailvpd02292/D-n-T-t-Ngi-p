@@ -3,6 +3,7 @@ package edu.poly.Du_An_Tot_Ngiep.Repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -22,10 +23,23 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query(value = "select * from product where id_category like %?% ", nativeQuery = true)
 	List<Product> showListCategoryByIdCategory(int idCateogry);
-	
+
 	@Query(value = "select top 8 * from product", nativeQuery = true)
 	List<Product> showListProductForIndex();
-	
+
+	@Modifying
 	@Query(value = "select * from product", nativeQuery = true)
 	List<Product> listProduct();
+
+	@Query(value = " select * from product order by id_product desc", nativeQuery = true)
+	List<Product> listProductNewBest();
+
+	@Query(value = "select * from product order by price desc", nativeQuery = true)
+	List<Product> listProductPriceDesc();
+
+	@Query(value = "select * from product order by price asc", nativeQuery = true)
+	List<Product> listProductPriceAsc();
+	
+	@Query(value = "select * from product where id_category = ?", nativeQuery = true)
+	List<Product> showListProductByIdCategoryFilter(int idCategory);
 }

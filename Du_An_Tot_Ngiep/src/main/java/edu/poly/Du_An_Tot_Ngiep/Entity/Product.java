@@ -1,10 +1,12 @@
 package edu.poly.Du_An_Tot_Ngiep.Entity;
 
+import java.io.Serializable;
 import java.util.Base64;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,10 +21,13 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Serializable {
 
+	private static final long serialVersionUID = -7893237204476214050L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idProduct;
@@ -31,6 +36,8 @@ public class Product {
 	private String name;
 	@Min(value = 1000)
 	private double price;
+	
+	@JsonIgnore
 	@Lob
 	@Column(name = "image")
 	private byte[] image;
@@ -42,6 +49,7 @@ public class Product {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "dateOfManufacture")
 	private Date dateOfManufacture;
+
 
 	@NotNull
 	@ManyToOne
@@ -135,6 +143,10 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }
