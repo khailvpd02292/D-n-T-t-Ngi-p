@@ -87,7 +87,7 @@ public class HomeController {
 				}
 			}
 		}
-//		initHomeResponse(model);
+		initHomeResponse(model);
 //		AppUtils.getCookie("account", request)
 //			.ifPresent(cookie -> {
 //				User user = this.userService.findByEmail(cookie.getValue()).get();

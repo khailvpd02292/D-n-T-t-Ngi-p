@@ -94,7 +94,8 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/manager/listUser")
-	public String listProduct(ModelMap model, @CookieValue(value = "account") String username,HttpServletRequest request, HttpServletResponse response) {
+	public String listProduct(ModelMap model, @CookieValue(value = "account") String username
+			,HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("listuser", this.userService.findAll());
 		model.addAttribute("username", username);
 		getName(request, model);		
