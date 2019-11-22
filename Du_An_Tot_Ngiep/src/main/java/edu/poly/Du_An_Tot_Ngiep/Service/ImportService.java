@@ -1,34 +1,32 @@
 package edu.poly.Du_An_Tot_Ngiep.Service;
 
+import java.util.List;
 import java.util.Optional;
 
-import edu.poly.Du_An_Tot_Ngiep.Entity.Import;
+import edu.poly.Du_An_Tot_Ngiep.Entity.Imports;
 
 public interface ImportService {
 
-	void deleteAll();
 	
-	void deleteAll(Iterable<? extends Import> entities);
 	
-	void delete(Import entity);
+	void delete(Imports entity);
 	
 	void deleteById(Integer id);
 	
 	long count();
 	
-	Iterable<Import> findAllbyId(Iterable<Integer> ids);
 	
-	Iterable<Import> findAll();
-	
-	boolean existsById(Integer id);
-	
-	Optional<Import> findById(Integer id);
-	
-	<S extends Import> Iterable<S> saveAll(Iterable<S> entities);
-	
-	<S extends Import> S save (S entity);
+	Iterable<Imports> findAll();
 	
 	
-	Optional<Import> findByName(String idUser);
+	Optional<Imports> findById(Integer id);
+	
+	
+	<S extends Imports> S save (S entity);
+
+
+	List<Imports> listImport();
+
+	Imports findByIdImport(int idImport);
 	
 }

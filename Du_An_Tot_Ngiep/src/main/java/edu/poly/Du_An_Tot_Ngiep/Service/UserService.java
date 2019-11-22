@@ -39,6 +39,9 @@ public interface UserService {
 
 	Optional<User> findByName(String name);
 
+	User findByIdUser(int id);
+
+	List<User> listUser();
 	
 
 	

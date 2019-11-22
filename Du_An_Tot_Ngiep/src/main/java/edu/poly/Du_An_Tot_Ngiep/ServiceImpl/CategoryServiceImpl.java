@@ -3,6 +3,8 @@ package edu.poly.Du_An_Tot_Ngiep.ServiceImpl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -22,9 +24,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public <S extends Category> S save(S entity) {
+		
 		return categoryRepository.save(entity);
 	}
-
 	@Override
 	public <S extends Category> Optional<S> findOne(Example<S> example) {
 		return categoryRepository.findOne(example);
@@ -32,8 +34,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 
 	@Override
-	public List<Category> showCategoryByProduct(int idCategory) {
-		return categoryRepository.showCategoryByProduct(idCategory);
+	public Category findCateById(int id) {
+		return categoryRepository.findCateById(id);
+	}
+	@Override
+	public List<Category> listCategory() {
+		return categoryRepository.listCategory();
 	}
 
 	@Override
@@ -46,6 +52,16 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.findAll(sort);
 	}
 
+
+	@Override
+	public void updateCategory(Category category) {
+		categoryRepository.updateCategory(category);
+	}
+
+	@Override
+	public List<Category> findCategoryById(int id) {
+		return categoryRepository.findCategoryById(id);
+	}
 	@Override
 	public Optional<Category> findById(Integer id) {
 		return categoryRepository.findById(id);
@@ -128,6 +144,13 @@ public class CategoryServiceImpl implements CategoryService {
 	public <S extends Category> List<S> findAll(Example<S> example, Sort sort) {
 		return categoryRepository.findAll(example, sort);
 	}
+
+	@Override
+	public List<Category> showCategoryByProduct(int idCategory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	
 }

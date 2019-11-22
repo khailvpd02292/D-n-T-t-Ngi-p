@@ -25,9 +25,13 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.util.WebUtils;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Category;
+import edu.poly.Du_An_Tot_Ngiep.Entity.FeedBack;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
+import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.CategoryService;
+import edu.poly.Du_An_Tot_Ngiep.Service.FeedBackService;
 import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
+import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
 
 @Controller
 public class ManagerController {
@@ -37,24 +41,48 @@ public class ManagerController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private FeedBackService feedBackService;
+
+	void getName(HttpServletRequest request, ModelMap model) {
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; i < cookies.length; ++i) {
+			if (cookies[i].getName().equals("account")) {
+				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+				model.addAttribute("fullname", user.getFullname());
+				break;
+			}
+		}
+	}
 
 	@GetMapping(value = "/manager")
-	public String manager(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+	public String manager(ModelMap model, @CookieValue(value = "account") String username, HttpServletRequest request,
+			HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
 				if (cookies[i].getName().equals("account")) {
+					model.addAttribute("username", username);
+					getName(request, model);
 					return "/manager/home/index";
 				}
 			}
 		}
+
 		return "redirect:/login";
 	}
 
 	@GetMapping(value = "/manager/listCategory")
-	public String listCategory(ModelMap model) {
-		List<Category> list = categoryService.findAll();
+	public String listCategory(ModelMap model, @CookieValue(value = "account") String username,
+			HttpServletRequest request, HttpServletResponse response) {
+		List<Category> list = categoryService.listCategory();
 		model.addAttribute("category", list);
+		model.addAttribute("username", username);
+		getName(request, model);
 		return "/manager/category/listCategory";
 	}
 
@@ -103,8 +131,11 @@ public class ManagerController {
 
 	// table product
 	@GetMapping(value = "/manager/listProduct")
-	public String listProduct(ModelMap model) {
-		model.addAttribute("product", this.productService.findAll());
+	public String listProduct(ModelMap model, @CookieValue(value = "account") String username,
+			HttpServletRequest request, HttpServletResponse response) {
+		model.addAttribute("product", this.productService.listProduct());
+		model.addAttribute("username", username);
+		getName(request, model);
 		return "/manager/product/listProduct";
 	}
 
@@ -168,6 +199,26 @@ public class ManagerController {
 		this.productService.deleteById(id);
 		return "redirect:/manager/listProduct";
 	}
+
+	// feedback
+
+	@GetMapping(value = "/manager/feedback")
+	public String listFeedBack(ModelMap model, @CookieValue(value = "account") String username,HttpServletRequest request, HttpServletResponse response) {
+		model.addAttribute("username", username);
+		getName(request, model);
+		this.feedBackService.findAll();
+		return "/manager/feedback/feedback";
+	}
+	
+	@PostMapping(value = "index/contact")
+	public String addFeedBack(@ModelAttribute(name = "feedback")@Valid FeedBack feedBack, BindingResult result) {
+		if (result.hasErrors()) {
+			return "shop/contact";
+		}
+		this.feedBackService.save(feedBack);
+		return "shop/contact";
+	}
+
 
 	// product Detail
 

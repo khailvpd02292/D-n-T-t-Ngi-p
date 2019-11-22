@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Category;
@@ -53,5 +51,14 @@ public interface CategoryService {
 	<S extends Category> S save(S entity);
 
 	List<Category> showCategoryByProduct(int idCategory);
+
+
+	List<Category> listCategory();
+
+	void updateCategory(Category category);
+
+	List<Category> findCategoryById(int id);
+
+	Category findCateById(int id);
 
 }

@@ -81,6 +81,16 @@ public class UserSeviceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> listUser() {
+		return userRepository.listUser();
+	}
+
+	@Override
+	public User findByIdUser(int id) {
+		return userRepository.findByIdUser(id);
+	}
+
+	@Override
 	public Optional<User> findByName(String name) {
 		return userRepository.findByName(name);
 	}
