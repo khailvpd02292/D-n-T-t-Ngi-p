@@ -1,5 +1,6 @@
 package edu.poly.Du_An_Tot_Ngiep.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.poly.Du_An_Tot_Ngiep.Entity.FeedBack;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.CategoryService;
@@ -59,6 +61,7 @@ public class HomeController {
 //	}
 	
 	void getName(HttpServletRequest request, ModelMap model) {
+		//show user
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
 			if (cookies[i].getName().equals("account")) {
@@ -77,16 +80,8 @@ public class HomeController {
 
 	@GetMapping()
 	public String Home(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					model.addAttribute("fullname", user.getFullname());
-					break;
-				}
-			}
-		}
+		//show user
+		cookieDetail(model, request, response);
 		initHomeResponse(model);
 //		AppUtils.getCookie("account", request)
 //			.ifPresent(cookie -> {
@@ -98,67 +93,40 @@ public class HomeController {
 	}
 
 	@GetMapping("/product")
-	public String ShowListProduct(ModelMap model, HttpServletRequest request, RedirectAttributes redirect) {
+	public String ShowListProduct(ModelMap model, RedirectAttributes redirect, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
-
-		request.getSession().setAttribute("productlist", null);
-
-		return "redirect:/index/product/page/1";
-	}
-
-	@GetMapping("/product/page/{pageNumber}")
-	public String showProductPage(HttpServletRequest request, @PathVariable int pageNumber, Model model) {
-		model.addAttribute("product", this.productService.findAll());
-		model.addAttribute("category", this.categoryService.findAll());
-		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
-		int pagesSize = 8;
-		List<Product> list = productService.listProduct();
-		System.out.println(list.size());
-
-		if (pages == null) {
-			pages = new PagedListHolder<>(list);
-			pages.setPageSize(pagesSize);
-		} else {
-			final int goToPage = pageNumber - 1;
-			if (goToPage <= pages.getPageCount() && goToPage >= 0) {
-				pages.setPage(goToPage);
-			}
-		}
-		request.getSession().setAttribute("productlist", pages);
-		int current = pages.getPage() + 1;
-		int begin = Math.max(1, current - list.size());
-		int end = Math.min(begin + 5, pages.getPageCount());
-		int totalPageCount = pages.getPageCount();
-		String baseUrl = "/product/page/";
-
-		model.addAttribute("beginIndex", begin);
-		model.addAttribute("endIndex", end);
-		model.addAttribute("currentIndex", current);
-		model.addAttribute("totalPageCount", totalPageCount);
-		model.addAttribute("baseUrl", baseUrl);
-		model.addAttribute("product", pages);
+		//show user
+		cookieDetail(model, request, response);
+		
+		model.addAttribute("showProduct", this.productService.listProduct());
 
 		return "shop/shop";
 	}
 
+
 	@GetMapping("/about")
-	public String ShowAbout(ModelMap model) {
+	public String ShowAbout(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
+		//show user
+		cookieDetail(model, request, response);
 		return "shop/about";
 	}
 
 	@GetMapping("/contact")
-	public String ShowContact(ModelMap model) {
+	public String ShowContact(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
+		model.addAttribute("feedback", new FeedBack());
+		//show user
+		cookieDetail(model, request, response);
 		return "shop/contact";
 	}
 
 	// code showCategoryById
 	@GetMapping(value = "/showProductByIdCategory/{idCategory}")
-	public String ShowProductByIdCategory(ModelMap model, @PathVariable("idCategory") int idCategory) {
+	public String ShowProductByIdCategory(ModelMap model, @PathVariable("idCategory") int idCategory, HttpServletRequest request, HttpServletResponse response) {
 		
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
@@ -166,6 +134,8 @@ public class HomeController {
 		if (p == null) {
 			return "shop/productByIdCategory";
 		}
+		//show user
+		cookieDetail(model, request, response);
 		
 		model.addAttribute("showProductByIdCategory", this.productService.showListProductByIdCategory(idCategory));
 
@@ -173,35 +143,50 @@ public class HomeController {
 	}
 
 	@GetMapping(value = "/showProductSingle/{idProduct}")
-	public String ShowProductByIdProductDetail(ModelMap model, @PathVariable("idProduct") int id, Product product) {
+	public String ShowProductByIdProductDetail(ModelMap model, @PathVariable("idProduct") int id, HttpServletRequest request, HttpServletResponse response) {
 
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
-		List<Product> list = productService.showProductDetaiList(id);
-		for (int i = 0; i < list.size(); i++) {
-			Product p = new Product();
-			p.getCategory().getIdCategory();
-		}
-		
-		
+	
 		model.addAttribute("showProductSingle", this.productService.findById(id).get());
+		//show user
+		cookieDetail(model, request, response);
+		Product product = this.productService.findById(id).get();
+		Product p = this.productService.findByIdProduct(product.getIdProduct());
+		p.setName(product.getName());
+		p.setPrice(product.getPrice());
+		p.setImage(product.getImage());
+		List<Product> list = this.productService.findByIdCategory(p.getCategory().getIdCategory());
 		
-//			model.addAttribute("showProduct", this.productService.showListCategoryByIdCategory(id));
-//		}
-
+		for (int i = 0; i < list.size(); i++) {
+			p = list.get(i);
+			if (p.getIdProduct() == product.getIdProduct()) {
+				list.remove(list.get(i));
+				break;
+			}
+		}
+		model.addAttribute("showProductByCategory", list);
+		
+		
 		return "shop/product-single";
 	}
 
 	@GetMapping("/searchProduct")
 	public String searchProductByIdCategory(ModelMap model, @RequestParam("key") String key, Product product,
-			HttpServletRequest request, RedirectAttributes redirect) {
-
+			 RedirectAttributes redirect, HttpServletRequest request, HttpServletResponse response) {
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
 		List<Product> products = this.productService.searchListProductByIdCategory(key);
+		//show user
+		cookieDetail(model, request, response);
+		
+		
 		if (products.isEmpty() || products.contains(product)) {
 			return "shop/searchProduct";
 		}
-		model.addAttribute("product", this.productService.findAll());
-		model.addAttribute("category", this.categoryService.findAll());
+		
+		
+		
 		model.addAttribute("searchProduct", this.productService.searchListProductByIdCategory(key));
 //		request.getSession().setAttribute("productList", null);
 		return "shop/searchProduct";
@@ -217,6 +202,22 @@ public class HomeController {
 		model.addAttribute("email", null);
 		return "redirect:/index";
 	}
+	
+	public void cookieDetail(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("account")) {
+					User user = this.userService.findByEmail(cookies[i].getValue()).get();
+					model.addAttribute("fullname", user.getFullname());
+					break;
+				}
+			}
+		}
+		initHomeResponse(model);
+	}
+
+
 
 
 

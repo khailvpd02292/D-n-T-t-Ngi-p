@@ -23,7 +23,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value = "select * from product where id_category like %?% ", nativeQuery = true)
 	List<Product> showListCategoryByIdCategory(int idCateogry);
 
-	@Query(value = "select top 8 * from product", nativeQuery = true)
+	@Query(value = " select top 8 * from product order by id_product desc ", nativeQuery = true)
 	List<Product> showListProductForIndex();
 
 	@Query(value = "select * from product", nativeQuery = true)
@@ -43,4 +43,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query(value = "select * from product where id_product = ?", nativeQuery = true)
 	List<Product> findIdProduct(int idProduct);
+	
+	@Query(value = "select * from product where id_product = ?", nativeQuery = true)
+	public Product findByIdProduct(int idProduct);
+	
+	@Query(value = "select * from product where id_category = ?", nativeQuery = true)
+	public List<Product> findByIdCategory(int id);
 }

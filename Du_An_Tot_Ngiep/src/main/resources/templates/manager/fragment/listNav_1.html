@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<nav class="sidebar sidebar-offcanvas" id="sidebar" th:fragment="nav_1">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a th:href="@{/manager}" class="nav-link">
+                <div class="profile-image">
+                  <img class="img-xs rounded-circle" src="../assets/images/faces/face8.jpg" alt="profile image">
+                  <div class="dot-indicator bg-success"></div>
+                </div>
+                <div class="text-wrapper">
+                  <p class="profile-name" th:text="${fullname}"></p>
+                  <p class="designation" th:text="${username}"></p>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item nav-category">Main Menu</li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/manager/statistical}">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Thống Kê</span>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/manager/import}">
+                <i class="menu-icon typcn typcn-shopping-bag"></i>
+                <span class="menu-title">Quản Lý Kho Hàng</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/manager/listCategory}">
+                <i class="menu-icon typcn typcn-th-large-outline"></i>
+                <span class="menu-title">Quản Lý Danh Mục</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/manager/listProduct}">
+                <i class="menu-icon typcn typcn-th-large-outline"></i>
+                <span class="menu-title">Quản Lý Sản Phẩm</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/manager/listUser}">
+                <i class="menu-icon typcn typcn-bell"></i>
+                <span class="menu-title">Quản Lý Tài Khoản</span>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/manager/feedback}">
+                <i class="menu-icon typcn typcn-bell"></i>
+                <span class="menu-title">Quản Lý Ý Kiến</span>
+              </a>
+            </li>
+            
+          </ul>
+        </nav>
+</body>
+</html>

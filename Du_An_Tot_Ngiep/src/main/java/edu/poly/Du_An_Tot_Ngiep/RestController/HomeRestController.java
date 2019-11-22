@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.poly.Du_An_Tot_Ngiep.Entity.FeedBack;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
+import edu.poly.Du_An_Tot_Ngiep.Service.FeedBackService;
 import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
 
 @RestController
@@ -22,6 +24,9 @@ public class HomeRestController {
 	
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private FeedBackService feedBackSerice;
+	
 	@GetMapping("/index/searchAjaxProduct")
 	public List<Product> showListSearchProduct(Model model, @RequestBody Product product, @RequestParam("key") String key){
 		
@@ -32,7 +37,7 @@ public class HomeRestController {
 		return this.productService.listProduct();
 	}
 	
-	@PostMapping("/index/listProductAjax")
+	@GetMapping("/index/listProductAjax")
 	public ResponseEntity<?> showListProduct(){
 		return ResponseEntity.ok(this.productService.listProduct());
 	}
@@ -65,10 +70,10 @@ public class HomeRestController {
 	public List<Product> showListProductByIdCategory(@PathVariable("idCategory") int id, Product p){
 //		this.productService.showListProductByIdCategory();
 		Optional<Product> list =  this.productService.findById(id);
-		if (list.isPresent()) {
-			return this.productService.showListProductByIdCategoryFilter(id);
-		}
-		return this.productService.listProduct();
+//		if (list.isPresent()) {
+//			return this.productService.showListProductByIdCategoryFilter(id);
+//		}
+		return this.productService.showListProductByIdCategoryFilter(id);
 	}
 
 }

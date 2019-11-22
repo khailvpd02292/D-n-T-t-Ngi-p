@@ -1,14 +1,14 @@
 package edu.poly.Du_An_Tot_Ngiep.ServiceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.poly.Du_An_Tot_Ngiep.Entity.Import;
+import edu.poly.Du_An_Tot_Ngiep.Entity.Imports;
 import edu.poly.Du_An_Tot_Ngiep.Repository.ImportRepository;
 import edu.poly.Du_An_Tot_Ngiep.Service.ImportService;
-
 
 @Service
 public class ImportSeviceImpl implements ImportService {
@@ -17,26 +17,15 @@ public class ImportSeviceImpl implements ImportService {
 	private ImportRepository importRepository;
 
 	@Override
-	public void deleteAll() {
-		importRepository.deleteAll();
-	}
-
-	@Override
-	public void deleteAll(Iterable<? extends Import> entities) {
-		importRepository.deleteAll(entities);
-		
-	}
-
-	@Override
-	public void delete(Import entity) {
+	public void delete(Imports entity) {
 		importRepository.delete(entity);
-		
+
 	}
 
 	@Override
 	public void deleteById(Integer id) {
 		importRepository.deleteById(id);
-		
+
 	}
 
 	@Override
@@ -45,38 +34,29 @@ public class ImportSeviceImpl implements ImportService {
 	}
 
 	@Override
-	public Iterable<Import> findAllbyId(Iterable<Integer> ids) {
-		return importRepository.findAllById(ids);
+	public List<Imports> listImport() {
+		return importRepository.listImport();
 	}
 
 	@Override
-	public Iterable<Import> findAll() {
+	public Imports findByIdImport(int idImport) {
+		return importRepository.findByIdImport(idImport);
+	}
+
+	@Override
+	public Iterable<Imports> findAll() {
 		return importRepository.findAll();
 	}
 
 	@Override
-	public boolean existsById(Integer id) {
-		return importRepository.existsById(id);
-	}
-
-	@Override
-	public Optional<Import> findById(Integer id) {
+	public Optional<Imports> findById(Integer id) {
 		return importRepository.findById(id);
 	}
 
 	@Override
-	public <S extends Import> Iterable<S> saveAll(Iterable<S> entities) {
-		return importRepository.saveAll(entities);
-	}
-
-	@Override
-	public <S extends Import> S save(S entity) {
+	public <S extends Imports> S save(S entity) {
 		return importRepository.save(entity);
 	}
 
-	@Override
-	public Optional<Import> findByName(String idUser) {
-		return importRepository.findByName(idUser);
-	}
 	
 }

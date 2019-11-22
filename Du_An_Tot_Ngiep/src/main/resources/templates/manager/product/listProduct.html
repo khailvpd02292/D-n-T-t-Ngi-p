@@ -8,6 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
 <!-- plugins:css -->
+
 <link rel="stylesheet"
 	href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet"
@@ -20,6 +21,10 @@
 	href="../assets/vendors/css/vendor.bundle.base.css">
 <link rel="stylesheet"
 	href="../assets/vendors/css/vendor.bundle.addons.css">
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
 <!-- endinject -->
 <!-- plugin css for this page -->
 <!-- End plugin css for this page -->
@@ -31,176 +36,16 @@
 <!-- End Layout styles -->
 <link rel="shortcut icon" href="/assets/images/favicon.png" />
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
+
 </head>
 <body>
 	<div class="container-scroller">
 		<!-- partial:partials/_navbar.html -->
-		<nav
-			class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-			<div
-				class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-				<a class="navbar-brand brand-logo" th:href="@{/manager}"> <img
-					class="anh" src="../assets/images/logo.svg" alt="logo" />
-				</a> <a class="navbar-brand brand-logo-mini" th:href="@{/manager}">
-					<img src="../assets/images/logo-mini.svg" alt="logo" />
-				</a>
-			</div>
-			<div class="navbar-menu-wrapper d-flex align-items-center">
-				<ul class="navbar-nav">
-					<li class="nav-item font-weight-semibold d-none d-lg-block">Help
-						: +050 2992 709</li>
-
-					<!-- menu -->
-				</ul>
-				<form class="ml-auto search-form d-none d-md-block" action="#">
-					<div class="form-group">
-						<input id="myInput" type="search" class="form-control"
-							placeholder="Search Here">
-					</div>
-				</form>
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item dropdown"><a
-						class="nav-link count-indicator" id="messageDropdown" href="#"
-						data-toggle="dropdown" aria-expanded="false"> <i
-							class="mdi mdi-bell-outline"></i> <span class="count">7</span>
-					</a>
-						<div
-							class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
-							aria-labelledby="messageDropdown">
-							<a class="dropdown-item py-3">
-								<p class="mb-0 font-weight-medium float-left">You have 7
-									unread mails</p> <span
-								class="badge badge-pill badge-primary float-right">View
-									all</span>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item preview-item">
-								<div class="preview-thumbnail">
-									<img src="../assets/images/faces/face10.jpg" alt="image"
-										class="img-sm profile-pic">
-								</div>
-								<div class="preview-item-content flex-grow py-2">
-									<p
-										class="preview-subject ellipsis font-weight-medium text-dark">Marian
-										Garner</p>
-									<p class="font-weight-light small-text">The meeting is
-										cancelled</p>
-								</div>
-							</a>
-
-
-						</div></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link count-indicator" id="notificationDropdown"
-						href="#" data-toggle="dropdown"> <i
-							class="mdi mdi-email-outline"></i> <span class="count bg-success">3</span>
-					</a>
-						<div
-							class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
-							aria-labelledby="notificationDropdown">
-							<a class="dropdown-item py-3 border-bottom">
-								<p class="mb-0 font-weight-medium float-left">You have 4 new
-									notifications</p> <span
-								class="badge badge-pill badge-primary float-right">View
-									all</span>
-							</a> <a class="dropdown-item preview-item py-3">
-								<div class="preview-thumbnail">
-									<i class="mdi mdi-alert m-auto text-primary"></i>
-								</div>
-								<div class="preview-item-content">
-									<h6 class="preview-subject font-weight-normal text-dark mb-1">Application
-										Error</h6>
-									<p class="font-weight-light small-text mb-0">Just now</p>
-								</div>
-							</a>
-
-
-						</div></li>
-					<li
-						class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-						<a class="nav-link dropdown-toggle" id="UserDropdown" href="#"
-						data-toggle="dropdown" aria-expanded="false"> <img
-							class="img-xs rounded-circle"
-							src="../assets/images/faces/face8.jpg" alt="Profile image">
-					</a>
-						<div class="dropdown-menu dropdown-menu-right navbar-dropdown"
-							aria-labelledby="UserDropdown">
-							<div class="dropdown-header text-center">
-								<img class="img-md rounded-circle"
-									src="../assets/images/faces/face8.jpg" alt="Profile image">
-								<p class="mb-1 mt-3 font-weight-semibold">Hạ Tấn Bình</p>
-								<p class="font-weight-light text-muted mb-0">tanbinh1909@gmail.com</p>
-							</div>
-							<a class="dropdown-item">My Profile <span
-								class="badge badge-pill badge-danger">1</span><i
-								class="dropdown-item-icon ti-dashboard"></i></a> <a
-								class="dropdown-item">Messages<i
-								class="dropdown-item-icon ti-comment-alt"></i></a> <a
-								class="dropdown-item">Activity<i
-								class="dropdown-item-icon ti-location-arrow"></i></a> <a
-								class="dropdown-item">FAQ<i
-								class="dropdown-item-icon ti-help-alt"></i></a> <a
-								class="dropdown-item">Sign Out<i
-								class="dropdown-item-icon ti-power-off"></i></a>
-						</div>
-					</li>
-				</ul>
-				<button
-					class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
-					type="button" data-toggle="offcanvas">
-					<span class="mdi mdi-menu"></span>
-				</button>
-			</div>
-		</nav>
+		 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:replace="manager/fragment/listNav::nav"></nav>
 		<!-- partial -->
 		<div class="container-fluid page-body-wrapper">
 			<!-- partial:partials/_sidebar.html -->
-			<nav class="sidebar sidebar-offcanvas" id="sidebar">
-				<ul class="nav">
-					<li class="nav-item nav-profile"><a th:href="@{/manager}"
-						class="nav-link">
-							<div class="profile-image">
-								<img class="img-xs rounded-circle"
-									src="../assets/images/faces/face8.jpg" alt="profile image">
-								<div class="dot-indicator bg-success"></div>
-							</div>
-							<div class="text-wrapper">
-								<p class="profile-name">Hạ Tấn Bình</p>
-								<p class="designation">Nhân Viên</p>
-							</div>
-					</a></li>
-					<li class="nav-item nav-category">Main Menu</li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/manager/statistical}"> <i
-							class="menu-icon typcn typcn-document-text"></i> <span
-							class="menu-title">Thống Kê</span>
-					</a></li>
-
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/manager/import}"> <i
-							class="menu-icon typcn typcn-shopping-bag"></i> <span
-							class="menu-title">Quản Lý Kho Hàng</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/manager/listCategory}"> <i
-							class="menu-icon typcn typcn-th-large-outline"></i> <span
-							class="menu-title">Quản Lý Danh Mục</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/manager/listProduct}"> <i
-							class="menu-icon typcn typcn-th-large-outline"></i> <span
-							class="menu-title">Quản Lý Sản Phẩm</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/manager/listUser}">
-							<i class="menu-icon typcn typcn-bell"></i> <span
-							class="menu-title">Quản Lý Tài Khoản</span>
-					</a></li>
-
-				</ul>
-			</nav>
+			 <nav class="sidebar sidebar-offcanvas" id="sidebar" th:replace="manager/fragment/listNav_1::nav_1"></nav>
 			<!-- partial -->
 			<div class="main-panel">
 				<div class="content-wrapper">
@@ -210,15 +55,15 @@
 								<div class="card-body">
 									<h4 class="card-title">Danh Sách Thông Tin Sản Phẩm</h4>
 									<p class="card-description">
-										<a class="btn btn-inverse-success btn-fw"
-											th:href="@{/manager/listProductDetail}">Danh sách Chi
-											Tiết</a> <a class="btn btn-inverse-success btn-fw"
-											th:href="@{/manager/addProduct}">Thêm Sản Phẩm</a>
+										<button type="button" class="btn btn-inverse-success btn-fw" data-toggle="modal" data-target="#addProduct" onclick="showListCategorySelect()">
+					  						Thêm Sản Phẩm
+										</button>
 									</p>
 
 									<table id="dataTable-listProduct" class="table table-hover">
 										<thead>
 											<tr>
+												<th>Id</th>
 												<th>Tên Sản Phẩm</th>
 												<th>Giá</th>
 												<th>Ảnh</th>
@@ -230,24 +75,6 @@
 											</tr>
 										</thead>
 										<tbody id="dataForm">
-											<tr th:each="product : ${product}">
-												<td th:text="${product.name}"></td>
-												<td th:text="${product.price}"></td>
-												<td><img id="anh"
-													th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}">
-												</td>
-												<td th:text="${product.dateOfManufacture}"></td>
-												<td th:text="${product.origin}"></td>
-												<td th:text="${product.description}"></td>
-												<td th:text="${product.category.name}"></td>
-												<td>
-													<!-- <a class="btn btn-warning" href="">Thêm Chi Tiết</a> -->
-													<a class="btn btn-info"
-													th:href="@{'/manager/updateProduct/'+${product.idProduct}}">Cập
-														Nhập</a> <a class="btn btn-danger"
-													th:href="@{'/manager/deleteProduct/'+${product.idProduct}}">Xóa</a>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -256,65 +83,433 @@
 					</div>
 				</div>
 				<!-- content-wrapper ends -->
-				<!-- partial:partials/_footer.html -->
-				<footer class="footer">
-					<div class="container-fluid clearfix">
-						<span
-							class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright
-							© 2019 <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>.
-							All rights reserved.
-						</span> <span
-							class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted
-							& made with <i class="mdi mdi-heart text-danger"></i>
-						</span>
-					</div>
-				</footer>
+				 <footer class="footer" th:replace="manager/fragment/footer::footer"></footer>
 				<!-- partial -->
 			</div>
 			<!-- main-panel ends -->
 		</div>
 		<!-- page-body-wrapper ends -->
 	</div>
+	
+	 <!-- Modal -->
+		
+    
+		 <div id="addProduct" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Sản Phẩm</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Thêm sản phẩm</p>
+		        <form action="" enctype="multipart/form-data" id="fileUpload">
+			        	<div class="col-lg-12">
+			        	<div class="row">
+			        	<div class="col-lg-6">
+				        <div class="form-group">
+						    <label for="category">Tên Danh Mục Sản Phẩm</label>
+						    <div class="input-group">
+								<select class="form-control" id="category">
+									<option></option>
+								</select>
+							</div>
+						</div>
+				        <div class="form-group">
+						    <label for="exampleInputEmail1">Tên Sản Phẩm</label>
+						    <input type="text" class="form-control" id="nameAddProduct" placeholder="nhập tên sản phẩm">
+						</div>
+				        <div class="form-group">
+						    <label for="exampleInputEmail1">Giá</label>
+						    <input type="text" class="form-control" id="priceAddProduct">
+						</div>
+						<div class="form-group">
+						    <label for="exampleInputEmail1">Ngày Hết Hạn</label>
+						    <input type="text" class="form-control" id="dateAddProduct">
+						    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						</div>
+			        
+			        </div>
+			        
+			        <div class="col-lg-6">
+						<div class="form-group">
+						    <label for="exampleInputEmail1">Nguồn Gốc</label>
+						    <input type="text" class="form-control" id="originAddProduct" placeholder="nhập nguồn gốc xuất xứ">
+						</div>
+						<div class="form-group">
+						    <label for="exampleInputEmail1">Chi Tiết</label>
+						    <input type="text" class="form-control" id="descriptionAddProduct" placeholder="nhập thông tin chi tiết">
+						</div>
+							        
+				        <div class="form-group">
+						    <label for="exampleInputEmail1">Ảnh</label>
+						    	<div class="input-group">
+								<input type="file" name="file" id="imageAddProduct" onchange="readURL(this);" accept="image/x-png,image/jpeg,image/jpg">
+		
+								</div>
+								<div style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 0px;">
+									<img style="height: 150px; width: 120px;" id="blah" />
+								</div>
+						</div>
+			        
+			        </div>
+			        		
+			        	</div>
+			        </div>
+		        </form>
+		        
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" onclick="addAjaxProduct()" data-dismiss="modal">Lưu</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+		
+		<!-- updateCategory -->
+		
+		<div id="updateProduct" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Sản Phẩm</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Sửa Thông Tin Sản Phẩm</p>
+			        <form action="" enctype="multipart/form-data">
+			   			 <div class="col-lg-12">
+				        	<div class="row">
+				        		<div class="col-lg-6">
+				        			<input type="hidden" id="idUpdateProduct">
+							         <div class="form-group">
+									    <label for="category">Tên Danh Mục Sản Phẩm</label>
+									    <div class="input-group">
+											<select class="form-control" id="categoryUpdate">
+												<option></option>
+											</select>
+										</div>
+									</div>
+							        <div class="form-group">
+									    <label for="exampleInputEmail1">Tên Sản Phẩm</label>
+									    <input type="text" class="form-control" id="nameUpdateProduct" placeholder="nhập tên sản phẩm">
+									</div>
+									<div class="form-group">
+									    <label for="exampleInputEmail1">Giá</label>
+									    <input type="number" class="form-control" id="priceUpdateProduct">
+									</div>
+									<div class="form-group">
+									    <label for="exampleInputEmail1">Ngày Hết Hạn</label>
+									    <input type="date" class="form-control" id="dateUpdateProduct">
+									</div>
+				        		</div>
+				        		<div class="col-lg-6">
+				        			<div class="form-group">
+									    <label for="exampleInputEmail1">Nguồn Gốc</label>
+									    <input type="text" class="form-control" id="originUpdateProduct" placeholder="nhập nguồn gốc xuất xứ">
+									</div>
+									<div class="form-group">
+									    <label for="exampleInputEmail1">Chi Tiết</label>
+									    <input type="text" class="form-control" id="descriptionUpdateProduct" placeholder="nhập thông tin chi tiết">
+									</div>
+									<div class="form-group">
+								   			 <label for="exampleInputEmail1">Ảnh</label>
+								    	<div class="input-group">
+										<input type="file" name="file" id="imageUpdateProduct" onchange="readURL(this);" accept="image/x-png,image/jpeg,image/jpg">
+				
+										</div>
+										<div style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 0px;">
+											<img style="height: 150px; width: 120px;" id="blah" />
+									</div>
+								</div>
+				        		</div>
+				        	</div>
+				        </div>     		
+			        </form>
+		       
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" onclick="updateAjaxProduct()" data-dismiss="modal">Lưu</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+		
+		<!-- deleteCategory -->
+		
+		<div id="deleteCategory" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Bạn thật sự muốn xóa thông tin này</h4>
+		      </div>
+		      <div class="modal-footer">
+		      <input type="hidden" id="idProductDelete" />
+		        <button type="button" class="btn btn-primary" onclick="deleteProduct()" data-dismiss="modal">Xóa</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+	
+	
 	<!-- container-scroller -->
 	<!-- plugins:js -->
+	
 	<script src="../assets/vendors/js/vendor.bundle.base.js"></script>
 	<script src="../assets/vendors/js/vendor.bundle.addons.js"></script>
 	<!-- endinject -->
-	<!-- Plugin js for this page-->
-	<!-- End plugin js for this page-->
-	<!-- inject:js -->
 	<script src="../assets/js/shared/off-canvas.js"></script>
 	<script src="../assets/js/shared/misc.js"></script>
 	<!-- endinject -->
 	<!-- Custom js for this page-->
 	<script src="../assets/js/demo_1/dashboard.js"></script>
-	<!-- End custom js for this page-->
-	<script type="text/javascript">
-		$(document).ready(
-			function() {
-				$("#myInput").on("keyup",function() {
-					var value = $(this).val().toLowerCase();
-				$("#dataForm tr").filter(function() {
-					$(this).toggle($(this).text()
-					.toLowerCase()
-					.indexOf(
-					value) > -1)
-	 		});
-		});
-		});
-	</script>
+	
 	
 	<!-- DataTables -->
 	<script th:src="@{/assets/vendors/datatables/jquery.dataTables.js}"></script>
 	<script th:src="@{/assets/vendors/datatables/dataTables.bootstrap4.js}"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#dataTable-listProduct').DataTable({
-				"lengthChange" : false,
-				"info" : false,
-				"pageLength" : 4
-			});
+		
+	$(document).ready(function() {
+		showListProduct();
+	});
+	
+	
+	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$('#blah').attr('src', e.target.result).width(120).height(
+						150);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	function showListProduct(){
+		$.ajax({
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+			url : "/manager/listProductAjax",
+			success : function(result){
+				detailHtml(result);
+			},
+			error: function(result){
+				
+				console.log(result);
+				alert('failedd');
+			}
 		});
+	}
+	
+	function showListCategorySelect(callBack){
+		$.ajax({
+			type : "POST",
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+			url : "/manager/showListCategoryForProduct",
+			success : function(result){
+				selectCategory(result);
+				if(callBack){
+					callBack(result);
+				}
+			},
+			error: function(result){
+				
+				console.log(result);
+				alert('failedd');
+			}
+		});
+	}
+	function selectCategory(result){
+		
+		var listCategory = result;
+		if(listCategory == null){
+			alert('failed');
+		}else{
+			$('#category').empty();
+			$('#categoryUpdate').empty();
+			$.each(listCategory, function(i, item){
+				var html = '<option value = "'+item.idCategory+'">'+item.name+'</option>';
+				$('#category').append(html);
+				$('#categoryUpdate').append(html);
+			});
+		}
+		
+	} 
+	
+	function detailHtml(result){
+			var listProduct = result;
+			if(listProduct == null){
+				alert('failed')
+			}else{
+				$('#dataForm').empty();
+				
+				$.each(listProduct, function(i, item){
+					var html = '<tr>'
+					+'<td id="idProduct-'+item.idProduct+'">'+item.idProduct+'</td>'
+					+'<td id="nameProduct-'+item.idProduct+'">'+item.name+'</td>'
+					+'<td id="priceProduct-'+item.idProduct+'">'+item.price+'</td>'
+					+'<td id="imageProduct-'+item.idProduct+'"><img id="anh" src="data:image/png;base64,'+item.imageBase64+'">'
+					+'</td>'
+					+'<td id="dateProduct-'+item.idProduct+'">'+item.dateOfManufacture+'</td>'
+					+'<td id="originProduct-'+item.idProduct+'">'+item.origin+'</td>'
+					+'<td id="descriptionProduct-'+item.idProduct+'">'+item.description+'</td>'
+					+'<td id="categoryProduct-'+item.idProduct+'">'+item.category.name+'</td>'
+					+'<td>'
+					+'<button class="btn btn-info" onclick="setDataUpdateProduct('+item.idProduct+')" data-toggle="modal" data-target="#updateProduct">Cập Nhập</button>'
+                    +'<button class="btn btn-danger" data-toggle="modal" data-target="#deleteCategory" onclick="setDataDeleteProduct('+item.idProduct+')">Xóa</button>'
+					+'</td>'
+				+'</tr>';
+				
+				$('#dataForm').append(html);
+				});
+			}
+			
+	}
+	
+	
+	function addAjaxProduct(){
+		const category = {idCategory : $('#category').val()};
+		const files = $("#imageAddProduct")[0].files;
+		let image = null;
+		if(files.length > 0) {
+			image = files[0];
+		}
+		var formData = new FormData();
+		formData.append('image', image);
+		var dataProduct = { 
+				"category" : category,
+				"name" : $('#nameAddProduct').val(),
+				"price" : $('#priceAddProduct').val(),
+				"dateOfManufacture" : $('#dateAddProduct').val(),
+				"origin" : $('#originAddProduct').val(),
+				"description" : $('#descriptionAddProduct').val()
+		};
+		formData.append('product', JSON.stringify(dataProduct));
+		$.ajax({
+			type: "POST",
+ 			contentType : false,
+			url : "/manager/addAjaxProduct",
+			data : formData,
+			cache : false,
+		    processData: false,
+			success : function(result){
+				detailHtml(result);
+				
+			},
+			error: function(result){
+				alert('failedd');
+			}
+		});
+	}
+	
+	function setDataUpdateProduct(productId){
+	/* 	showListCategorySelect(); */
+		
+		 const category = {name : $('#categoryProduct-'+productId).text()};
+		 /*  for(var i = 0; i <= $("#updateProduct option").length;i++ ){
+				var a = $("#updateProduct option:nth-child("+i+")").text();
+				if(a == product.name){
+					$("#updateProduct option:nth-child("+i+")").prop("selected",true);
+				}
+			}; */
+			showListCategorySelect((result) => {
+			result
+				.map(i => i.name)
+				.map((name, i) => {
+				
+					if(category.name == $("#categoryUpdate option:nth-child("+(i + 1)+")").text()) {
+						console.log(i);
+						return i;
+					}
+					return -1;
+				}) .filter(v => v >=0)
+				.forEach((v) => $("#categoryUpdate option:nth-child("+(v + 1)+")").prop('selected', 'selected'));
+		  }); 
+		
+		$('#idUpdateProduct').val($('#idProduct-'+productId).text());
+	    $('#categoryUpdate').val($('#categoryProduct-'+productId).text());
+		$('#nameUpdateProduct').val($('#nameProduct-'+productId).text());
+		$('#priceUpdateProduct').val($('#priceProduct-'+productId).text());
+		$('#dateUpdateProduct').val($('#dateProduct-'+productId).text());
+		$('#originUpdateProduct').val($('#originProduct-'+productId).text());
+		$('#descriptionUpdateProduct').val($('#descriptionProduct-'+productId).text());
+		$('#imageUpdateProduct').val($('#imageProduct-'+productId).text());
+	}	
+	
+	function updateProduct(){
+		const category = {idCategory : $('#category').val()};
+		const files = $("#imageUpdateProduct")[0].files;
+		let image = null;
+		if(files.length > 0){
+			image = files[0];
+		}
+		const formData = new FormData();
+		formData.append('image', image);
+		var dataProduct = {
+				"idProduct" : parseInt($('#idUpdateProduct').val()),
+				"category" : category,
+				"name" : $('#nameUpdateProduct').val(),
+				"price" : $('#priceUpdateProduct').val(),
+				"dateOfManufacture" : $('#originUpdateProduct').val(),
+				"origin" : $('#originUpdateProduct').val(),
+				"description" : $('#descriptionUpdateProduct').val()
+		}
+		formData.append('product', JSON.stringify(dataProduct));
+		$.ajax({
+			type: "POST",
+			contentType : false,
+			url : "/manager/updateAjaxProduct",
+			data : formData,
+			cache : false,
+		    processData: false,
+			success : function(result){
+				detailHtml(result);
+			},
+			error: function(result){
+				alert('failedd');
+			}
+		});
+	}
+		
+	function setDataDeleteProduct(productId){
+		$('#idProductDelete').val($('#idProduct-'+productId).text());
+	}
+	
+	function deleteProduct(){
+		var idProduct = parseInt($('#idProductDelete').parent().find('#idProductDelete').val());
+		$.ajax({
+			type : "POST",
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+			url : "/manager/deleteAjaxProduct/" +idProduct,
+			success : function(result){
+				detailHtml(result);
+			},
+			error : function(result){
+				 alert('failed');
+			}
+			
+		});
+	}
+	
 	</script>
 </body>
 </html>

@@ -82,4 +82,8 @@ public interface ProductService {
 
 	List<Product> showListProductByIdCategoryFilter(int idCategory);
 
+	Product findByIdProduct(int idProduct);
+
+	List<Product> findByIdCategory(int id);
+
 }

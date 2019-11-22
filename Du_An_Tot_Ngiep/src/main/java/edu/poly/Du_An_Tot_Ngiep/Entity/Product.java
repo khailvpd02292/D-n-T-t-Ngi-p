@@ -2,6 +2,7 @@ package edu.poly.Du_An_Tot_Ngiep.Entity;
 
 import java.util.Base64;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +21,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "product")
@@ -31,6 +36,7 @@ public class Product {
 	private String name;
 	@Min(value = 1000)
 	private double price;
+	@JsonIgnore
 	@Lob
 	@Column(name = "image")
 	private byte[] image;
@@ -43,17 +49,17 @@ public class Product {
 	@Column(name = "dateOfManufacture")
 	private Date dateOfManufacture;
 
-	@NotNull
+	
 	@ManyToOne
 	@JoinColumn(name = "idCategory", insertable = true, updatable = true)
 	private Category category;
-
+	
 	public Product() {
 		super();
 	}
 
 	public Product(int idProduct, @NotNull String name, @Min(1000) double price, byte[] image, String origin,
-			String description, Date dateOfManufacture, @NotNull Category category) {
+			String description, Date dateOfManufacture, Category category) {
 		super();
 		this.idProduct = idProduct;
 		this.name = name;
@@ -92,7 +98,7 @@ public class Product {
 	public byte[] getImage() {
 		return image;
 	}
-
+	
 	public String getImageBase64() {
 		if (this.getImage() == null) {
 			return "";
@@ -136,5 +142,6 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+
 
 }

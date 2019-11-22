@@ -36,8 +36,18 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public Product findByIdProduct(int idProduct) {
+		return productRepository.findByIdProduct(idProduct);
+	}
+
+	@Override
 	public List<Product> listProductPriceDesc() {
 		return productRepository.listProductPriceDesc();
+	}
+
+	@Override
+	public List<Product> findByIdCategory(int id) {
+		return productRepository.findByIdCategory(id);
 	}
 
 	@Override
@@ -194,6 +204,7 @@ public class ProductServiceImpl implements ProductService {
 	public <S extends Product> List<S> findAll(Example<S> example, Sort sort) {
 		return productRepository.findAll(example, sort);
 	}
+	
 	
 	
 }
