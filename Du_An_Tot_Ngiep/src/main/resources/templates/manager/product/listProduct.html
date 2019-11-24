@@ -55,15 +55,12 @@
 								<div class="card-body">
 									<h4 class="card-title">Danh Sách Thông Tin Sản Phẩm</h4>
 									<p class="card-description">
-										<button type="button" class="btn btn-inverse-success btn-fw" data-toggle="modal" data-target="#addProduct" onclick="showListCategorySelect()">
-					  						Thêm Sản Phẩm
-										</button>
+									<a class="btn btn-inverse-success btn-fw" th:href="@{/manager/addProduct}">Thêm Sản Phẩm</a>
 									</p>
 
 									<table id="dataTable-listProduct" class="table table-hover">
 										<thead>
 											<tr>
-												<th>Id</th>
 												<th>Tên Sản Phẩm</th>
 												<th>Giá</th>
 												<th>Ảnh</th>
@@ -75,6 +72,23 @@
 											</tr>
 										</thead>
 										<tbody id="dataForm">
+											<tr th:each="product : ${product}">
+												<td th:text="${product.name}"></td>
+												<td th:text="${product.price}"></td>
+												<td><img id="anh"
+													th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}">
+												</td>
+												<td th:text="${product.dateOfManufacture}"></td>
+												<td th:text="${product.origin}"></td>
+												<td th:text="${product.description}"></td>
+												<td th:text="${product.category.name}"></td>
+												<td>
+													<a class="btn btn-info"
+													th:href="@{'/manager/updateProduct/'+${product.idProduct}}">Cập
+														Nhập</a> <a class="btn btn-danger"
+													th:href="@{'/manager/deleteProduct/'+${product.idProduct}}">Xóa</a>
+												</td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -280,7 +294,7 @@
 	<!-- DataTables -->
 	<script th:src="@{/assets/vendors/datatables/jquery.dataTables.js}"></script>
 	<script th:src="@{/assets/vendors/datatables/dataTables.bootstrap4.js}"></script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		
 	$(document).ready(function() {
 		showListProduct();
@@ -510,6 +524,6 @@
 		});
 	}
 	
-	</script>
+	</script> -->
 </body>
 </html>

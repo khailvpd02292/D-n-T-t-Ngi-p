@@ -211,6 +211,9 @@
 									<h4 class="card-title">Thêm Sản Phẩm</h4>
 									<form th:object="${product}" th:action="@{/manager/addProduct}"
 										method="post" role="form" enctype="multipart/form-data">
+										<div class="col-lg-12">
+				        			<div class="row">
+				        		<div class="col-lg-6">
 										<div class="form-group">
 											<label class="label">Tên danh mục sản phẩm</label>
 											<div class="input-group">
@@ -237,13 +240,14 @@
 
 											</div>
 											<div
-												style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 150px;">
+												style="height: 150px; width: 120px; border: 1px solid black; margin-top: 10px; margin-left: 0px;">
 												<img style="height: 150px; width: 120px;" id="blah" />
 											</div>
 
 										</div>
 
-
+										</div>
+										<div class="col-lg-6">
 										<div class="form-group">
 											<label class="label">Giá</label>
 											<div class="input-group">
@@ -268,17 +272,18 @@
 										<div class="form-group">
 											<label class="label">Chi Tiết Sản Phẩm</label>
 											<div class="input-group">
-												<input th:field="*{description}" type="text"
-													class="form-control">
+												<textarea class="form-control" th:field="*{description}" rows="4" cols="30"></textarea>
 											</div>
 										</div>
 
-										<div class="form-group">
+										
+										</div>
+									</div>
+									</div>
+									<div class="form-group">
 											<button class="btn btn-primary">Thêm</button>
 											<a th:href="@{/manager/listCategory}">Quay Về</a>
 										</div>
-
-
 									</form>
 								</div>
 							</div>
