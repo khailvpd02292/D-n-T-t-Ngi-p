@@ -58,7 +58,6 @@
 									<table id="dataTable-listProduct" class="table table-hover">
 										<thead>
 											<tr>
-												<th></th>
 												<th>Họ và tên</th>
 												<th>Email</th>
 												<th>Giới tính</th>
@@ -70,7 +69,7 @@
 											</tr>
 										</thead>
 										<tbody id="dataForm">
-											<!-- <tr th:each="listuser : ${listuser}">
+												<tr th:each="listuser : ${listuser}">
 												<td th:text="${listuser.fullname}"></td>
 												<td th:text="${listuser.email}"></td>
 												<td th:text="${listuser.gender} ? 'Nữ' : 'Nam'">
@@ -80,7 +79,7 @@
 												<td th:text="${listuser.address}"></td>
 												<td><a class="btn btn-info" th:href="@{'/manager/updateUser/'+${listuser.userId}}" >
 												Cập Nhập</a></td>
-											</tr> -->
+											</tr>
 										</tbody>
 									</table>
 
@@ -97,10 +96,10 @@
 		<!-- page-body-wrapper ends -->
 	</div>
 	
-	<div id="updateUser" class="modal fade" role="dialog">
+	<!-- <div id="updateUser" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
 		
-		    <!-- Modal content-->
+		    Modal content
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h4 class="modal-title">Tài Khoản</h4>
@@ -170,7 +169,7 @@
 		    </div>
 		
 		  </div>
-		</div>
+		</div> -->
 	
 	
 	<!-- container-scroller -->
@@ -190,7 +189,7 @@
 	<!-- DataTables -->
 	<script th:src="@{/assets/vendors/datatables/jquery.dataTables.js}"></script>
 	<script th:src="@{/assets/vendors/datatables/dataTables.bootstrap4.js}"></script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	
 		$(document).ready(function() {
 			listUser();
@@ -272,6 +271,6 @@
 				}
 			});
 		}
-	</script>
+	</script> -->
 </body>
 </html>

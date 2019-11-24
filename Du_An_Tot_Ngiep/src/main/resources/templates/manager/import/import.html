@@ -56,14 +56,12 @@
 								<div class="card-body">
 									<h4 class="card-title">Danh Sách Kho Hàng</h4>
 									<p class="card-description">
-										<button type="button" onclick="listProductForImport()" class="btn btn-inverse-success btn-fw" data-toggle="modal" data-target="#addImport">
-										  Thêm Danh Mục
-										</button>
+										<a class="btn btn-inverse-success btn-fw" th:href="@{/manager/addImport}">Thêm
+											Kho Hàng</a>
 									</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
-												<th></th>
 												<th>Nhân viên</th>
 												<th>Sản phẩm</th>
 												<th>Ngày nhập</th>
@@ -73,6 +71,15 @@
 											</tr>
 										</thead>
 										<tbody id="dataForm">
+											<tr th:each="import : ${import}">
+												<td th:text="${import.users}"></td>
+												<td th:text="${import.product.name}"></td>
+												<td th:text="${import.createDate}"></td>
+												<td th:text="${import.updateDate}"></td>
+												<td th:text="${import.quantity}"></td>
+												<td><a class="btn btn-info" th:href="@{'/manager/updateImport/'+${import.idImport}}">Cập Nhập</a>
+												<a class="btn btn-danger" th:href="@{'/manager/deleteImport/'+${import.idImport}}">Xóa</a></td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -201,7 +208,7 @@
 	<!-- Custom js for this page-->
 	<script src="../assets/js/demo_1/dashboard.js"></script>
 	<!-- End custom js for this page-->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	$(document).ready(function() {
 		listImport();
 	});
@@ -374,6 +381,6 @@
 				
 			});
 		}
-	</script>
+	</script> -->
 </body>
 </html>

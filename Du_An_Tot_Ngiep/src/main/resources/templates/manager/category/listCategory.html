@@ -43,30 +43,26 @@
                   <div class="card-body">
                     <h4 class="card-title">Danh Sách Danh Mục</h4>
                     <p class="card-description"> 
-                    <button type="button" class="btn btn-inverse-success btn-fw" data-toggle="modal" data-target="#addCategory">
-					  Thêm Danh Mục
-					</button>
+                    <a class="btn btn-inverse-success btn-fw" th:href="@{/manager/addCategory}">Thêm Danh Mục</a> 
                     </p>
                     
                     <table id="dataTable-listCategory" class="table table-hover">
                       <thead>
                         <tr>
-                         <th> Id </th>
                           <th> Tên Danh Mục </th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody id="dataCategory">
                       
-                        <!-- <tr th:each = "ca : ${category}">
-                          <td id="idCategory-${ca.idCategory}" th:text="${ca.idCategory}"></td>
+                         <tr th:each = "ca : ${category}">
                           <td id="nameCategory-${ca.idCategory}" th:text ="${ca.name}"></td>
                           <td>
                               <button class="btn btn-info"  data-toggle="modal" data-target="#updateCategory" onclick="setDataUpdateCategory('${ca.idCategory}')">Cập Nhập</button>
                               <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCategory" onclick="setDataDeleteProduct('$(ca.idCategory)')">Xóa</button>
                           </td>
                           
-                        </tr> -->
+                        </tr> 
                       
                       </tbody>
                     </table>
@@ -191,7 +187,7 @@
 			});
 		}); */
 		
-		$( document ).ready(function() {
+		/* $( document ).ready(function() {
 			showListCategory();
 		});
 		
@@ -202,7 +198,6 @@
 				dataType : 'json',
 				url : "/manager/listCategoryAjax",
 				success : function(result){
-					/* alert('ok'); */
 					listHtml(result);
 				},
 				error: function(result){
@@ -223,7 +218,6 @@
 				$.each(listCategory, function(i, item){
 					
 					var html = '<tr>'
-					/* '<input type="hidden" id="idCategory-'+item.idCategory+'" value="'+item.idCategory+'">' */
 				 	 +'<td id="idCategory-'+item.idCategory+'">'+item.idCategory+'</td>' 
                     +'<td id="nameCategory-'+item.idCategory+'">'+item.name+'</td>'
                     +'<td>'
@@ -299,7 +293,7 @@
 				
 				
 			});
-		}
+		} */
 	</script>
   </body>
 </html>
