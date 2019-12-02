@@ -53,7 +53,6 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password, ModelMap model,
 			HttpServletResponse response) {
-// find account
 		if (userService.findByEmail(email).isPresent()) {
 			User users = userService.findByEmail(email).get();
 			Cookie cookie = new Cookie("account", users.getEmail());
@@ -62,15 +61,12 @@ public class UserController {
 				if (users.isRole() == false) {
 					response.addCookie(cookie);
 					cookie.setMaxAge(7 * 24 * 60 * 60);
-//					model.addAttribute("fullname", users.getFullname());
 					return "redirect:/manager";
 				} else {
 					response.addCookie(cookie);
-//					model.addAttribute("fullname", users.getFullname());
 					return "redirect:/index";
 				}
 			} else {
-//				model.addAttribute("invalid", true);
 				return "login/login1";
 			}
 
@@ -134,9 +130,18 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/manager/updateUser")
-	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID, BindingResult result) {
+	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID, BindingResult result,
+			HttpServletRequest request) {
 		userService.save(usernameID);
-
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; i < cookies.length; ++i) {
+			if (cookies[i].getName().equals("account")) {
+				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+				if (user.isRole() == true) {
+					return "redirect:/login";
+				}
+			}
+		}
 		return "redirect:/manager/listUser";
 	}
 
