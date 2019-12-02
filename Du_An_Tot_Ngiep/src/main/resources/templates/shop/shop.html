@@ -6,10 +6,9 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
- <script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
 <script th:src="@{/js/jquery.simplePagination.js}"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
@@ -50,7 +49,6 @@
 <link rel="stylesheet" th:href="@{/css/nouislider.min.css}">
 
 <style type="text/css">
-
 .simple-pagination ul {
 	margin: 0 0 20px;
 	padding: 0;
@@ -63,8 +61,7 @@
 	margin-right: 5px;
 }
 
-.simple-pagination li a,
-.simple-pagination li span {
+.simple-pagination li a, .simple-pagination li span {
 	color: #666;
 	padding: 5px 10px;
 	text-decoration: none;
@@ -72,99 +69,100 @@
 	background-color: #82ae46;
 	box-shadow: 0px 0px 10px 0px #EEE;
 }
+
 .simple-pagination li span:hover {
 	color: #666;
 	background-color: #82ae46;
 }
 
-.simple-pagination .current  {
+.simple-pagination .current {
 	color: #FFF;
 	background-color: #82ae46;
 	border-color: #FF7182;
 }
+
 .simple-pagination .current:hover {
 	color: #FFF;
 	background-color: #82ae46;
 	border-color: #FF7182;
 }
 
-.simple-pagination .prev.current,
-.simple-pagination .next.current {
+.simple-pagination .prev.current, .simple-pagination .next.current {
 	background: #82ae46;
 }
-
 </style>
 
 </head>
 <body class="goto-here">
+	<!-- nav -->
 	<div th:replace="fragment/header::header"></div>
-		<!-- END nav -->
-
-		<div class="hero-wrap hero-bread" id="imageBack">
-
-			<div class="container">
-				<div
-					class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-9 ftco-animate text-center">
-						<p class="breadcrumbs">
-							<span class="mr-2"><a th:href="@{/index}">Home</a></span> <span>Products</span>
-						</p>
-						<h1 class="mb-0 bread">Products</h1>
-					</div>
+	
+	<!-- Img headers -->
+	<div class="hero-wrap hero-bread" id="imageBack">
+		<div class="container">
+			<div
+				class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a th:href="@{/index}">Home</a></span> <span>Products</span>
+					</p>
+					<h1 class="mb-0 bread">Products</h1>
 				</div>
 			</div>
 		</div>
-		
-
-		<section class="ftco-section">
-			<div class="dropdown" style="margin-left: 120px;">
-				  <button class="btn btn-primary"style="margin-right: 10px;"  data-toggle="modal" data-target="#modalFilter">Lọc theo danh mục</button>				
-				  <a style="margin-right: 10px;" href="#">Sắp Xếp theo:</a>
-				  <button class="btn btn-primary" type="button" onclick="listProductNewBest()">Mới Nhất</button>
-				  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Giá
-			  		<span class="caret"></span></button>
-			  		<ul class="dropdown-menu">
-					    <li><button style="hover: color=red;" class="dropdown-item" onclick="listProductPriceDesc()">Giá cao đến thấp</button></li>
-					    <li><button class="dropdown-item" onclick="listProductPriceAsc()">Giá thấp đến cao</button></li>
-			  		</ul>
-			</div>
-			<div class="container" id="page">
-				<div class="row" id="dataProduct">
-					
+	</div>
+	
+	<!-- Content -->
+	<section class="ftco-section">
+		<div class="dropdown" style="margin-left: 120px;">
+			<button class="btn btn-primary" style="margin-right: 10px;"
+				data-toggle="modal" data-target="#modalFilter">Lọc theo
+				danh mục</button>
+			<a style="margin-right: 10px;" href="#">Sắp Xếp theo:</a>
+			<button class="btn btn-primary" type="button"
+				onclick="listProductNewBest()">Mới Nhất</button>
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				data-toggle="dropdown">
+				Giá <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><button style="hover: color=red;" class="dropdown-item"
+						onclick="listProductPriceDesc()">Giá cao đến thấp</button></li>
+				<li><button class="dropdown-item"
+						onclick="listProductPriceAsc()">Giá thấp đến cao</button></li>
+			</ul>
+		</div>
+		<div class="container" id="page">
+			<div class="row" id="dataProduct"></div>
+		</div>
+	</section>
+	
+	<!-- Email contact -->
+	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+		<div class="container py-4">
+			<div class="row d-flex justify-content-center py-5">
+				<div class="col-md-6">
+					<h2 style="font-size: 22px;" class="mb-0">Theo dõi bản tin của
+						chúng tôi</h2>
+					<span>Nhận cập nhật e-mail về các cửa hàng mới nhất của
+						chúng tôi và ưu đãi đặc biệt</span>
 				</div>
-					<!-- <div class="row mt-5">
-						<div class="col text-center">
-							<div class="block-27" id="pagination-container">
-							</div>
+				<div class="col-md-6 d-flex align-items-center">
+					<form action="#" class="subscribe-form">
+						<div class="form-group d-flex">
+							<input type="text" class="form-control"
+								placeholder="Enter email address"> <input type="submit"
+								value="Subscribe" class="submit px-3">
 						</div>
-					</div> -->
-				<!-- end -->
-			</div>
-			
-		</section>
-		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-			<div class="container py-4">
-				<div class="row d-flex justify-content-center py-5">
-					<div class="col-md-6">
-						<h2 style="font-size: 22px;" class="mb-0">Theo dõi bản tin
-							của chúng tôi</h2>
-						<span>Nhận cập nhật e-mail về các cửa hàng mới nhất của
-							chúng tôi và ưu đãi đặc biệt</span>
-					</div>
-					<div class="col-md-6 d-flex align-items-center">
-						<form action="#" class="subscribe-form">
-							<div class="form-group d-flex">
-								<input type="text" class="form-control"
-									placeholder="Enter email address"> <input type="submit"
-									value="Subscribe" class="submit px-3">
-							</div>
-						</form>
-					</div>
+					</form>
 				</div>
 			</div>
-		</section>
-		
-		<footer class="ftco-footer ftco-section" th:replace="fragment/footer::footer"></footer>
+		</div>
+	</section>
+	
+	<!-- Footer -->
+	<footer class="ftco-footer ftco-section"
+		th:replace="fragment/footer::footer"> </footer>
 
 	<!-- loader -->
 	<div id="ftco-loader" class="show fullscreen">
@@ -175,48 +173,47 @@
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
 
-  <!-- modal filter -->
-  
-		  <div id="modalFilter" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-		
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h4 class="modal-title">Danh mục</h4>
-		      </div>	
-		      <div class="modal-body" th:each= "cate : ${category}">
-		        	<ul>
-		        		<li>
-		        			<input type="radio" name="idCategory" th:value="${cate.idCategory}">
-		        			<span th:text="${cate.name}"></span>
-		        		</li>
-		        	</ul>
-		      </div>
-		      <div class="modal-footer">
-		      <button onclick="showListProductByIdFilter()" type="button" class="btn btn-default" data-dismiss="modal">Lọc</button>
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
-		      </div>
-		    </div>
-		
-		  </div>
-		</div>
+	<!-- modal filter -->
+	<div id="modalFilter" class="modal fade" role="dialog">
+		<div class="modal-dialog">
 
-	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script> 
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Danh mục</h4>
+				</div>
+				<div class="modal-body" th:each="cate : ${category}">
+					<ul>
+						<li><input type="radio" name="idCategory"
+							th:value="${cate.idCategory}"> <span
+							th:text="${cate.name}"></span></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button onclick="showListProductByIdFilter()" type="button"
+						class="btn btn-default" data-dismiss="modal">Lọc</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 	<script th:src="@{/js/popper.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/jquery.easing.1.3.js}"></script>
 	<script th:src="@{/js/jquery.waypoints.min.js}"></script>
 	<script th:src="@{/js/jquery.stellar.min.js}"></script>
 	<script th:src="@{/js/owl.carousel.min.js}"></script>
-	 <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 	<script th:src="@{/js/aos.js}"></script>
-	 <script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+	<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
 	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
 	<script th:src="@{/js/scrollax.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-	<script type="text/javascript">
 
+	<script type="text/javascript">
 	$( document ).ready(function() {
 		listProduct();
 	});
@@ -394,7 +391,6 @@
 					}
 					
 		}
-		
 	
 	function searchProduct(){
 		var key  = $('#nameProduct').val();
@@ -410,8 +406,6 @@
 			});
 		}
 	
-	
-		
 	function listProductNewBest(){
 			$.ajax({
 				type: "GET",
@@ -445,6 +439,7 @@
 				}
 			});
 		}
+	
 	function listProductPriceAsc(){
 			$.ajax({
 				type: "GET",

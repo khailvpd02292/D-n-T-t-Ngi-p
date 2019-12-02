@@ -221,5 +221,7 @@ public class ManagerController {
 
 
 	// product Detail
+	
+	
 
 }
