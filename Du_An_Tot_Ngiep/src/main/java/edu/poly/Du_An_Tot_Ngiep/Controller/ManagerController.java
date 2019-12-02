@@ -69,8 +69,8 @@ public class ManagerController {
 					User user = this.userService.findByEmail(cookies[i].getValue()).get();
 					if (user.isRole() == false) {
 						model.addAttribute("username", username);
-//						model.addAttribute("fullname", user.getFullname());
-						return "redirect:/manager/listProduct";
+						model.addAttribute("fullname", user.getFullname());
+						return "/manager/home/index";
 					} else {
 						return "redirect:/index";
 					}
