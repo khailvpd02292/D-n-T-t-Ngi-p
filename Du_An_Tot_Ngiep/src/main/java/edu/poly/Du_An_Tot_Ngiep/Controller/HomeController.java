@@ -1,21 +1,16 @@
 package edu.poly.Du_An_Tot_Ngiep.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +23,6 @@ import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.CategoryService;
 import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
 import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
-import edu.poly.Du_An_Tot_Ngiep.utils.AppUtils;
 
 @Controller
 @RequestMapping(value = "/index")
@@ -43,23 +37,6 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 
-//	@GetMapping()
-//	public String Home(ModelMap model, HttpServletRequest request) {
-//			model.addAttribute("prods", this.productService.findAll());
-//			model.addAttribute("category", this.categoryService.findAll());
-//			Cookie[] cookies = request.getCookies();
-//			if(cookies != null) {
-//				Cookie account = Stream.of(cookies)
-//						.filter(cookie -> cookie.getName().equalsIgnoreCase("account"))
-//						.findFirst()
-//						.get();
-//				model.addAttribute("email", account.getValue());
-//			}
-//			model.addAttribute("showProduct", this.productService.showListProductForIndex());
-//			return "home/index";
-//	
-//	}
-	
 	void getName(HttpServletRequest request, ModelMap model) {
 		//show user
 		Cookie[] cookies = request.getCookies();
@@ -79,15 +56,19 @@ public class HomeController {
 	}
 
 	@GetMapping()
-	public String Home(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+	public String Home(ModelMap model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		if(session.getAttribute("cart")!=null) {
+			List<Product> listpro = (List<Product>) session.getAttribute("cart");
+			session.setAttribute("countCart",listpro.size());
+		} else {
+			session.setAttribute("countCart",0);
+		}
+
 		//show user
 		cookieDetail(model, request, response);
+
 		initHomeResponse(model);
-//		AppUtils.getCookie("account", request)
-//			.ifPresent(cookie -> {
-//				User user = this.userService.findByEmail(cookie.getValue()).get();
-//				model.addAttribute("email", user.getFullname());
-//			});
+
 		return "home/index";
 
 	}
@@ -185,8 +166,6 @@ public class HomeController {
 			return "shop/searchProduct";
 		}
 		
-		
-		
 		model.addAttribute("searchProduct", this.productService.searchListProductByIdCategory(key));
 //		request.getSession().setAttribute("productList", null);
 		return "shop/searchProduct";
@@ -216,7 +195,8 @@ public class HomeController {
 		}
 		initHomeResponse(model);
 	}
-
+	
+	
 
 
 

@@ -4,19 +4,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -49,11 +37,13 @@ public class Product {
 	@Column(name = "dateOfManufacture")
 	private Date dateOfManufacture;
 
-	
 	@ManyToOne
 	@JoinColumn(name = "idCategory", insertable = true, updatable = true)
 	private Category category;
-	
+
+	@Transient
+	private int amount;
+
 	public Product() {
 		super();
 	}
@@ -69,6 +59,14 @@ public class Product {
 		this.description = description;
 		this.dateOfManufacture = dateOfManufacture;
 		this.category = category;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 	public int getIdProduct() {
@@ -98,7 +96,7 @@ public class Product {
 	public byte[] getImage() {
 		return image;
 	}
-	
+
 	public String getImageBase64() {
 		if (this.getImage() == null) {
 			return "";
@@ -142,6 +140,5 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
 
 }
