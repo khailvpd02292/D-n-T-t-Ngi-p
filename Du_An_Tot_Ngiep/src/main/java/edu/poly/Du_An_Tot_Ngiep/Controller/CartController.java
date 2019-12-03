@@ -39,6 +39,12 @@ public class CartController {
 		model.addAttribute("listOrder",list);
 		return "manager/order/order";
 	}
+//	@GetMapping("/manager/orderDetail")
+//	public String listOrderDetail(ModelMap model) {
+//		List<InvoiceDetail> list = this.orderDetailsService.findAll();
+//		model.addAttribute("listOrderDetail", list);
+//		return "manager/order/orderDetail";
+//	}
 	
 	@RequestMapping("/cart/add/{id}")
 	public String add(@PathVariable("id") Integer id) {
@@ -85,6 +91,23 @@ public class CartController {
 		}
 		model.addAttribute("oldorders",productorder);
 		return "shop/oderdetail";
+	}
+	
+	@GetMapping(value = "/manager/orderDetail/{id}")
+	public String viewOrderdetailsForManager(@PathVariable("id") int id, ModelMap model, HttpServletRequest request){
+		//-- id hóa đơn
+		//-- findIdInvoice
+		//-CHeck null or not
+		//Sendrect 404
+		List<InvoiceDetail> list = this.orderDetailsService.findDetailByInvoiceId(id);
+		List<Product> productorder = new ArrayList<>();
+		for(int i=0;i<list.size();i++){
+			Product odrProduct = productService.findByIdProduct(list.get(i).getProduct().getIdProduct());
+			odrProduct.setAmount(list.get(i).getAmount());
+			productorder.add(odrProduct);
+		}
+		model.addAttribute("listOrderDetail",productorder);
+		return "manager/order/orderDetail";
 	}
 
 

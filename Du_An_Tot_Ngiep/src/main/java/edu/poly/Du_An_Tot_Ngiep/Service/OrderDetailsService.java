@@ -11,4 +11,6 @@ public interface OrderDetailsService {
     List<InvoiceDetail> findDetailByInvoiceId(int id);
 
     InvoiceDetail findInvoiceDetail(int id);
+
+	List<InvoiceDetail> findAll();
 }

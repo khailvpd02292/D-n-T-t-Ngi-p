@@ -10,17 +10,17 @@
 <!-- plugins:css -->
 
 <link rel="stylesheet"
-	href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+	th:href="@{/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css}">
 <link rel="stylesheet"
-	href="../assets/vendors/iconfonts/ionicons/css/ionicons.css">
+	th:href="@{/assets/vendors/iconfonts/ionicons/css/ionicons.css}">
 <link rel="stylesheet"
-	href="../assets/vendors/iconfonts/typicons/src/font/typicons.css">
+	th:href="@{/assets/vendors/iconfonts/typicons/src/font/typicons.css}">
 <link rel="stylesheet"
-	href="../assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css">
+	th:href="@{/assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css}">
 <link rel="stylesheet"
-	href="../assets/vendors/css/vendor.bundle.base.css">
+	th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
 <link rel="stylesheet"
-	href="../assets/vendors/css/vendor.bundle.addons.css">
+	th:href="@{/assets/vendors/css/vendor.bundle.addons.css}">
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
@@ -35,7 +35,12 @@
 <link rel="stylesheet" th:href="@{/assets/css/demo_1/style.css}">
 <!-- End Layout styles -->
 <link rel="shortcut icon" th:href="@{/assets/images/favicon.png}" />
-
+<style type="text/css">
+#img{
+height: 150px;
+width: 120px;
+}
+</style>
 
 </head>
 <body>
@@ -53,37 +58,32 @@
 						<div class="col-lg-12 grid-margin stretch-card">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Danh Sách Hóa Đơn</h4>
+									<h4 class="card-title">Danh Sách Hóa Đơn Hóa Đơn Chi Tiết Theo Mã Hóa Đơn</h4>
 									<p class="card-description">
-									<!-- <a class="btn btn-inverse-success btn-fw" th:href="@{/manager/orderDetail}">Xem Hóa Đơn Chi Tiết</a> -->
+								 	<a class="btn btn-inverse-success btn-fw" th:href="@{/manager/order}">Quay Về Hóa Đơn</a> 
 									</p>
 
 									<table id="dataTable-listProduct" class="table table-hover">
 										<thead>
 											<tr>
-												<th>Mã Hóa Đơn</th>
+												<th>Ảnh</th>
 												 <!-- <th>Tên Khách Hàng</th>  -->
-												<th>Ngày đặt hàng</th>
-												<th>Trạng Thái</th>
-												<th>Tổng Tiền</th>
-												<th></th>
+												<th>Tên Sản Phẩm</th>
+												<th>Giá</th>
+												<th>Số Lượng</th>
+												 <th>Tổng Tiền</th>
 											</tr>
 										</thead>
 										<tbody id="dataForm">
-											<tr th:each="order : ${listOrder}">
-												<td>
-												   <a class="btn btn-inverse-success btn-fw" th:href="@{'/manager/orderDetail/'+${order.invoiceId}}" th:text="${order.invoiceId}"> </a>
-												</td> 
-												<td th:text="${order.dateorders}"></td>
-												<td th:text="${order.status}">
-												<button class="btn btn-danger"
-													>Thay đổi</button>
-												</td>
-												<td th:text="${order.total}"></td>
-												
-												<td> <a class="btn btn-danger"
-													href="#">Xóa</a>
-												</td>
+											<tr th:each="order : ${listOrderDetail}">
+											<td class="image-prod"><img id="img"
+												th:src="'data:image/png;base64,' + ${order.getImageBase64()}"
+												alt="Colorlib Template"></td>
+											<td th:text="${order.name}">
+											</td>
+											<td class="price" th:text="${order.price}"></td>
+											<td class="price" th:text="${order.amount}"></td>
+											<td class="total" th:text="${order.price*order.amount}"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -277,14 +277,14 @@
 	<!-- container-scroller -->
 	<!-- plugins:js -->
 	
-	<script src="../assets/vendors/js/vendor.bundle.base.js"></script>
-	<script src="../assets/vendors/js/vendor.bundle.addons.js"></script>
+	<script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
+	<script th:src="@{/assets/vendors/js/vendor.bundle.addons.js}"></script>
 	<!-- endinject -->
-	<script src="../assets/js/shared/off-canvas.js"></script>
-	<script src="../assets/js/shared/misc.js"></script>
+	<script th:src="@{/assets/js/shared/off-canvas.js}"></script>
+	<script th:src="@{/assets/js/shared/misc.js}"></script>
 	<!-- endinject -->
 	<!-- Custom js for this page-->
-	<script src="../assets/js/demo_1/dashboard.js"></script>
+	<script th:src="@{/assets/js/demo_1/dashboard.js}"></script>
 	
 	
 	<!-- DataTables -->
