@@ -2,9 +2,9 @@
 			<div
 				class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
 				<a class="navbar-brand brand-logo" th:href="@{/manager}"> <img
-					class="anh" src="../assets/images/logo.svg" alt="logo" />
+					class="anh" th:src="@{/assets/images/logo.svg}" alt="logo" />
 				</a> <a class="navbar-brand brand-logo-mini" th:href="@{/manager}">
-					<img src="../assets/images/logo-mini.svg" alt="logo" />
+					<img th:src="@{/assets/images/logo-mini.svg}" alt="logo" />
 				</a>
 			</div>
 			<div class="navbar-menu-wrapper d-flex align-items-center">
@@ -38,7 +38,7 @@
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item preview-item">
 								<div class="preview-thumbnail">
-									<img src="../assets/images/faces/face10.jpg" alt="image"
+									<img th:src="@{/assets/images/faces/face10.jpg}" alt="image"
 										class="img-sm profile-pic">
 								</div>
 								<div class="preview-item-content flex-grow py-2">
@@ -83,13 +83,13 @@
 						<a class="nav-link dropdown-toggle" id="UserDropdown" href="#"
 						data-toggle="dropdown" aria-expanded="false"> <img
 							class="img-xs rounded-circle"
-							src="../assets/images/faces/face8.jpg" alt="Profile image">
+							th:src="@{/assets/images/faces/face8.jpg}" alt="Profile image">
 					</a>
 						<div class="dropdown-menu dropdown-menu-right navbar-dropdown"
 							aria-labelledby="UserDropdown">
 							<div class="dropdown-header text-center">
 								<img class="img-md rounded-circle"
-									src="../assets/images/faces/face8.jpg" alt="Profile image">
+									th:src="@{/assets/images/faces/face8.jpg}" alt="Profile image">
 								<p class="mb-1 mt-3 font-weight-semibold" th:text="${fullname}"></p>
 								<p class="font-weight-light text-muted mb-0"
 									th:text="${username}"></p>
@@ -100,7 +100,7 @@
 								class="dropdown-item-icon ti-comment-alt"></i></a> <a
 								class="dropdown-item">Activity<i
 								class="dropdown-item-icon ti-location-arrow"></i></a>  -->
-								<a class="dropdown-item" th:href="@{/logout}">Đăng xuất<i
+								<a class="dropdown-item" th:href="@{/logout}">Đăng Xuất<i
 								class="dropdown-item-icon ti-power-off"></i></a>
 						</div>
 					</li>

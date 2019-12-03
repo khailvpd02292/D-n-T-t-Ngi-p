@@ -28,4 +28,10 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     public InvoiceDetail findInvoiceDetail(int id) {
         return invoiceDetailRepository.findById(id);
     }
+
+	@Override
+	public List<InvoiceDetail> findAll() {
+		return invoiceDetailRepository.findAll();
+	}
+    
 }
