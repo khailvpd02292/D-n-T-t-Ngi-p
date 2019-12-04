@@ -49,7 +49,7 @@ public class UserController {
 			}
 		}
 	}
-	
+
 	@PostMapping("/login")
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password, ModelMap model,
 			HttpServletResponse response) {
@@ -90,11 +90,11 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/manager/listUser")
-	public String listProduct(ModelMap model, @CookieValue(value = "account") String username
-			,HttpServletRequest request, HttpServletResponse response) {
+	public String listProduct(ModelMap model, @CookieValue(value = "account") String username,
+			HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("listuser", this.userService.findAll());
 		model.addAttribute("username", username);
-		getName(request, model);		
+		getName(request, model);
 		return "/manager/users/listUser";
 	}
 
@@ -106,19 +106,24 @@ public class UserController {
 
 	@PostMapping(value = "/registration")
 	public String addProduct(@ModelAttribute(name = "registration") User registration, ModelMap model,
-			@RequestParam boolean gender, @RequestParam Date birthday) {
+			@RequestParam boolean gender, @RequestParam Date birthday, @RequestParam("email") String email) {
 		model.addAttribute("registration", new User());
-		User usr = new User();
-		usr.setAddress(registration.getAddress());
-		usr.setBirthday(birthday);
-		usr.setEmail(registration.getEmail());
-		usr.setFullname(registration.getFullname());
-		usr.setGender(gender);
-		usr.setPassword(registration.getPassword());
-		usr.setPhone(registration.getPhone());
-		usr.setRole(true);
-		userService.save(usr);
-		return "redirect:login";
+		if (userService.findByEmail(email).isPresent()) {
+			model.addAttribute("error", "Email đã tồn tại");
+			return "/login/registred";
+		} else {
+			User usr = new User();
+			usr.setAddress(registration.getAddress());
+			usr.setBirthday(birthday);
+			usr.setEmail(registration.getEmail());
+			usr.setFullname(registration.getFullname());
+			usr.setGender(gender);
+			usr.setPassword(registration.getPassword());
+			usr.setPhone(registration.getPhone());
+			usr.setRole(true);
+			userService.save(usr);
+			return "redirect:login";
+		}
 	}
 
 	@GetMapping(value = "/manager/updateUser/{userId}")
@@ -128,7 +133,7 @@ public class UserController {
 				this.userService.findById(id).isPresent() ? this.userService.findById(id).get() : null);
 		return "/manager/users/updateUser";
 	}
-	
+
 	@PostMapping(value = "/manager/updateUser")
 	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID, BindingResult result,
 			HttpServletRequest request) {
