@@ -43,9 +43,9 @@
                       <div class="col-lg-3 col-md-6">
                         <div class="d-flex">
                           <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">32,451</h3>
-                            <h5 class="mb-0 font-weight-medium text-primary">Danh Mục</h5>
-                            <p class="mb-0 text-muted">+14.00(+0.50%)</p>
+                            <!-- <h3 class="mb-0 font-weight-semibold">32,451</h3> -->
+                            <h5 class="mb-0 font-weight-medium text-primary"><a th:href="@{/manager/listCategory}">Danh Mục</a></h5>
+                           <!--  <p class="mb-0 text-muted">+14.00(+0.50%)</p> -->
                           </div>
                           <div class="wrapper my-auto ml-auto ml-lg-4">
                             <canvas height="50" width="100" id="stats-line-graph-1"></canvas>
@@ -55,37 +55,37 @@
                       <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
                         <div class="d-flex">
                           <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">15,236</h3>
-                            <h5 class="mb-0 font-weight-medium text-primary">Sản Phẩm</h5>
-                            <p class="mb-0 text-muted">+138.97(+0.54%)</p>
+                            <!-- <h3 class="mb-0 font-weight-semibold">15,236</h3> -->
+                            <h5 class="mb-0 font-weight-medium text-primary"><a th:href="@{/manager/listProduct}">Sản Phẩm</a> </h5>
+                            <!-- <p class="mb-0 text-muted">+138.97(+0.54%)</p> -->
                           </div>
                           <div class="wrapper my-auto ml-auto ml-lg-4">
                             <canvas height="50" width="100" id="stats-line-graph-2"></canvas>
-                          </div>
+                          </div> 
                         </div>
                       </div>
                       <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
                         <div class="d-flex">
                           <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">7,688</h3>
-                            <h5 class="mb-0 font-weight-medium text-primary">Tài Khoản</h5>
-                            <p class="mb-0 text-muted">+57.62(+0.76%)</p>
+                            <!-- <h3 class="mb-0 font-weight-semibold">7,688</h3> -->
+                            <h5 class="mb-0 font-weight-medium text-primary"><a th:href="@{/manager/order}">Giỏ Hàng</a></h5>
+                            <!-- <p class="mb-0 text-muted">+57.62(+0.76%)</p> -->
                           </div>
-                          <div class="wrapper my-auto ml-auto ml-lg-4">
+                           <div class="wrapper my-auto ml-auto ml-lg-4">
                             <canvas height="50" width="100" id="stats-line-graph-3"></canvas>
-                          </div>
+                          </div> 
                         </div>
                       </div>
                       <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
                         <div class="d-flex">
                           <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">1,553</h3>
-                            <h5 class="mb-0 font-weight-medium text-primary">Thông Tin</h5>
-                            <p class="mb-0 text-muted">+138.97(+0.54%)</p>
+                            <!-- <h3 class="mb-0 font-weight-semibold">1,553</h3> -->
+                            <h5 class="mb-0 font-weight-medium text-primary"><a th:href="@{/manager/listUser}">Tài Khoản</a></h5>
+                            <!-- <p class="mb-0 text-muted">+138.97(+0.54%)</p> -->
                           </div>
-                          <div class="wrapper my-auto ml-auto ml-lg-4">
+                           <div class="wrapper my-auto ml-auto ml-lg-4">
                             <canvas height="50" width="100" id="stats-line-graph-4"></canvas>
-                          </div>
+                          </div> 
                         </div>
                       </div>
                     </div>
@@ -108,199 +108,74 @@
                             </div>
                           </nav>
                           <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                <table class="table table-hover">
-                                    <thead>
-                                      <tr>
-                                        <th> thời gian </th>
-                                        <th> Số lượng giao dịch</th>
-                                        <th>tổng danh thu</th>
-                                        <th>doanh thu thấp nhât</th>
-                                        <th>Doanh thu cao nhất</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        
-                                      </tr>
-                                       <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                                        <td> Messsy Adam </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                       
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-3.png" alt="image" /> </td>
-                                        <td> John Richards </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                       
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-4.png" alt="image" /> </td>
-                                        <td> Peter Meggik </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                                        <td> Edward </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                                        <td> John Doe </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                      </tr>
-                                      
-                                    </tbody>
-                                  </table>
-                            </div>
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                              <table class="table table-hover">
-                                <thead>
-                                  <tr>
-                                    <th> thời gian </th>
-                                    <th> Số lượng giao dịch</th>
-                                    <th>tổng danh thu</th>
-                                    <th>doanh thu thấp nhât</th>
-                                    <th>Doanh thu cao nhất</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td class="py-1">
-                                      <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    
-                                    
-                                  </tr>
-                                   <tr>
-                                    <td class="py-1">
-                                      <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                                    <td> Messsy Adam </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                   
-                                   
-                                  </tr>
-                                  <tr>
-                                    <td class="py-1">
-                                      <img src="../assets/images/faces-clipart/pic-3.png" alt="image" /> </td>
-                                    <td> John Richards </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                   
-                                   
-                                  </tr>
-                                  <tr>
-                                    <td class="py-1">
-                                      <img src="../assets/images/faces-clipart/pic-4.png" alt="image" /> </td>
-                                    <td> Peter Meggik </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                   
-                                  </tr>
-                                  <tr>
-                                    <td class="py-1">
-                                      <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                                    <td> Edward </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    
-                                  </tr>
-                                  <tr>
-                                    <td class="py-1">
-                                      <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                                    <td> John Doe </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                    <td> Herman Beck </td>
-                                   
-                                  </tr>
-                                  
-                                </tbody>
-                              </table>
-                            </div>
-                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                <table class="table table-hover">
-                                    <thead>
-                                      <tr>
-                                        <th> Tên Sản Phẩm</th>
-                                        <th>Số Lượng</th>
-                                        <th>Tổng số tiền</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                                        <td> Herman Beck </td>
-                                        <td> Herman Beck </td>
-                                        
-                                      </tr>
-                                       <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                                        <td> Messsy Adam </td>
-                                        <td> Herman Beck </td>
-                                       
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-3.png" alt="image" /> </td>
-                                        <td> John Richards </td>
-                                        <td> Herman Beck </td>
-                                       
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-4.png" alt="image" /> </td>
-                                        <td> Peter Meggik </td>
-                                        <td> Herman Beck </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-1.png" alt="image" /> </td>
-                                        <td> Edward </td>
-                                        <td> Herman Beck </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="py-1">
-                                          <img src="../assets/images/faces-clipart/pic-2.png" alt="image" /> </td>
-                                        <td> John Doe </td>
-                                        <td> Herman Beck </td>
-                                      </tr>
-                                      
-                                    </tbody>
-                                  </table>
-                            </div>
-                          </div>
+										<div class="tab-pane fade show active" id="nav-home"
+											role="tabpanel" aria-labelledby="nav-home-tab">
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<th>thời gian</th>
+														<th>Số lượng giao dịch</th>
+														<th>tổng danh thu</th>
+														<th>doanh thu thấp nhât</th>
+														<th>Doanh thu cao nhất</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="month : ${months}">
+														<td class="py-1"
+															th:text="${month.orderMonth + '/' + month.orderYear}">
+														<td th:text="${month.orderCount }"></td>
+														<td th:text="${month.total}"></td>
+														<td th:text="${month.minTotal}"></td>
+														<td th:text="${month.maxTotal}"></td>
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="tab-pane fade" id="nav-profile" role="tabpanel"
+											aria-labelledby="nav-profile-tab">
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<th>thời gian</th>
+														<th>Số lượng giao dịch</th>
+														<th>tổng danh thu</th>
+														<th>doanh thu thấp nhât</th>
+														<th>Doanh thu cao nhất</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="year : ${years}">
+														<td class="py-1" th:text=${year.orderYear}>
+														<td th:text=${year.orderCount}></td>
+														<td th:text=${year.total}></td>
+														<td th:text=${year.minTotal}></td>
+														<td th:text=${year.maxTotal}></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="tab-pane fade" id="nav-contact" role="tabpanel"
+											aria-labelledby="nav-contact-tab">
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<th>Tên Sản Phẩm</th>
+														<th>Số Lượng</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="product : ${products}">
+														<td class="py-1" th:text="${product.name}">
+														<td th:text="${product.soLuongBanDuoc}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+                          
+                          
                       </div>
                     </div>
                  

@@ -75,8 +75,7 @@ public class HomeController {
 						// show user
 						cookieDetail(model, request, response);
 
-						initHomeResponse(model);
-
+						this.initHomeResponse(model);
 						return "home/index";
 					} else {
 						return "redirect:/manager";
@@ -94,7 +93,7 @@ public class HomeController {
 			// show user
 			cookieDetail(model, request, response);
 
-			initHomeResponse(model);
+			this.initHomeResponse(model);
 
 			return "home/index";
 		}
