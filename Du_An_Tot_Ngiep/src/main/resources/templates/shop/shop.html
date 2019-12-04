@@ -48,50 +48,6 @@
 <link rel="stylesheet" th:href="@{/css/slick.css}">
 <link rel="stylesheet" th:href="@{/css/nouislider.min.css}">
 
-<style type="text/css">
-.simple-pagination ul {
-	margin: 0 0 20px;
-	padding: 0;
-	list-style: none;
-	text-align: center;
-}
-
-.simple-pagination li {
-	display: inline-block;
-	margin-right: 5px;
-}
-
-.simple-pagination li a, .simple-pagination li span {
-	color: #666;
-	padding: 5px 10px;
-	text-decoration: none;
-	border: 1px solid #EEE;
-	background-color: #82ae46;
-	box-shadow: 0px 0px 10px 0px #EEE;
-}
-
-.simple-pagination li span:hover {
-	color: #666;
-	background-color: #82ae46;
-}
-
-.simple-pagination .current {
-	color: #FFF;
-	background-color: #82ae46;
-	border-color: #FF7182;
-}
-
-.simple-pagination .current:hover {
-	color: #FFF;
-	background-color: #82ae46;
-	border-color: #FF7182;
-}
-
-.simple-pagination .prev.current, .simple-pagination .next.current {
-	background: #82ae46;
-}
-</style>
-
 </head>
 <body class="goto-here">
 	<!-- nav -->
@@ -132,8 +88,11 @@
 						onclick="listProductPriceAsc()">Giá thấp đến cao</button></li>
 			</ul>
 		</div>
-		<div class="container" id="page">
+		<div class="container">
 			<div class="row" id="dataProduct"></div>
+		</div>
+		<div class="container">
+			<div class="row" id="pageproduct"></div>
 		</div>
 	</section>
 	
@@ -214,268 +173,243 @@
 	<script th:src="@{/js/main.js}"></script>
 
 	<script type="text/javascript">
-	$( document ).ready(function() {
-		listProduct();
+$( document ).ready(function() {
+	getProducts();
+});
+
+var listProduct = [];
+var origin   = window.location.origin;
+var pathname = $(location).attr('pathname');
+pathname.indexOf(1);
+pathname.toLowerCase();
+pathname = pathname.split("/")[1];
+var pageTotal = 0;
+var pageCurrent = 6;
+var pageCheck = 1;
+var pageLimit = 6
+var pageProduct = 8;
+
+function getProducts(){
+	$.ajax({
+		type : "GET",
+		contentType : "application/json; charset=utf-8",
+		dataType : 'json',
+		url : "/index/listProductAjax",
+		success : function(result){
+			listProduct = result;
+			pageTotal = listProduct.length / pageProduct;
+			detailHtml(pageTotal,listProduct.length);
+		},
+		error: function(result){
+			console.log(result);
+			alert('failed');
+		}
 	});
+}
 	
-	function listProduct(){
+var dataPageProduct = "1";
+function detailHtml(pageTotal,max){
+	if(listProduct == null){
+		alert("Failed");
+	}else{
+		listPageProduct(0,max,true);
+	 }	
+}
+
+function listPageProduct(start, max, donit){
+	$('#dataProduct').empty();
+	var j = 0;
+	for(var i = start; i < max; i++){
+		if(j == pageProduct) break;
+		/* console.log(listProduct) */
+		var html = '<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">'
+			+'<div class="product">'
+		+ '<a href="' + origin +'/'+ pathname + '/showProductSingle/'+ listProduct[i]['idProduct']+ '" class="img-prod">'
+	 	+'<img class="img-fluid" src="data:image/png;base64,'+listProduct[i]['imageBase64']+'" alt="Colorlib Template">'
+		+'<span class="status"></span> </a>'
+			+'<div class="text py-3 pb-4 px-3 text-center">'
+				+'<h3>'
+					+'<a href="#">' +listProduct[i]['name']+ '</a>'
+				+'</h3>'
+				+'<div class="d-flex">'
+					+'<div class="pricing">'
+					+'<p class="price">'
+					+'<span class="price-sale">' +listProduct[i]['price']+ '</span>'
+					+'</p>'
+					+'</div>'
+					+'</div>'
+					+'<div class="bottom-area d-flex px-3">'
+					+'<div class="m-auto d-flex">'
+					+'<a href="' + origin + '/' +pathname+ '/showProductSingle/' +listProduct[i]['idProduct']+ '"'
+					+'class="buy-now d-flex justify-content-center align-items-center mx-1">'
+					+'<span><i class="ion-ios-cart"></i></span>'
+					+'</a>'
+					+'</div>'
+					+'</div>'
+					+'</div>'
+			+'</div>'
+			+'</div>';
+			
+			$('#dataProduct').append(html);
+			j++ ;
+	}
+	if(donit){
+		detailHtmlPage(0,pageTotal)
+	}
+	
+	
+}
+			
+function detailHtmlPage(indexPage , page ){
+	$('#pageproduct').empty();
+ 	var html = 
+		'<div class="col text-center">'
+		+'<div class="block-27">'
+		+'<button class="btn btn-primary" id="preeValue" style="margin-right:2px; "><</button>'
+		+'<span id="pageNumbers"></span>'
+		+'<button class="btn btn-primary" id="nextValue">></button>'
+		+'</div>'
+		+'</div>';
+		$('#pageproduct').append(html);
+		var i = 0;
+	 for(var j = indexPage ; j <= page ; j++){
+		 if(i == 6)break;
+		 var active = "";
+		 var index = j + 1;
+		 if(j == 0){
+			 item = '<button class="btn btn-primary pageNumber '+active+'" attr-start= "0" style="margin-right:2px;" data-page="'+index+'">'+index+'</button>';
+		 }else {
+			 var start = j * pageProduct -1 ;
+			 item = '<button class="btn btn-primary pageNumber " attr-start= '+start+' style="margin-right:2px;" data-page="'+index+'">'+index+'</button>';
+		 }	
+		 $('#pageNumbers').append(item);
+		 i++;
+	 }
+	 
+	 $.each($('#pageNumbers .pageNumber'), function(i, page){
+		 if($(page).attr("data-page") == pageCheck){
+			 $(page).addClass("active");
+		 }
+	 });
+	 
+	 if(pageTotal <= pageCurrent) $('button#nextValue').prop('disabled', true);
+	 if(indexPage == 0) $('button#preeValue').prop('disabled', true);
+	 $('.pageNumber').click(function(){
+			$('#pageNumbers .pageNumber.active ').removeClass("active")
+			$(this).addClass("active");
+			var attr = $(this).attr("attr-start");
+			listPageProduct(attr,listProduct.length,false);
+			pageCheck = $(this).attr("data-page");
+	});
+	 
+	 $('#nextValue').click(function(){
+		var numberPage = pageTotal - pageCurrent ;
+		pageCurrent = pageCurrent + pageLimit;
+		var button = $('#pageNumbers .pageNumber')[$('#pageNumbers .pageNumber').length - 1];
+		detailHtmlPage($('#pageNumbers .pageNumber').length,pageTotal);
+	});
+
+	$('#preeValue').click(function(){
+		var numberPage = pageTotal - pageCurrent ;
+		pageCurrent = pageCurrent - pageLimit;
+		var button = $('#pageNumbers .pageNumber')[$('#pageNumbers .pageNumber').length - 1];
+		detailHtmlPage($('#pageNumbers .pageNumber').length-1,pageTotal);
+	});
+}
+
+
+function searchProduct(){
+	var key  = $('#nameProduct').val();
 		$.ajax({
-			type : "GET",
+			type: "POST",
 			contentType : "application/json; charset=utf-8",
 			dataType : 'json',
-			url : "/index/listProductAjax",
+			url : "/index/searchAjaxProduct/"+key,
+			success: function(result){
+				
+			},
+			
+		});
+	}
+
+function listProductNewBest(){
+		$.ajax({
+			type: "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+			async : false,
+			url : "/index/listProductNewBest",
 			success : function(result){
-				/* alert('ok'); */
-				detailHtml(result);
+				listProduct = result;
+				pageTotal = listProduct.length / 4 + listProduct.length % 4;
+				detailHtml(pageTotal,listProduct.length);
 			},
 			error: function(result){
 				
 				console.log(result);
 				alert('failedd');
 			}
+			
 		});
 	}
-	 jQuery(function ($){
-	        var items = $("#dataProduct .product");
-	        var numItems = items.length;
-	        var perPage = 8;
-	        items.slice(perPage).hide();
-	        $("#pagination-container").pagination({
-	            items: numItems,
-	            itemsOnPage: perPage,
-	            prevText: "&laquo;",
-	            nextText: "&raquo;",
-	            onPageClick: function (pageNumber) {
-	                var showFrom = perPage * (pageNumber - 1);
-	                var showTo = showFrom + perPage;
-	                items.hide().slice(showFrom, showTo).show();
-	            }
-	        });
-	    });
-	
-	 
-	 var dataPageProduct = "1";
-		function detailHtml(result){
-			var listProduct = result;
-			var origin   = window.location.origin;
-			var pathname = $(location).attr('pathname');
-			pathname.indexOf(1);
-			pathname.toLowerCase();
-			pathname = pathname.split("/")[1];
-			if(listProduct == null){
-				alert("Failed");
-			}else{
-				
-				var dataProduct = $('#dataProduct'); 
-				var max_size = listProduct.length;
-				var start = 0;
-				var element_page = 4;
-				var limit = element_page;
-				
-				/* dataProduct.empty(); */
-				dataProduct.empty();
-				listPageProduct(start, limit);
-				
-				 function listPageProduct(start, limit){
-					var page = max_size / element_page;
-					if(page % 2 == 0){
-						listProductpage = page+1;
-					}else{
-						listProductpage = page;
-					}
-					
-					
-					for(var i = start; i < limit; i++){
-						/* console.log(listProduct) */
-						var html = '<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">'
-							+'<div class="product">'
-						+ '<a href="' + origin +'/'+ pathname + '/showProductSingle/'+ listProduct[i]['idProduct']+ '" class="img-prod">'
-					 	+'<img class="img-fluid" src="data:image/png;base64,'+listProduct[i]['imageBase64']+'" alt="Colorlib Template">'
-						+'<span class="status"></span> </a>'
-							+'<div class="text py-3 pb-4 px-3 text-center">'
-								+'<h3>'
-									+'<a href="#">' +listProduct[i]['name']+ '</a>'
-								+'</h3>'
-								+'<div class="d-flex">'
-									+'<div class="pricing">'
-									+'<p class="price">'
-									+'<span class="price-sale">' +listProduct[i]['price']+ '</span>'
-									+'</p>'
-									+'</div>'
-									+'</div>'
-									+'<div class="bottom-area d-flex px-3">'
-									+'<div class="m-auto d-flex">'
-									+'<a href="' + origin + '/' +pathname+ '/showProductSingle/' +listProduct[i]['idProduct']+ '"'
-									+'class="buy-now d-flex justify-content-center align-items-center mx-1">'
-									+'<span><i class="ion-ios-cart"></i></span>'
-									+'</a>'
-									+'</div>'
-									+'</div>'
-									+'</div>'
-							+'</div>'
-							+'</div>';
-							
-							
-						dataProduct.append(html);
-					}
-				}
-				 detailHtmlPage(listProductpage,dataProduct);
-					$('.pageNumber').click(function(){
-						var numberPage = parseInt($(this).attr("data-page"))+1;
-						if(numberPage > dataPageProduct){
-							limit = element_page + limit;
-							start = (start + element_page);
-							dataProduct.empty();
-							
-							
-							dataPageProduct = numberPage;
-							listPageProduct(start, limit);
-							detailHtmlPage(listProductpage,dataProduct);
-						}else{
-							
-							limit = limit -	element_page;
-							start = start - element_page;
-							dataPageProduct = numberPage;
-							
-							dataProduct.empty();
-							listPageProduct(start, limit);
-							detailHtmlPage(listProductpage,dataProduct);
-						}
-						
-					}); 
-					
-				$('#nextValue').click(function(){
-					var numberPage = parseInt(dataPageProduct) + 1 ;
-					var next = limit;
-					if(next >= dataPageProduct){
-						limit = element_page + limit;
-						start = (start + element_page);
-						dataPageProduct = numberPage;
-						dataProduct.empty();
-						listPageProduct(start, limit);
-						detailHtmlPage(listProductpage,dataProduct);
-					}
-				});
-				
-				$('#preeValue').click(function(){
-					var numberPage = parseInt(dataPageProduct) ;
-					var pre = limit-(2*element_page);
-					if(pre >= 0) {
-						limit = limit -	element_page;
-						start = start - element_page;
-						dataPageProduct = numberPage;
-						dataProduct.empty();
-						listPageProduct(start, limit);
-						detailHtmlPage(listProductpage,dataProduct);
-					}
-				});
-				
-				
-			  }
-				
+function listProductPriceDesc(){
+		$.ajax({
+			type: "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+			url : "/index/listProductPriceDesc",
+			success : function(result){
+				listProduct = result;
+				pageTotal = listProduct.length / 4 + listProduct.length % 4;
+				detailHtml(pageTotal,listProduct.length);
+			},
+			error: function(result){
+				alert('failedd');
 			}
-			
-		function detailHtmlPage(listProductpage,dataProduct){
-			 var html = 
-					'<div class="col text-center">'
-					+'<div class="block-27">'
-					+'<button class="btn btn-primary" id="preeValue" style="margin-right:2px; "><</button>'
-					+'<span id="pageNumbers"></span>'
-					+'<button class="btn btn-primary" id="nextValue">></button>'
-					+'</div>'
-					+'</div>';
-					dataProduct.append(html);
-				 for(var j = 1 ; j <= listProductpage ; j++){
-						var item = '<button class="btn btn-primary pageNumber" style="margin-right:2px; data-page="'+j+'">'+j+'</button>';
-						$('#pageNumbers').append(item);
-					}
-					
-		}
-	
-	function searchProduct(){
-		var key  = $('#nameProduct').val();
-			$.ajax({
-				type: "POST",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/index/searchAjaxProduct/"+key,
-				success: function(result){
-					
-				},
-				
-			});
-		}
-	
-	function listProductNewBest(){
-			$.ajax({
-				type: "GET",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				async : false,
-				url : "/index/listProductNewBest",
-				success : function(result){
-					/* alert('ok'); */
-					detailHtml(result);
-				},
-				error: function(result){
-					
-					console.log(result);
-					alert('failedd');
-				}
-				
-			});
-		}
-	function listProductPriceDesc(){
-			$.ajax({
-				type: "GET",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/index/listProductPriceDesc",
-				success : function(result){
-					detailHtml(result);
-				},
-				error: function(result){
-					alert('failedd');
-				}
-			});
-		}
-	
-	function listProductPriceAsc(){
-			$.ajax({
-				type: "GET",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/index/listProductPriceAsc",
-				success : function(result){
-					detailHtml(result);
-				},
-				error: function(result){
-					alert('failedd');
-				}
-			});
+		});
+	}
+
+function listProductPriceAsc(){
+		$.ajax({
+			type: "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+			url : "/index/listProductPriceAsc",
+			success : function(result){
+				listProduct = result;
+				pageTotal = listProduct.length / 4 + listProduct.length % 4;
+				detailHtml(pageTotal,listProduct.length);
+			},
+			error: function(result){
+				alert('failedd');
+			}
+		});
+	}
+		
+	// filter
+function showListProductByIdFilter(){
+	var id = [];
+       $.each($("input[name='idCategory']:checked"), function(){
+           id.push($(this).val());
+       });
+	$.ajax({
+		type: "POST",
+		contentType : "application/json; charset=utf-8",
+		dataType : 'json',
+		url : "/index/listProductByIdCategoryFilter/" +id,
+		success : function(result){
+			listProduct = result;
+			pageTotal = listProduct.length / 4 + listProduct.length % 4;
+			detailHtml(pageTotal,listProduct.length);
+		},
+		error: function(result){
+			alert('failed');
 		}
 		
-		// filter
-	function showListProductByIdFilter(){
-			var id = [];
-	        $.each($("input[name='idCategory']:checked"), function(){
-	            id.push($(this).val());
-	        });
-			$.ajax({
-				type: "POST",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/index/listProductByIdCategoryFilter/" +id,
-				success : function(result){
-					detailHtml(result);
-					$('idCategory').val('');
-				},
-				error: function(result){
-					alert('failed');
-				}
-				
-			});
-		}
+	});
+}
+
+
 		
 	</script>
 </body>
