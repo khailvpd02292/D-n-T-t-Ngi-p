@@ -67,10 +67,12 @@ public class UserController {
 					return "redirect:/index";
 				}
 			} else {
+				model.addAttribute("errorpass", "Mật khẩu không chính xác");
 				return "login/login1";
 			}
 
 		}
+		model.addAttribute("error", "Tài khoản không tồn tại");
 		return "login/login1";
 	}
 

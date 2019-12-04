@@ -20,17 +20,28 @@
 			<div class="image-holder">
 				<img src="images/d1.jpg" alt="">
 			</div>
-			<form th:action="@{/login}"  method="post">
+			<form th:action="@{/login}" method="post" onsubmit="return checkempty(form)" name="form">
 				<h3>Đăng nhập</h3>
-				<div class="form-wrapper">
-					<input type="text" placeholder="Số điện thoại" name="email" class="form-control">
-					<i class="zmdi zmdi-email"></i>
+				<div class="spanerror"
+					style="width: 320px; margin-top: -20px; height: 40px;">
+					<span th:text="${error}"
+						style="font-size: 20px; padding-left: 56px;"></span>
 				</div>
 				<div class="form-wrapper">
-					<input type="password" placeholder="Mật khẩu" name="password" class="form-control">
-					<i class="zmdi zmdi-lock"></i>
+					<input type="text" placeholder="Nhập email" name="email"
+						class="form-control"> <i class="zmdi zmdi-email"></i>
 				</div>
-		
+				<div class="error">
+					<span id="gmail"></span>
+				</div>
+				<div class="form-wrapper">
+					<input type="password" placeholder="Mật khẩu" name="password"
+						class="form-control"> <i class="zmdi zmdi-lock"></i>
+				</div>
+				<div class="error">
+					<span id="matkhau"></span>
+					<span th:text="${errorpass}"></span>
+				</div>
 				<button>
 					Đăng nhập
 					<!-- <i class="zmdi zmdi-arrow-right"></i> -->
@@ -39,7 +50,7 @@
 			</form>
 		</div>
 	</div>
-
+<script src="js/validatelogin.js"></script>
 </body>
 <!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
