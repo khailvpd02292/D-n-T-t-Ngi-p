@@ -57,7 +57,7 @@ function checkempty(form) {
 		return false;
 	}
 	else {
-		return false;
+		return true;
 	}
 
 }
