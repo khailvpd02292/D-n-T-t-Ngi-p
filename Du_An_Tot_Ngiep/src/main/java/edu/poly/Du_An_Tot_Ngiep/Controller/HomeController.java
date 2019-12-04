@@ -97,6 +97,7 @@ public class HomeController {
 
 			return "home/index";
 		}
+		this.initHomeResponse(model);
 		return "home/index";
 	}
 
