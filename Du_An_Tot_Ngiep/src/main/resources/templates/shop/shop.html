@@ -187,7 +187,8 @@ var pageTotal = 0;
 var pageCurrent = 6;
 var pageCheck = 1;
 var pageLimit = 6
-var pageProduct = 8;
+var pageProduct = 12;
+var pageNext = 0;
 
 function getProducts(){
 	$.ajax({
@@ -253,13 +254,13 @@ function listPageProduct(start, max, donit){
 			j++ ;
 	}
 	if(donit){
-		detailHtmlPage(0,pageTotal)
+		detailHtmlPage(0,pageTotal,"1")
 	}
 	
 	
 }
 			
-function detailHtmlPage(indexPage , page ){
+function detailHtmlPage(indexPage , page, active ){
 	$('#pageproduct').empty();
  	var html = 
 		'<div class="col text-center">'
@@ -305,14 +306,16 @@ function detailHtmlPage(indexPage , page ){
 		var numberPage = pageTotal - pageCurrent ;
 		pageCurrent = pageCurrent + pageLimit;
 		var button = $('#pageNumbers .pageNumber')[$('#pageNumbers .pageNumber').length - 1];
-		detailHtmlPage($('#pageNumbers .pageNumber').length,pageTotal);
+		pageNext = parseInt($(button).attr("data-page"));
+		detailHtmlPage(pageNext,pageTotal);
 	});
 
 	$('#preeValue').click(function(){
 		var numberPage = pageTotal - pageCurrent ;
 		pageCurrent = pageCurrent - pageLimit;
 		var button = $('#pageNumbers .pageNumber')[$('#pageNumbers .pageNumber').length - 1];
-		detailHtmlPage($('#pageNumbers .pageNumber').length-1,pageTotal);
+		pageNext = pageNext - pageLimit ;
+		detailHtmlPage(pageNext,pageTotal);
 	});
 }
 
@@ -325,6 +328,7 @@ function listProductNewBest(){
 			url : "/index/listProductNewBest",
 			success : function(result){
 				listProduct = result;
+				pageCheck = 1;
 				pageTotal = listProduct.length / pageProduct;
 				detailHtml(pageTotal,listProduct.length);
 			},
@@ -344,6 +348,7 @@ function listProductPriceDesc(){
 			url : "/index/listProductPriceDesc",
 			success : function(result){
 				listProduct = result;
+				pageCheck = 1;
 				pageTotal = listProduct.length / pageProduct;
 				detailHtml(pageTotal,listProduct.length);
 			},
@@ -361,6 +366,7 @@ function listProductPriceAsc(){
 			url : "/index/listProductPriceAsc",
 			success : function(result){
 				listProduct = result;
+				pageCheck = 1;
 				pageTotal = listProduct.length / pageProduct;
 				detailHtml(pageTotal,listProduct.length);
 			},
