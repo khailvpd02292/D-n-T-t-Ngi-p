@@ -1,6 +1,5 @@
 package edu.poly.Du_An_Tot_Ngiep.Entity;
 
-import java.util.Base64;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,21 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "customers")
+public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int userId;
+	private int customerId;
 //	private String email;
 	@Column(columnDefinition = "nvarchar(50)")
 	private String fullname;
@@ -33,40 +29,34 @@ public class User {
 	private Date birthday;
 	private String phone;
 	private String password;
-	@JsonIgnore
-	@Lob
-	@Column(name = "image")
-	private byte[] image;
-	@Column(columnDefinition = "bit default 1")
-	private boolean role;
 	@Column(columnDefinition = "nvarchar(150)")
 	private String address;
+
 	
-	public User() {
+	
+	public Customer() {
 		super();
 	}
 
-	public User(int userId, String fullname, boolean gender, Date birthday, String phone, String password,
-			byte[] image, boolean role, String address) {
+	public Customer(int customerId, String fullname, boolean gender, Date birthday, String phone,
+			String password, String address) {
 		super();
-		this.userId = userId;
+		this.customerId = customerId;
 //		this.email = email;
 		this.fullname = fullname;
 		this.gender = gender;
 		this.birthday = birthday;
 		this.phone = phone;
 		this.password = password;
-		this.image = image;
-		this.role = role;
 		this.address = address;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getCustomerId() {
+		return customerId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 //	public String getEmail() {
@@ -117,30 +107,6 @@ public class User {
 		this.password = password;
 	}
 
-	public byte[] getImage() {
-		return image;
-	}
-	
-	public String getImageBase64() {
-		if (this.getImage() == null) {
-			return "";
-		} else {
-			return Base64.getEncoder().encodeToString(this.image);
-		}
-	}
-
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
-
-	public boolean isRole() {
-		return role;
-	}
-
-	public void setRole(boolean role) {
-		this.role = role;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -149,7 +115,4 @@ public class User {
 		this.address = address;
 	}
 
-	
-	
-	
 }

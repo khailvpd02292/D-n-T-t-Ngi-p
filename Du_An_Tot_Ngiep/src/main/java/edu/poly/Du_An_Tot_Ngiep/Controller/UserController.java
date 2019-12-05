@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Category;
+import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
+import edu.poly.Du_An_Tot_Ngiep.Service.CustomerService;
 import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
 
 @Controller
@@ -34,6 +37,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private CustomerService customerService;
+
 	@GetMapping(value = "/login")
 	public String login(ModelMap model) {
 		return "/login/login1";
@@ -42,8 +48,8 @@ public class UserController {
 	void getName(HttpServletRequest request, ModelMap model) {
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
-			if (cookies[i].getName().equals("account")) {
-				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+			if (cookies[i].getName().equals("accountuser")) {
+				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
 				break;
 			}
@@ -51,29 +57,36 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam("email") String email, @RequestParam("password") String password, ModelMap model,
+	public String login(@RequestParam("phone") String phone, @RequestParam("password") String password, ModelMap model,
 			HttpServletResponse response) {
-		if (userService.findByEmail(email).isPresent()) {
-			User users = userService.findByEmail(email).get();
-			Cookie cookie = new Cookie("account", users.getEmail());
+		if (userService.findByPhone(phone).isPresent()) {
+			User users = userService.findByPhone(phone).get();
+			Cookie cookie = new Cookie("accountuser", users.getPhone());
 
 			if (users.getPassword().equals(password)) {
-				if (users.isRole() == false) {
-					response.addCookie(cookie);
-					cookie.setMaxAge(7 * 24 * 60 * 60);
-					return "redirect:/manager";
-				} else {
-					response.addCookie(cookie);
-					return "redirect:/index";
-				}
+				response.addCookie(cookie);
+				cookie.setMaxAge(7 * 24 * 60 * 60);
+				return "redirect:/manager";
 			} else {
 				model.addAttribute("errorpass", "Mật khẩu không chính xác");
 				return "login/login1";
 			}
+		} else if (customerService.findByPhoneCus(phone).isPresent()) {
+			Customer customer = customerService.findByPhoneCus(phone).get();
+			Cookie cookie = new Cookie("accountcustomer", customer.getPhone());
 
+			if (customer.getPassword().equals(password)) {
+				response.addCookie(cookie);
+				cookie.setMaxAge(7 * 24 * 60 * 60);
+				return "redirect:/index";
+			} else {
+				model.addAttribute("errorpass", "Mật khẩu không chính xác");
+				return "login/login1";
+			}
 		}
 		model.addAttribute("error", "Tài khoản không tồn tại");
 		return "login/login1";
+
 	}
 
 	@RequestMapping("/logout")
@@ -82,7 +95,7 @@ public class UserController {
 
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
-			if (cookies[i].getName().equals("account")) {
+			if (cookies[i].getName().equals("accountuser")) {
 				cookies[i].setMaxAge(0);
 				response.addCookie(cookies[i]);
 				break;
@@ -92,39 +105,58 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/manager/listUser")
-	public String listProduct(ModelMap model, @CookieValue(value = "account") String username,
-			HttpServletRequest request, HttpServletResponse response) {
-		model.addAttribute("listuser", this.userService.findAll());
-		model.addAttribute("username", username);
-		getName(request, model);
-		return "/manager/users/listUser";
+	public String listProduct(ModelMap model, @CookieValue(value = "accountuser") String phone,
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirect) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+					if (user.isRole() == false) {
+						model.addAttribute("listuser", this.userService.findAll());
+						model.addAttribute("username", phone);
+						getName(request, model);
+						return "/manager/users/listUser";
+					} else {
+						redirect.addFlashAttribute("fail", "Vui lòng sử dụng tài khoản admin!");
+						return "redirect:/manager/listCategory";
+					}
+				}
+			}
+		}
+		return "redirect:/login";
 	}
 
-	@GetMapping(value = "/registration")
-	public String registration(ModelMap model) {
-		model.addAttribute("registration", new User());
-		return "/login/registred";
+	@GetMapping(value = "/manager/addUser")
+	public String addCategory(ModelMap model, @CookieValue(value = "accountuser", required = false) String phone,
+			HttpServletRequest request) {
+
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("accountuser")) {
+					model.addAttribute("userId", new User());
+					return "/manager/users/addUser";
+
+				}
+
+			}
+		}
+		return "redirect:/login";
+
 	}
 
-	@PostMapping(value = "/registration")
-	public String addProduct(@ModelAttribute(name = "registration") User registration, ModelMap model,
-			@RequestParam boolean gender, @RequestParam Date birthday, @RequestParam("email") String email) {
-		model.addAttribute("registration", new User());
-		if (userService.findByEmail(email).isPresent()) {
-			model.addAttribute("error", "Email đã tồn tại");
-			return "/login/registred";
+	@PostMapping(value = "/manager/addUser")
+	public String addCategory(@ModelAttribute(value = "userId") @Valid User userId, BindingResult result,
+			RedirectAttributes redirect, @RequestParam("phone") String phone, ModelMap model,
+			@RequestParam(value = "image") MultipartFile image) {
+		if (userService.findByPhone(phone).isPresent() || customerService.findByPhoneCus(phone).isPresent()) {
+			model.addAttribute("error", "Số điện thoại đã tồn tại");
+			return "/manager/users/addUser";
 		} else {
-			User usr = new User();
-			usr.setAddress(registration.getAddress());
-			usr.setBirthday(birthday);
-			usr.setEmail(registration.getEmail());
-			usr.setFullname(registration.getFullname());
-			usr.setGender(gender);
-			usr.setPassword(registration.getPassword());
-			usr.setPhone(registration.getPhone());
-			usr.setRole(true);
-			userService.save(usr);
-			return "redirect:login";
+			userService.save(userId);
+			redirect.addFlashAttribute("success", "Tạo tài khoản mới thành công!");
+			return "redirect:/manager/listUser";
 		}
 	}
 
@@ -138,18 +170,27 @@ public class UserController {
 
 	@PostMapping(value = "/manager/updateUser")
 	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID, BindingResult result,
-			HttpServletRequest request) {
+			HttpServletRequest request,@RequestParam(value = "image") MultipartFile image) {
 		userService.save(usernameID);
+		return "redirect:/manager/listUser";
+	}
+
+	@GetMapping(value = "/manager/deleteUser/{userId}")
+	public String deleteProduct(ModelMap model, @CookieValue(value = "accountuser", required = false) String phone,
+			@PathVariable(name = "userId") int id, RedirectAttributes redirect, HttpServletRequest request) {
+
 		Cookie[] cookies = request.getCookies();
-		for (int i = 0; i < cookies.length; ++i) {
-			if (cookies[i].getName().equals("account")) {
-				User user = this.userService.findByEmail(cookies[i].getValue()).get();
-				if (user.isRole() == true) {
-					return "redirect:/login";
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("accountuser")) {
+					userService.deleteById(id);
+					redirect.addFlashAttribute("success", "Tài khoản đã được xóa!");
+					return "redirect:/manager/listUser";
 				}
+
 			}
 		}
-		return "redirect:/manager/listUser";
+		return "redirect:/login";
 	}
 
 }

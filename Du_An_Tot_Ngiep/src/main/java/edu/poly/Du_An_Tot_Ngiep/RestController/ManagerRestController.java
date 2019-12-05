@@ -181,7 +181,7 @@ public class ManagerRestController {
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
 			if (cookies[i].getName().equals("account")) {
-				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
 				impl.setUsers(user.getFullname());
 				break;
@@ -221,20 +221,20 @@ public class ManagerRestController {
 		return ResponseEntity.ok(this.userService.findAll());
 	}
 	
-	@PostMapping("/manager/updateUserAjax")
-	public List<User> updateUserAjax(User user){
-		User u = this.userService.findByIdUser(user.getUserId());
-		u.setFullname(user.getFullname());
-		u.setEmail(user.getEmail());
-		u.setPhone(user.getPhone());
-		u.setGender(user.isGender());
-		u.setAddress(user.getAddress());
-		u.setBirthday(user.getBirthday());
-		u.setPassword(user.getPassword());
-		u.setRole(user.isRole());
-		this.userService.save(user);
-		return this.userService.listUser();
-	}
+//	@PostMapping("/manager/updateUserAjax")
+//	public List<User> updateUserAjax(User user){
+//		User u = this.userService.findById()(user.getUserId());
+//		u.setFullname(user.getFullname());
+//		u.setPhone(user.getPhone());
+//		u.setPhone(user.getPhone());
+//		u.setGender(user.isGender());
+//		u.setAddress(user.getAddress());
+//		u.setBirthday(user.getBirthday());
+//		u.setPassword(user.getPassword());
+//		u.setRole(user.isRole());
+//		this.userService.save(user);
+//		return this.userService.listUser();
+//	}
 	
 	
 //	tabel FeedBack

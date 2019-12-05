@@ -9,7 +9,7 @@
                 </div>
                 <div class="text-wrapper">
                   <p class="profile-name" th:text="${fullname}"></p>
-                  <p class="designation" th:text="${username}"></p>
+<!--                   <p class="designation" th:text="${username}"></p> -->
                 </div>
               </a>
             </li>
@@ -51,7 +51,12 @@
                 <span class="menu-title">Quản Lý Tài Khoản</span>
               </a>
             </li>
-            
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/manager/listCustomer}">
+                <i class="menu-icon typcn typcn-bell"></i>
+                <span class="menu-title">Xem Tài Khoản Khách Hàng</span>
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/manager/feedback}">
                 <i class="menu-icon typcn typcn-bell"></i>
