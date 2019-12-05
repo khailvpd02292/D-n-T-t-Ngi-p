@@ -1,16 +1,9 @@
 package edu.poly.Du_An_Tot_Ngiep.ServiceImpl;
 
-import java.sql.Date;
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Repository.UserRepository;
 import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
@@ -21,8 +14,8 @@ public class UserSeviceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public Optional<User> findByEmail(String email) {
-		return userRepository.findByEmail(email);
+	public Optional<User> findByPhone(String phone) {
+		return userRepository.findByPhone(phone);
 	}
 
 	@Override
@@ -80,20 +73,19 @@ public class UserSeviceImpl implements UserService {
 		userRepository.deleteAll();
 	}
 
-	@Override
-	public List<User> listUser() {
-		return userRepository.listUser();
-	}
+//	@Override
+//	public List<User> listUser() {
+//		return userRepository.listUser();
+//	}
+//
+//	@Override
+//	public User findByIdUser(int id) {
+//		return userRepository.findByIdUser(id);
+//	}
 
-	@Override
-	public User findByIdUser(int id) {
-		return userRepository.findByIdUser(id);
-	}
-
-	@Override
-	public Optional<User> findByName(String name) {
-		return userRepository.findByName(name);
-	}
-	
+//	@Override
+//	public Optional<User> findByName(String name) {
+//		return userRepository.findByName(name);
+//	}
 	
 }

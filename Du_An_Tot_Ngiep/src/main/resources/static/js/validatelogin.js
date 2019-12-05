@@ -1,12 +1,12 @@
 function clear() {
-	document.getElementById("gmail").innerHTML = "";
+	document.getElementById("sdt").innerHTML = "";
 	document.getElementById("matkhau").innerHTML = "";
 }
 
 function checkempty(form) {
 	clear();
-	if (form.email.value.trim() == "") {
-		document.getElementById("gmail").innerHTML = "Không để trống email!";
+	if (form.phone.value.trim() == "") {
+		document.getElementById("sdt").innerHTML = "Không để trống số điện thoại!";
 		return false;
 	} 
 	else if (form.password.value.trim() == "") {

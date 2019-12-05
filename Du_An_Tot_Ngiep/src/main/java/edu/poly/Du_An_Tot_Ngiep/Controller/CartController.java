@@ -1,5 +1,6 @@
 package edu.poly.Du_An_Tot_Ngiep.Controller;
 
+import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Invoice;
 import edu.poly.Du_An_Tot_Ngiep.Entity.InvoiceDetail;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
@@ -35,6 +36,9 @@ public class CartController {
 	@Autowired
 	ProductService productService;
 
+	@Autowired
+	private CustomerService customerService;
+
 	
 	@RequestMapping("/cart/add/{id}")
 	public String add(@PathVariable("id") Integer id) {
@@ -51,11 +55,11 @@ public class CartController {
 		int id = -1;
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
-			if (cookies[i].getName().equals("account")) {
-				User user = this.userService.findByEmail(cookies[i].getValue()).get();
-				model.addAttribute("fullname", user.getFullname());
-				if(user!=null){
-					id=user.getUserId();
+			if (cookies[i].getName().equals("accountcustomer")) {
+				Customer customer = this.customerService.findByPhoneCus(cookies[i].getValue()).get();
+				model.addAttribute("fullname", customer.getFullname());
+				if(customer!=null){
+					id=customer.getCustomerId();
 				}
 				break;
 			}

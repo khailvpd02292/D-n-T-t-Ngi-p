@@ -56,7 +56,7 @@ public class ManagerController {
 
 	@Autowired
 	private FeedBackService feedBackService;
-	
+
 	@Autowired
 	OrdersService oders;
 
@@ -65,12 +65,12 @@ public class ManagerController {
 
 	@Autowired
 	StatisticalService statisticalService;
-	
+
 	void getName(HttpServletRequest request, ModelMap model) {
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
-			if (cookies[i].getName().equals("account")) {
-				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+			if (cookies[i].getName().equals("accountuser")) {
+				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
 				break;
 			}
@@ -78,52 +78,46 @@ public class ManagerController {
 	}
 
 	@GetMapping(value = "/manager")
-	public String manager(ModelMap model, @CookieValue(value = "account", required = false) String username, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String manager(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,
+			HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("username", username);
-						model.addAttribute("fullname", user.getFullname());
-						// thống kê
-						model.addAttribute("months", statisticalService.statisticalForMonth());
-						model.addAttribute("years", statisticalService.statisticalForYear());
-						model.addAttribute("products", statisticalService.statisticalForProduct());
-						return "/manager/home/index";
-					} else {
-						return "redirect:/index";
-					}
-				}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
 
+					model.addAttribute("username", username);
+					model.addAttribute("fullname", user.getFullname());
+					// thống kê
+					model.addAttribute("months", statisticalService.statisticalForMonth());
+					model.addAttribute("years", statisticalService.statisticalForYear());
+					model.addAttribute("products", statisticalService.statisticalForProduct());
+					return "redirect:/manager/listCategory";
+				}
 			}
+
 		}
 		return "redirect:/login";
+
 	}
 
 	@GetMapping(value = "/manager/listCategory")
-	public String listCategory(Model model, @CookieValue(value = "account", required = false) String username,
+	public String listCategory(Model model, @CookieValue(value = "accountuser", required = false) String username,
 			HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirect) {
-		
+
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						if(model.asMap().get("success") != null)
-							redirect.addFlashAttribute("success",model.asMap().get("success").toString());
-						
-						List<Category> list = categoryService.listCategory();
-						model.addAttribute("category", list);
-						model.addAttribute("username", username);
-						model.addAttribute("fullname", user.getFullname());
-						return "/manager/category/listCategory";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+					if (model.asMap().get("success") != null)
+						redirect.addFlashAttribute("success", model.asMap().get("success").toString());
+
+					List<Category> list = categoryService.listCategory();
+					model.addAttribute("category", list);
+					model.addAttribute("username", username);
+					model.addAttribute("fullname", user.getFullname());
+					return "/manager/category/listCategory";
 				}
 
 			}
@@ -133,20 +127,18 @@ public class ManagerController {
 	}
 
 	@GetMapping(value = "/manager/addCategory")
-	public String addCategory(ModelMap model,@CookieValue(value = "account", required = false) String username,
+	public String addCategory(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,
 			HttpServletRequest request) {
-		
+
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("category", new Category());
-						return "/manager/category/addCategory";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					model.addAttribute("category", new Category());
+					return "/manager/category/addCategory";
+
 				}
 
 			}
@@ -156,7 +148,8 @@ public class ManagerController {
 	}
 
 	@PostMapping(value = "/manager/addCategory")
-	public String addCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result, RedirectAttributes redirect) {
+	public String addCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result,
+			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			return "/manager/addCategory";
 		}
@@ -168,25 +161,23 @@ public class ManagerController {
 	}
 
 	@GetMapping(value = "/manager/updateCategory/{idCategory}")
-	public String updateCategory(ModelMap model, @PathVariable(name = "idCategory") int idCategory,@CookieValue(value = "account", required = false) String username,
-			HttpServletRequest request) {
+	public String updateCategory(ModelMap model, @PathVariable(name = "idCategory") int idCategory,
+			@CookieValue(value = "accountuser", required = false) String username, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("category", categoryService.findById(idCategory));
-						return "/manager/category/updateCategory";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					model.addAttribute("category", categoryService.findById(idCategory));
+					return "/manager/category/updateCategory";
+
 				}
 
 			}
 		}
 		return "redirect:/login";
-		
+
 	}
 
 	@PostMapping(value = "/manager/updateCategory")
@@ -202,20 +193,18 @@ public class ManagerController {
 	}
 
 	@GetMapping(value = "/manager/deleteCategory/{idCategory}")
-	public String deleteCategory(@PathVariable(name = "idCategory") int idCategory,@CookieValue(value = "account", required = false) String username,
-			HttpServletRequest request, RedirectAttributes redirect) {
+	public String deleteCategory(@PathVariable(name = "idCategory") int idCategory,
+			@CookieValue(value = "accountuser", required = false) String username, HttpServletRequest request,
+			RedirectAttributes redirect) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						this.categoryService.deleteById(idCategory);
-						redirect.addFlashAttribute("success", "Xóa danh mục thành công!");
-						return "redirect:/manager/listCategory";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					this.categoryService.deleteById(idCategory);
+					redirect.addFlashAttribute("success", "Xóa danh mục thành công!");
+					return "redirect:/manager/listCategory";
 				}
 
 			}
@@ -225,58 +214,54 @@ public class ManagerController {
 
 	// table product
 	@GetMapping(value = "/manager/listProduct")
-	public String listProduct(Model model,HttpServletRequest request
-			,RedirectAttributes redirect) {
-		
+	public String listProduct(Model model, HttpServletRequest request, RedirectAttributes redirect) {
+
 		request.getSession().setAttribute("product", null);
-		if(model.asMap().get("success") != null)
-			redirect.addFlashAttribute("success",model.asMap().get("success").toString());
+		if (model.asMap().get("success") != null)
+			redirect.addFlashAttribute("success", model.asMap().get("success").toString());
 		return "redirect:/listProduct/page/1";
 	}
+
 	@GetMapping(value = "/listProduct/page/{pageNumber}")
-	public String showProduct( @CookieValue(value = "account") String username,
-			HttpServletRequest request, HttpServletResponse response, @PathVariable int pageNumber, Model model) {
-		
+	public String showProduct(@CookieValue(value = "accountuser") String username, HttpServletRequest request,
+			HttpServletResponse response, @PathVariable int pageNumber, Model model) {
+
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-		
-						PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("product");
-						int pagesize = 5;
-						List<Product> list = productService.listProduct();
-						if (pages == null) {
-							pages = new PagedListHolder<>(list);
-							pages.setPageSize(pagesize);
-						} else {
-							final int goToPage = pageNumber - 1;
-							if (goToPage <= pages.getPageCount() && goToPage >= 0) {
-								pages.setPage(goToPage);
-							}
-						}
-						
-						request.getSession().setAttribute("product", pages);
-						int current = pages.getPage() + 1;
-						int begin = Math.max(1, current - list.size());
-						int end = Math.min(begin + 5, pages.getPageCount());
-						int totalPageCount = pages.getPageCount();
-						String baseUrl = "/listProduct/page/";
-						
-						model.addAttribute("beginIndex", begin);
-						model.addAttribute("endIndex", end);
-						model.addAttribute("currentIndex", current);
-						model.addAttribute("totalPageCount", totalPageCount);
-						model.addAttribute("baseUrl", baseUrl);
-						model.addAttribute("product", pages);
-						model.addAttribute("username", username);
-						model.addAttribute("fullname", user.getFullname());
-						
-						return "/manager/product/listProduct";
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("product");
+					int pagesize = 5;
+					List<Product> list = productService.listProduct();
+					if (pages == null) {
+						pages = new PagedListHolder<>(list);
+						pages.setPageSize(pagesize);
 					} else {
-						return "redirect:/index";
+						final int goToPage = pageNumber - 1;
+						if (goToPage <= pages.getPageCount() && goToPage >= 0) {
+							pages.setPage(goToPage);
+						}
 					}
+
+					request.getSession().setAttribute("product", pages);
+					int current = pages.getPage() + 1;
+					int begin = Math.max(1, current - list.size());
+					int end = Math.min(begin + 5, pages.getPageCount());
+					int totalPageCount = pages.getPageCount();
+					String baseUrl = "/listProduct/page/";
+
+					model.addAttribute("beginIndex", begin);
+					model.addAttribute("endIndex", end);
+					model.addAttribute("currentIndex", current);
+					model.addAttribute("totalPageCount", totalPageCount);
+					model.addAttribute("baseUrl", baseUrl);
+					model.addAttribute("product", pages);
+					model.addAttribute("username", username);
+					model.addAttribute("fullname", user.getFullname());
+
+					return "/manager/product/listProduct";
 				}
 
 			}
@@ -284,14 +269,14 @@ public class ManagerController {
 		return "redirect:/login";
 	}
 //	@GetMapping(value = "/manager/listProduct")
-//	public String listProduct(ModelMap model, @CookieValue(value = "account") String username,
+//	public String listProduct(ModelMap model, @CookieValue(value = "accountuser") String username,
 //			HttpServletRequest request, HttpServletResponse response) {
 //		Cookie[] cookies = request.getCookies();
 //		if (cookies != null) {
 //			for (int i = 0; i < cookies.length; ++i) {
-//				if (cookies[i].getName().equals("account")) {
-//					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-//					if (user.isRole() == false) {
+//				if (cookies[i].getName().equals("accountuser")) {
+//					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+//					
 //						model.addAttribute("product", this.productService.listProduct());
 //						model.addAttribute("username", username);
 //						model.addAttribute("fullname", user.getFullname());
@@ -307,20 +292,17 @@ public class ManagerController {
 //	}
 
 	@GetMapping(value = "/manager/addProduct")
-	public String addProduct(ModelMap model,@CookieValue(value = "account", required = false) String username,
+	public String addProduct(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,
 			HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("product", new Product());
-						model.addAttribute("listCategory", categoryService.findAll());
-						return "/manager/product/addProduct";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					model.addAttribute("product", new Product());
+					model.addAttribute("listCategory", categoryService.findAll());
+					return "/manager/product/addProduct";
 				}
 
 			}
@@ -330,7 +312,8 @@ public class ManagerController {
 
 	@PostMapping(value = "/manager/addProduct")
 	public String addProduct(@RequestParam(value = "image") MultipartFile image,
-			@ModelAttribute(name = "product") @Valid Product product, BindingResult result, RedirectAttributes redirect) {
+			@ModelAttribute(name = "product") @Valid Product product, BindingResult result,
+			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			return "/manager/addProduct";
 		} else {
@@ -346,21 +329,19 @@ public class ManagerController {
 	}
 
 	@GetMapping(value = "/manager/updateProduct/{idProduct}")
-	public String updateProduct(ModelMap model, @PathVariable(name = "idProduct") int id,@CookieValue(value = "account", required = false) String username,
-			HttpServletRequest request) {
+	public String updateProduct(ModelMap model, @PathVariable(name = "idProduct") int id,
+			@CookieValue(value = "accountuser", required = false) String username, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("listCategory", this.categoryService.findAll());
-						model.addAttribute("product",
-								this.productService.findById(id).isPresent() ? this.productService.findById(id).get() : null);
-						return "/manager/product/updateProduct";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					model.addAttribute("listCategory", this.categoryService.findAll());
+					model.addAttribute("product",
+							this.productService.findById(id).isPresent() ? this.productService.findById(id).get()
+									: null);
+					return "/manager/product/updateProduct";
 				}
 
 			}
@@ -370,7 +351,8 @@ public class ManagerController {
 
 	@PostMapping(value = "/manager/updateProduct")
 	public String updateProduct(@RequestParam(value = "image") MultipartFile image,
-			@ModelAttribute(name = "product") @Valid Product product, BindingResult result, RedirectAttributes redirect) {
+			@ModelAttribute(name = "product") @Valid Product product, BindingResult result,
+			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			return "/manager/updateProduct";
 		} else {
@@ -394,21 +376,19 @@ public class ManagerController {
 	}
 
 	@GetMapping(value = "/manager/deleteProduct/{idProduct}")
-	public String deleteProduct(@PathVariable(name = "idProduct") int id,@CookieValue(value = "account", required = false) String username,
-			HttpServletRequest request, RedirectAttributes redirect) {
-		
+	public String deleteProduct(@PathVariable(name = "idProduct") int id,
+			@CookieValue(value = "accountuser", required = false) String username, HttpServletRequest request,
+			RedirectAttributes redirect) {
+
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						this.productService.deleteById(id);
-						redirect.addFlashAttribute("success", "Xóa sản phẩm thành công!");
-						return "redirect:/manager/listProduct";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					this.productService.deleteById(id);
+					redirect.addFlashAttribute("success", "Xóa sản phẩm thành công!");
+					return "redirect:/manager/listProduct";
 				}
 
 			}
@@ -419,21 +399,18 @@ public class ManagerController {
 	// feedback
 
 	@GetMapping(value = "/manager/feedback")
-	public String listFeedBack(ModelMap model, @CookieValue(value = "account") String username,
+	public String listFeedBack(ModelMap model, @CookieValue(value = "accountuser") String username,
 			HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("username", username);
-						model.addAttribute("fullname", user.getFullname());
-						this.feedBackService.findAll();
-						return "/manager/feedback/feedback";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					model.addAttribute("username", username);
+					model.addAttribute("fullname", user.getFullname());
+					this.feedBackService.findAll();
+					return "/manager/feedback/feedback";
 				}
 
 			}
@@ -451,55 +428,49 @@ public class ManagerController {
 	}
 
 	// product Detail
-	
-	
+
 	@GetMapping("/manager/order")
-	public String listOrder(ModelMap model, @CookieValue(value = "account", required = false) String username,
+	public String listOrder(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,
 			HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("username", username);
-						model.addAttribute("fullname", user.getFullname());
-						List<Invoice> list = this.oders.listInvoice();
-						model.addAttribute("listOrder",list);
-						return "manager/order/order";
-					} else {
-						return "redirect:/index";
-					}
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+
+					model.addAttribute("username", username);
+					model.addAttribute("fullname", user.getFullname());
+					List<Invoice> list = this.oders.listInvoice();
+					model.addAttribute("listOrder", list);
+					return "manager/order/order";
 				}
 			}
 		}
 		return "redirect:/login";
 	}
-	
+
 	@GetMapping(value = "/manager/orderDetail/{id}")
-	public String viewOrderdetailsForManager(@PathVariable("id") int id, ModelMap model, @CookieValue(value = "account", required = false) String username,
-			HttpServletRequest request, HttpServletResponse response){
-		
+	public String viewOrderdetailsForManager(@PathVariable("id") int id, ModelMap model,
+			@CookieValue(value = "accountuser", required = false) String username, HttpServletRequest request,
+			HttpServletResponse response) {
+
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int j = 0; j < cookies.length; ++j) {
-				if (cookies[j].getName().equals("account")) {
-					User user = this.userService.findByEmail(cookies[j].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("username", username);
-						model.addAttribute("fullname", user.getFullname());
-						List<InvoiceDetail> list = this.orderDetailsService.findDetailByInvoiceId(id);
-						List<Product> productorder = new ArrayList<>();
-						for(int i=0;i<list.size();i++){
-							Product odrProduct = productService.findByIdProduct(list.get(i).getProduct().getIdProduct());
-							odrProduct.setAmount(list.get(i).getAmount());
-							productorder.add(odrProduct);
-						}
-						model.addAttribute("listOrderDetail",productorder);
-						return "manager/order/orderDetail";
-					} else {
-						return "redirect:/index";
+				if (cookies[j].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[j].getValue()).get();
+
+					model.addAttribute("username", username);
+					model.addAttribute("fullname", user.getFullname());
+					List<InvoiceDetail> list = this.orderDetailsService.findDetailByInvoiceId(id);
+					List<Product> productorder = new ArrayList<>();
+					for (int i = 0; i < list.size(); i++) {
+						Product odrProduct = productService.findByIdProduct(list.get(i).getProduct().getIdProduct());
+						odrProduct.setAmount(list.get(i).getAmount());
+						productorder.add(odrProduct);
 					}
+					model.addAttribute("listOrderDetail", productorder);
+					return "manager/order/orderDetail";
 				}
 			}
 		}

@@ -24,8 +24,8 @@ public class Invoice {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "userId",insertable = true, updatable = true)
-    private User userId;
+    @JoinColumn(name = "customerId",insertable = true, updatable = true)
+    private Customer customerId;
 
     @Column(name = "total")
     private double total;
@@ -61,12 +61,12 @@ public class Invoice {
         this.status = status;
     }
 
-    public User getVendor() {
-        return userId;
+    public Customer getVendor() {
+        return customerId;
     }
 
-    public void setVendor(User vendor) {
-        this.userId = vendor;
+    public void setVendor(Customer user) {
+        this.customerId = user;
     }
 
     public double getTotal() {
@@ -89,10 +89,10 @@ public class Invoice {
         return details;
     }
 
-    public Invoice(@NotNull Date dateorders, String status, @NotNull User userId, double total, String description) {
+    public Invoice(@NotNull Date dateorders, String status, @NotNull Customer customerId, double total, String description) {
         this.dateorders = dateorders;
         this.status = status;
-        this.userId = userId;
+        this.customerId = customerId;
         this.total = total;
         this.description = description;
     }

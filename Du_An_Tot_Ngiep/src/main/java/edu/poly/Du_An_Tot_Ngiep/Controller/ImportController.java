@@ -40,8 +40,8 @@ public class ImportController {
 	void getName(HttpServletRequest request, ModelMap model) {
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
-			if (cookies[i].getName().equals("account")) {
-				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+			if (cookies[i].getName().equals("accountuser")) {
+				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
 				break;
 			}
@@ -49,7 +49,7 @@ public class ImportController {
 	}
 
 	@GetMapping(value = "/manager/import")
-	public String listImport(ModelMap model, @CookieValue(value = "account") String username,
+	public String listImport(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,
 			HttpServletRequest request, HttpServletResponse response) {
 		List<Imports> list = (List<Imports>) importService.findAll();
 		model.addAttribute("import", list);
@@ -59,7 +59,7 @@ public class ImportController {
 	}
 
 	@GetMapping(value = "/manager/addImport")
-	public String addImport(ModelMap model, @CookieValue(value = "account") String username,
+	public String addImport(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,
 			HttpServletRequest request) {
 		model.addAttribute("import", new Imports());
 		model.addAttribute("username", username);
@@ -77,8 +77,8 @@ public class ImportController {
 		Imports impl = new Imports();
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
-			if (cookies[i].getName().equals("account")) {
-				User user = this.userService.findByEmail(cookies[i].getValue()).get();
+			if (cookies[i].getName().equals("accountuser")) {
+				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
 				impl.setUsers(user.getFullname());
 				break;

@@ -35,12 +35,15 @@
 <body>
 	<div class="container-scroller">
 		<!-- partial:partials/_navbar.html -->
-		     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:replace="manager/fragment/listNav::nav"></nav>
+		<nav
+			class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+			th:replace="manager/fragment/listNav::nav"></nav>
 
 		<!-- partial -->
 		<div class="container-fluid page-body-wrapper">
 			<!-- partial:partials/_sidebar.html -->
-			       <nav class="sidebar sidebar-offcanvas" id="sidebar" th:replace="manager/fragment/listNav_1::nav_1"></nav>
+			<nav class="sidebar sidebar-offcanvas" id="sidebar"
+				th:replace="manager/fragment/listNav_1::nav_1"></nav>
 
 			<!-- partial -->
 			<div class="main-panel">
@@ -51,7 +54,7 @@
 								<div class="card-body">
 									<h4 class="card-title">Cập nhât tài khoản</h4>
 									<form th:action="@{/manager/updateUser}"
-										th:object="${usernameID}" method="post" role="form">
+										th:object="${usernameID}" method="post" role="form" enctype="multipart/form-data">
 										<div class="form-group">
 
 											<div class="input-group">
@@ -68,10 +71,12 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="label">Email</label>
+											<label class="label">Avatar</label>
 											<div class="input-group">
-												<input type="text" placeholder="Email" class="form-control"
-													th:field="*{email}" readonly="">
+												<input th:field="*{image}" type="file" name="file"
+													onchange="readURL(this);"
+													accept="image/x-png,image/jpeg,image/jpg">
+
 											</div>
 										</div>
 										<div class="form-group">
@@ -84,7 +89,7 @@
 												</label> <label class="form-check-label" for="radio2"
 													style="font-size: 16px;"> <input type="radio"
 													class="form-check-input" id="radio2" name="optradio"
-													value="true" th:field="*{role}" style="margin-left: 20px;">Khách hàng
+													value="true" th:field="*{role}" style="margin-left: 20px;">Nhân viên
 												</label>
 											</div>
 										</div>
@@ -139,7 +144,7 @@
 						</div>
 					</div>
 				</div>
-		        <footer class="footer" th:replace="manager/fragment/footer::footer"></footer>
+				<footer class="footer" th:replace="manager/fragment/footer::footer"></footer>
 				<!-- partial -->
 			</div>
 			<!-- main-panel ends -->

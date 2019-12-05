@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 
 public interface UserService {
@@ -35,13 +36,13 @@ public interface UserService {
 
 	<S extends User> S save(S entity);
 
-	Optional<User> findByEmail(String email);
+	Optional<User> findByPhone(String phone);
 
-	Optional<User> findByName(String name);
+//	Optional<User> findByName(String name);
 
-	User findByIdUser(int id);
-
-	List<User> listUser();
+//	User findByIdUser(int id);
+//
+//	List<User> listUser();
 	
 
 	

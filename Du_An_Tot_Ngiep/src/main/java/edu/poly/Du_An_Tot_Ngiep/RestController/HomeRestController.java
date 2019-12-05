@@ -37,6 +37,8 @@ public class HomeRestController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CustomerService customerService;
 	
 	@GetMapping("/index/searchAjaxProduct")
 	public List<Product> showListSearchProduct(Model model, @RequestBody Product product, @RequestParam("key") String key){
@@ -152,17 +154,17 @@ public class HomeRestController {
 	@ResponseBody
 	public String orders(HttpServletRequest request, HttpSession session, ModelMap model) {
 
-		User user = null;
+		Customer user = null;
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
-			if (cookies[i].getName().equals("account")) {
-				user = this.userService.findByEmail(cookies[i].getValue()).get();
+			if (cookies[i].getName().equals("accountcustomer")) {
+				user = this.customerService.findByPhoneCus(cookies[i].getValue()).get();
 				break;
 			}
 		}
 		//System.out.println("------UserID:"+user.getUserId()+"--------");
 
-		if(user==null||user.getUserId()<=0)
+		if(user==null||user.getCustomerId()<=0)
 			return "0";
 		else{
 
