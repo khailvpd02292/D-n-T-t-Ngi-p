@@ -19,4 +19,10 @@ public class AppUtils {
 				.filter(cookie -> cookie.getName().equalsIgnoreCase(name))
 				.findFirst();
 	}
+	
+	public static void main(String[] args) {
+		Float a = (float) 122220;
+		System.out.println(DecimalFormatUtils.convert(a));
+		DecimalFormatUtils.convert(a);
+	}
 }

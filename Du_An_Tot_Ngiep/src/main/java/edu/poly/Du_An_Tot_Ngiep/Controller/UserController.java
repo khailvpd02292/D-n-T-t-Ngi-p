@@ -91,8 +91,6 @@ public class UserController {
 
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
-//		session.removeAttribute("accLoginC");
-
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
 			if (cookies[i].getName().equals("accountuser")) {

@@ -88,7 +88,7 @@
 										<tbody id="myTable">
 											<tr th:each="product : ${product.pageList}">
 												<td th:text="${product.name}"></td>
-												<td th:text="${product.price}"></td>
+												<td th:text="${#numbers.formatCurrency(product.price)}"></td>
 												<td><img id="anh"
 													th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}">
 												</td>

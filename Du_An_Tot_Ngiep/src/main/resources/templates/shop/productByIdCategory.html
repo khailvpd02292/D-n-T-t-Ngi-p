@@ -82,7 +82,7 @@
 								<div class="d-flex">
 									<div class="pricing">
 										<p class="price">
-											<span class="price-sale" th:text="${product.price}"></span>
+											<span class="price-sale" th:text="${#numbers.formatCurrency(product.price)}"></span>
 										</p>
 									</div>
 								</div>

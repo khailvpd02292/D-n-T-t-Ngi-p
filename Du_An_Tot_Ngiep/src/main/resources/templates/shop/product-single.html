@@ -84,7 +84,7 @@
 					</div>
 					<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 						<h3 th:text="*{name}"></h3>
-						<h2 th:text="*{price}"></h2>
+						<h2 th:text="*{#numbers.formatCurrency(price)}"></h2>
 						<ul class="list">
 							<li><span>Danh mục: </span><a class="active" href="#"
 								th:text=*{category.name}></a></li>

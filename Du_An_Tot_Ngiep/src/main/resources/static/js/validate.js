@@ -4,7 +4,6 @@ var number_regex = /^([0-9])+$/;
 var regex_pass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 //var phone_regex = /(09|03[2|6|8|9])+([0-9]{8})\b/;
 var phone_regex = /(09|03|07|08)+([0-9]{8})\b/;
-//var phone_regex = /([0]){1}+([0-9]{9})\b/);
 function clear() {
 	document.getElementById("ten").innerHTML = "";
 	document.getElementById("matkhau").innerHTML = "";
