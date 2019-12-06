@@ -79,7 +79,7 @@
 												<button class="btn btn-danger"
 													>Thay đổi</button>
 												</td>
-												<td th:text="${order.total}"></td>
+												<td th:text="${#numbers.formatCurrency(order.total)}"></td>
 												
 												<td> <a class="btn btn-danger"
 													href="#">Xóa</a>

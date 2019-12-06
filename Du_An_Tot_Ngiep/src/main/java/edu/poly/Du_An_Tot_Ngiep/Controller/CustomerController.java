@@ -55,14 +55,10 @@ public class CustomerController {
 			for (int i = 0; i < cookies.length; ++i) {
 				if (cookies[i].getName().equals("accountuser")) {
 					User user = this.userService.findByPhone(cookies[i].getValue()).get();
-//					if (user.isRole() == false) {
-						model.addAttribute("listcustomer", this.customerService.findAll());
-						model.addAttribute("username", phone);
-						model.addAttribute("fullname", user.getFullname());
-						return "/manager/users/listCustomer";
-//					} else {
-//						return "/manager/home/index";
-//					}
+					model.addAttribute("listcustomer", this.customerService.findAll());
+					model.addAttribute("username", phone);
+					model.addAttribute("fullname", user.getFullname());
+					return "/manager/users/listCustomer";
 				}
 			}
 
