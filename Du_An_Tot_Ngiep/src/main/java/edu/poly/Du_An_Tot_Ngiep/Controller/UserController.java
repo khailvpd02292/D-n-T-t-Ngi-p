@@ -2,6 +2,7 @@ package edu.poly.Du_An_Tot_Ngiep.Controller;
 
 import java.sql.Date;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Category;
@@ -165,11 +169,34 @@ public class UserController {
 				this.userService.findById(id).isPresent() ? this.userService.findById(id).get() : null);
 		return "/manager/users/updateUser";
 	}
+	
+	@InitBinder
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
+		binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
+	}
 
 	@PostMapping(value = "/manager/updateUser")
 	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID, BindingResult result,
 			HttpServletRequest request,@RequestParam(value = "image") MultipartFile image) {
-		userService.save(usernameID);
+		
+		if (result.hasErrors()) {
+			return "";
+		}else {
+			this.userService.save(usernameID);
+		}
+		if (!image.isEmpty()) {
+			try {
+				usernameID.setImage(image.getBytes());
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} else {
+			usernameID.setImage(userService.findById(usernameID.getUserId()).get().getImage());
+
+		}
+
+		
 		return "redirect:/manager/listUser";
 	}
 

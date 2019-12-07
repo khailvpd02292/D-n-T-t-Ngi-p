@@ -11,7 +11,7 @@ import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-	@Query(value = "select * from product where id_category = ?", nativeQuery = true)
+	@Query(value = "select top 8 * from product where id_category = ?", nativeQuery = true)
 	List<Product> showListProductByIdCategory(int idCategory);
 
 	@Query(value = "select * from product where id_product = ?", nativeQuery = true)
