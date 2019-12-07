@@ -391,6 +391,7 @@ function showListProductByIdFilter(){
 			listProduct = result;
 			pageTotal = listProduct.length / pageProduct;
 			detailHtml(pageTotal,listProduct.length);
+			pageCheck = 1;
 		},
 		error: function(result){
 			alert('failed');

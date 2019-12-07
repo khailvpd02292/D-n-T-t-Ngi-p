@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -25,7 +26,9 @@ public class HomeRestController {
 	
 	@Autowired
 	private ProductService productService;
-
+	
+	@Autowired
+	private CategoryService categoryService;
 	@Autowired
 	private OrdersService ordersService;
 
@@ -80,7 +83,15 @@ public class HomeRestController {
 		Optional<Product> list =  this.productService.findById(id);
 		return this.productService.showListProductByIdCategoryFilter(id);
 	}
-
+//	@GetMapping("/listCategoryAjax")
+//	public ResponseEntity<?> showListCategory() {
+//		return ResponseEntity.ok(this.categoryService.listCategory());
+//	}
+//	@GetMapping("/showProductByIdCategory/{idCategory}")
+//	@ResponseBody
+//	public List<Product>  ShowProductByIdCategory(@PathVariable("idCategory") int idCategory) {
+//		return this.productService.showListProductByIdCategory(idCategory);
+//	}
 	@PostMapping("/insertproduct}")
 	@ResponseBody
 	public String insertProduct(@RequestParam(name = "idproduct") int idProduct, @RequestParam int amount , HttpSession session ){

@@ -241,18 +241,18 @@ public class ManagerRestController {
 	
 	@GetMapping("/manager/listFeedBack")
 	public ResponseEntity<?> listFeedBack(){
-		return ResponseEntity.ok(this.feedBackSerice.findAll());
+		return ResponseEntity.ok(this.feedBackSerice.listFeedBack());
 	}
 	
 	@PostMapping("/manager/addFeedBackAjax")
 	public List<FeedBack>  addFeedBackAjax(@RequestBody FeedBack feedBack){
 		this.feedBackSerice.save(feedBack);
-		return this.feedBackSerice.findAll();
+		return this.feedBackSerice.listFeedBack();
 	}
 	
 	@PostMapping("/manager/deleteFeedBack/{idFeedBack}")
 	public List<FeedBack> deleteFeedBack(@PathVariable("idFeedBack") int id){
 		this.feedBackSerice.deleteById(id);
-		return this.feedBackSerice.findAll();
+		return this.feedBackSerice.listFeedBack();
 	}
 }

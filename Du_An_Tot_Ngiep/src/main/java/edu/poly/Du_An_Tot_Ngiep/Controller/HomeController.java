@@ -24,6 +24,7 @@ import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.CategoryService;
 import edu.poly.Du_An_Tot_Ngiep.Service.CustomerService;
+import edu.poly.Du_An_Tot_Ngiep.Service.FeedBackService;
 import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
 import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
 
@@ -43,6 +44,9 @@ public class HomeController {
 	@Autowired
 	private CustomerService customerService;
 	
+	@Autowired
+	private FeedBackService feedBackService;
+	
 	void getName(HttpServletRequest request, ModelMap model) {
 		// show user
 		Cookie[] cookies = request.getCookies();
@@ -59,6 +63,7 @@ public class HomeController {
 		model.addAttribute("prods", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
 		model.addAttribute("showProduct", this.productService.showListProductForIndex());
+		model.addAttribute("feedback", this.feedBackService.listFeedBack());
 	}
 
 //	@GetMapping()
@@ -209,7 +214,6 @@ public class HomeController {
 		}
 
 		model.addAttribute("searchProduct", this.productService.searchListProductByIdCategory(key));
-//		request.getSession().setAttribute("productList", null);
 		return "shop/searchProduct";
 	}
 
@@ -223,6 +227,7 @@ public class HomeController {
 //		model.addAttribute("phone", null);
 		return "redirect:/index";
 	}
+	
 }
 //
 //	public void cookieDetail(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
