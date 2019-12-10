@@ -32,17 +32,21 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 			" FROM invoice i" + 
 			" GROUP BY YEAR(dateorders)";
 	
-	String STATISCAL_FOR_PRODUCT_QUERY = " SELECT p.id_product AS id, p.name AS name, (" + 
-			"	CASE " + 
-			"		WHEN SUM(detail.amount) IS NULL THEN 0" + 
-			"		ELSE SUM(detail.amount)" + 
-			"		END" + 
-			" ) " + 
-			" as soLuongBanDuoc" + 
-			" FROM product p" + 
-			"	LEFT JOIN invoice_detail detail" + 
-			"		ON p.id_product = detail.id_product" + 
-			"		GROUP BY p.id_product, p.name";
+	String STATISCAL_FOR_PRODUCT_QUERY = "SELECT p.id_product AS id, p.name AS name,  " + 
+			"	(CASE  " + 
+			"		WHEN SUM(detail.amount) IS NULL THEN 0 " + 
+			"		ELSE SUM(detail.amount) " + 
+			"		END " + 
+			"	) as soLuongBanDuoc, " + 
+			"	(CASE  " + 
+			"		WHEN SUM(detail.price * detail.amount) IS NULL THEN 0 " + 
+			"		ELSE SUM(detail.price * detail.amount) " + 
+			"		END " + 
+			"	) as tongTienThuDuoc " + 
+			"	FROM product p " + 
+			"	LEFT JOIN invoice_detail detail " + 
+			"		ON p.id_product = detail.id_product " + 
+			"		GROUP BY p.id_product, p.name ";
 	
     @Query(value = "select * from Invoice where invoice_id = ?", nativeQuery = true)
     List<Invoice> findListInvoiceById(int idInvoice);

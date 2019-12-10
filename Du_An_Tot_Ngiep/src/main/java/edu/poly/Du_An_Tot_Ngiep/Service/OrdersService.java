@@ -7,8 +7,7 @@ import java.util.List;
 
 public interface OrdersService {
 
-
-    Invoice findInvoiceByDetail(int id);
+	Invoice findInvoiceByDetail(int id);
 
 	List<Invoice> findInvoiceById(int id);
 

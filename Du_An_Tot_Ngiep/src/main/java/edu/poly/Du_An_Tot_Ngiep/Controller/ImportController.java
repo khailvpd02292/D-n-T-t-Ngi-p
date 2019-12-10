@@ -70,9 +70,8 @@ public class ImportController {
 	}
 
 	@PostMapping(value = "/manager/addImport")
-	public String addImport(@ModelAttribute(value = "import") @Valid Imports import1,
-			BindingResult result, HttpServletRequest request,
-			ModelMap model) {
+	public String addImport(@ModelAttribute(value = "import") @Valid Imports import1, BindingResult result,
+			HttpServletRequest request, ModelMap model) {
 
 		Imports impl = new Imports();
 		Cookie[] cookies = request.getCookies();
@@ -84,7 +83,7 @@ public class ImportController {
 				break;
 			}
 		}
-	
+
 		impl.setProduct(import1.getProduct());
 		impl.setQuantity(import1.getQuantity());
 		importService.save(impl);
