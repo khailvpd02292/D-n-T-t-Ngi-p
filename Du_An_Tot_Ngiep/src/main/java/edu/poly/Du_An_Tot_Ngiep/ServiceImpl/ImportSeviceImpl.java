@@ -17,18 +17,8 @@ public class ImportSeviceImpl implements ImportService {
 	private ImportRepository importRepository;
 
 	@Override
-	public void delete(Imports entity) {
-		importRepository.delete(entity);
-	}
-
-	@Override
 	public void deleteById(Integer id) {
 		importRepository.deleteById(id);
-	}
-
-	@Override
-	public long count() {
-		return importRepository.count();
 	}
 
 	@Override
@@ -45,7 +35,7 @@ public class ImportSeviceImpl implements ImportService {
 	public Imports findQuatityProduct(int productid) {
 		return importRepository.findQuatityProduct(productid);
 	}
-	
+
 	@Override
 	public Iterable<Imports> findAll() {
 		return importRepository.findAll();
@@ -61,5 +51,4 @@ public class ImportSeviceImpl implements ImportService {
 		return importRepository.save(entity);
 	}
 
-	
 }

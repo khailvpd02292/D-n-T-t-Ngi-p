@@ -2,11 +2,19 @@ package edu.poly.Du_An_Tot_Ngiep.Entity;
 
 import java.util.Base64;
 import java.util.Date;
-import java.util.Set;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,10 +27,10 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idProduct;
-	@NotNull
+
 	@Column(columnDefinition = "nvarchar(150)")
 	private String name;
-	@Min(value = 1000)
+
 	private double price;
 	@JsonIgnore
 	@Lob
@@ -48,8 +56,8 @@ public class Product {
 		super();
 	}
 
-	public Product(int idProduct, @NotNull String name, @Min(1000) double price, byte[] image, String origin,
-			String description, Date dateOfManufacture, Category category) {
+	public Product(int idProduct, String name, double price, byte[] image, String origin, String description,
+			Date dateOfManufacture, Category category) {
 		super();
 		this.idProduct = idProduct;
 		this.name = name;

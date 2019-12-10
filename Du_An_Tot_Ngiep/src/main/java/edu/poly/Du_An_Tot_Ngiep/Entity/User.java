@@ -41,13 +41,13 @@ public class User {
 	private boolean role;
 	@Column(columnDefinition = "nvarchar(150)")
 	private String address;
-	
+
 	public User() {
 		super();
 	}
 
-	public User(int userId, String fullname, boolean gender, Date birthday, String phone, String password,
-			byte[] image, boolean role, String address) {
+	public User(int userId, String fullname, boolean gender, Date birthday, String phone, String password, byte[] image,
+			boolean role, String address) {
 		super();
 		this.userId = userId;
 //		this.email = email;
@@ -68,14 +68,6 @@ public class User {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
-//	public String getEmail() {
-//		return email;
-//	}
-//
-//	public void setEmail(String email) {
-//		this.email = email;
-//	}
 
 	public String getFullname() {
 		return fullname;
@@ -120,7 +112,7 @@ public class User {
 	public byte[] getImage() {
 		return image;
 	}
-	
+
 	public String getImageBase64() {
 		if (this.getImage() == null) {
 			return "";
@@ -149,7 +141,4 @@ public class User {
 		this.address = address;
 	}
 
-	
-	
-	
 }

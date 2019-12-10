@@ -22,6 +22,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+	public Invoice findByIdInvoice(int idInvoice) {
+		return invoiceRepository.findByIdInvoice(idInvoice);
+	}
+
+	@Override
     public List<InvoiceDetail> listDetailByInvoiceId(int id) {
         return invoiceRepository.findListDetailByInvoiceId(id);
     }
@@ -36,11 +41,7 @@ public class OrdersServiceImpl implements OrdersService {
         return invoiceRepository.findInvoiceByUser(iduser);
     }
 
-    @Override
-    public List<Invoice> findInvoiceById(int id) {
-        return invoiceRepository.findListInvoiceById(id);
-    }
-
+  
     @Override
     public Invoice findInvoiceByDetail(int id) {
         return invoiceRepository.findByIdInvoice(id);

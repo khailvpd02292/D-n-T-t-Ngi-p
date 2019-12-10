@@ -2,53 +2,53 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Bán Hàng Nông Sản</title>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-	rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap"
-	rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"
-	rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
-	rel="stylesheet" />
-
-<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
-<link rel="stylesheet" href="css/animate.css" />
-
-<link rel="stylesheet" href="css/owl.carousel.min.css" />
-<link rel="stylesheet" href="css/owl.theme.default.min.css" />
-<link rel="stylesheet" href="css/magnific-popup.css" />
-
-<link rel="stylesheet" href="css/aos.css" />
-<link rel="stylesheet" href="css/font-awesome.min.css" />
-
-<link rel="stylesheet" href="css/ionicons.min.css" />
-
-<link rel="stylesheet" href="css/bootstrap-datepicker.css" />
-<link rel="stylesheet" href="css/jquery.timepicker.css" />
-
-<link rel="stylesheet" href="css/flaticon.css" />
-<link rel="stylesheet" href="css/icomoon.css" />
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/style1.css" />
-<link rel="stylesheet" href="css/slick-theme.css" />
-<link rel="stylesheet" href="css/slick.css" />
-<link rel="stylesheet" href="css/nouislider.min.css" />
+	<title>Bán Hàng Nông Sản</title>
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	
+	<link
+		href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+		rel="stylesheet" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap"
+		rel="stylesheet" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"
+		rel="stylesheet" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
+		rel="stylesheet" />
+	
+	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
+	<link rel="stylesheet" href="css/animate.css" />
+	
+	<link rel="stylesheet" href="css/owl.carousel.min.css" />
+	<link rel="stylesheet" href="css/owl.theme.default.min.css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" />
+	
+	<link rel="stylesheet" href="css/aos.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	
+	<link rel="stylesheet" href="css/ionicons.min.css" />
+	
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css" />
+	<link rel="stylesheet" href="css/jquery.timepicker.css" />
+	
+	<link rel="stylesheet" href="css/flaticon.css" />
+	<link rel="stylesheet" href="css/icomoon.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/style1.css" />
+	<link rel="stylesheet" href="css/slick-theme.css" />
+	<link rel="stylesheet" href="css/slick.css" />
+	<link rel="stylesheet" href="css/nouislider.min.css" />
 </head>
 <body class="goto-here">
 
-	<!-- nav -->
+	<!-- Header -->
 	<div th:replace="fragment/header::header"></div>
 
-	<!-- img header -->
+	<!-- Image header -->
 	<div class="hero-wrap hero-bread"
 		style="background-image: url('/images/bg_1.jpg');">
 		<div class="container">
@@ -56,19 +56,19 @@
 				class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span>
+						<span class="mr-2"><a th:href="@{/index}">Trang chủ</a></span> <span>Giỏ hàng</span>
 					</p>
-					<h1 class="mb-0 bread">My Cart</h1>
+					<h1 class="mb-0 bread">Giỏ hàng của tôi</h1>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<!-- Content -->
+	<!-- Content cart-->
 	<section class="ftco-section ftco-cart">
 		<div class="container">
 
-			<div class="row">
+			<div class="row" th:if="${#lists.size(session.cart) > 0}">
 				<div class="col-md-12 ftco-animate">
 					<div class="cart-list">
 						<table class="table">
@@ -108,7 +108,7 @@
 									<td class="total" th:text="${product.price*product.amount}"></td>
 									<td class="product-remove"><a href="#" title="Update"><span
 											class="updateclick"
-											th:attr="data-productid=${product.idProduct}">Update</span></a></td>
+											th:attr="data-productid=${product.idProduct}">Cập nhật</span></a></td>
 								</tr>
 
 							</tbody>
@@ -117,23 +117,26 @@
 								<tr>
 									<td colspan="7">
 										<center>
-											<a href="#" title="Update"><span id="submitorders">Submit</span></a>
+											<a href="#" title="Update"><span id="submitorders">Đặt hàng</span></a>
 										</center>
 									</td>
 								</tr>
 							</tfoot>
-
 						</table>
-
 					</div>
 				</div>
 			</div>
 			
-			<div style="text-align: center;">
-				<h2>Orders</h2>
+			<div class="row" th:unless="${#lists.size(session.cart) > 0}">
+				<div class="text-center">
+					<p >Chưa chọn sản phẩm nào!</p>
+				</div>
 			</div>
 			
-			<div class="row">
+			<div class="row" th:if="${#lists.size(orders) > 0}">
+				<div style="text-align: center;" >
+					<h2>Orders</h2>
+				</div>
 				<div class="col-md-12 ftco-animate">
 					<div class="cart-list">
 						<table class="table">
@@ -146,6 +149,7 @@
 								</tr>
 							</thead>
 							<tbody>
+
 								<tr class="text-center" th:each="oneinvoice : ${orders}">
 									<td class="price"><a 
 										th:href="@{'/orderdetails/'+${oneinvoice.invoiceId}}"
@@ -159,6 +163,7 @@
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	</section>
 	

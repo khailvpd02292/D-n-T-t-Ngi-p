@@ -48,6 +48,18 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 			"		ON p.id_product = detail.id_product " + 
 			"		GROUP BY p.id_product, p.name ";
 	
+    
+    
+    @Query(value = STATISCAL_FOR_MONTH_QUERY, nativeQuery = true)
+    List<StatisticalForMonthProjections> statisticalForMonth();
+    
+    @Query(value = STATISCAL_FOR_YEAR_QUERY, nativeQuery = true)
+    List<StatisticalForYearProjections> statisticalForYear();
+    
+    @Query(value = STATISCAL_FOR_PRODUCT_QUERY, nativeQuery = true)
+    List<StatisticalForProductProjections> statisticalForProduct();
+    
+    
     @Query(value = "select * from Invoice where invoice_id = ?", nativeQuery = true)
     List<Invoice> findListInvoiceById(int idInvoice);
 
@@ -59,14 +71,5 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
     @Query(value = "select * from Invoice where customer_id = ?", nativeQuery = true)
     List<Invoice>  findInvoiceByUser(int iduser);
-    
-    @Query(value = STATISCAL_FOR_MONTH_QUERY, nativeQuery = true)
-    List<StatisticalForMonthProjections> statisticalForMonth();
-    
-    @Query(value = STATISCAL_FOR_YEAR_QUERY, nativeQuery = true)
-    List<StatisticalForYearProjections> statisticalForYear();
-    
-    @Query(value = STATISCAL_FOR_PRODUCT_QUERY, nativeQuery = true)
-    List<StatisticalForProductProjections> statisticalForProduct();
 
 }

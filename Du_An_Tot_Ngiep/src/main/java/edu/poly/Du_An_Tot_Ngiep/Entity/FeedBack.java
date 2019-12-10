@@ -1,4 +1,5 @@
 package edu.poly.Du_An_Tot_Ngiep.Entity;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -29,13 +30,14 @@ public class FeedBack {
 	private String content;
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
-	@Column(name ="createDate",updatable = false)
+	@Column(name = "createDate", updatable = false)
 	private Date createDate;
+
 	public FeedBack() {
 		super();
 	}
-	public FeedBack(int idFeedback, String name, String email, String subjects,
-			 String content, Date createDate) {
+
+	public FeedBack(int idFeedback, String name, String email, String subjects, String content, Date createDate) {
 		super();
 		this.idFeedback = idFeedback;
 		this.name = name;
@@ -44,42 +46,53 @@ public class FeedBack {
 		this.content = content;
 		this.createDate = createDate;
 	}
+
 	public int getIdFeedback() {
 		return idFeedback;
 	}
+
 	public void setIdFeedback(int idFeedback) {
 		this.idFeedback = idFeedback;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getSubjects() {
 		return subjects;
 	}
+
 	public void setSubjects(String subjects) {
 		this.subjects = subjects;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public Date getCreateDate() {
 		return createDate;
 	}
+
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	
-	
+
 }

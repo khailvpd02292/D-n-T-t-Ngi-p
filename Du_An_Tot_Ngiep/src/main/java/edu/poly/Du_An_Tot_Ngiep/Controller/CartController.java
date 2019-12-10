@@ -1,22 +1,28 @@
 package edu.poly.Du_An_Tot_Ngiep.Controller;
 
-import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
-import edu.poly.Du_An_Tot_Ngiep.Entity.Invoice;
-import edu.poly.Du_An_Tot_Ngiep.Entity.InvoiceDetail;
-import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
-import edu.poly.Du_An_Tot_Ngiep.Entity.User;
-import edu.poly.Du_An_Tot_Ngiep.Service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
+import edu.poly.Du_An_Tot_Ngiep.Entity.InvoiceDetail;
+import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
+import edu.poly.Du_An_Tot_Ngiep.Service.CartService;
+import edu.poly.Du_An_Tot_Ngiep.Service.CustomerService;
+import edu.poly.Du_An_Tot_Ngiep.Service.OrderDetailsService;
+import edu.poly.Du_An_Tot_Ngiep.Service.OrdersService;
+import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
+import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
 
 @Controller
 public class CartController {
@@ -39,7 +45,6 @@ public class CartController {
 	@Autowired
 	private CustomerService customerService;
 
-	
 	@RequestMapping("/cart/add/{id}")
 	public String add(@PathVariable("id") Integer id) {
 		return "index";
@@ -51,36 +56,42 @@ public class CartController {
 	}
 
 	@GetMapping("/cart")
-	public String viewCart(ModelMap model, HttpServletRequest request){
+	public String viewCart(ModelMap model, HttpServletRequest request, HttpSession session) {
 		int id = -1;
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
 			if (cookies[i].getName().equals("accountcustomer")) {
 				Customer customer = this.customerService.findByPhoneCus(cookies[i].getValue()).get();
 				model.addAttribute("fullname", customer.getFullname());
-				if(customer!=null){
-					id=customer.getCustomerId();
+				if (customer != null) {
+					id = customer.getCustomerId();
 				}
 				break;
 			}
 		}
-		System.out.println("------IDUSer:"+id+"--------");
-		System.out.println("------IDUSer:"+this.oders.listInvoiceByUser(id).size()+"--------");
-		model.addAttribute("orders",this.oders.listInvoiceByUser(id));
+
+		if (session.getAttribute("cart") == null) {
+			session.setAttribute("cart", new ArrayList<>());
+		}
+		if (this.oders.listInvoiceByUser(id).size() == 0) {
+			model.addAttribute("orders", new ArrayList<>());
+		} else {
+			model.addAttribute("orders", this.oders.listInvoiceByUser(id));
+		}
 		return "shop/cart";
 	}
 
 	@GetMapping(value = "/orderdetails/{id}")
-	public String viewOrderdetails(@PathVariable("id") int id, ModelMap model, HttpServletRequest request){
+	public String viewOrderdetails(@PathVariable("id") int id, ModelMap model, HttpServletRequest request) {
 		List<InvoiceDetail> list = this.orderDetailsService.findDetailByInvoiceId(id);
 		List<Product> productorder = new ArrayList<>();
-		for(int i=0;i<list.size();i++){
+		for (int i = 0; i < list.size(); i++) {
 			Product odrProduct = productService.findByIdProduct(list.get(i).getProduct().getIdProduct());
 			odrProduct.setAmount(list.get(i).getAmount());
 			productorder.add(odrProduct);
 		}
-		model.addAttribute("oldorders",productorder);
+		model.addAttribute("oldorders", productorder);
 		return "shop/oderdetail";
 	}
-	
+
 }
