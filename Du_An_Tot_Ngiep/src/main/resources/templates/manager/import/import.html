@@ -10,7 +10,7 @@
 <!-- plugins:css -->
 <link rel="stylesheet"
 	href="../assets/vendors/css/vendor.bundle.addons.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.js"
+<script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
@@ -39,11 +39,14 @@
 <body>
 	<div class="container-scroller">
 		<!-- partial:partials/_navbar.html -->
-		<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:replace="manager/fragment/listNav::nav"></nav>
+		<nav
+			class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+			th:replace="manager/fragment/listNav::nav"></nav>
 		<!-- partial -->
 		<div class="container-fluid page-body-wrapper">
 			<!-- partial:partials/_sidebar.html -->
-			 <nav class="sidebar sidebar-offcanvas" id="sidebar" th:replace="manager/fragment/listNav_1::nav_1"></nav>
+			<nav class="sidebar sidebar-offcanvas" id="sidebar"
+				th:replace="manager/fragment/listNav_1::nav_1"></nav>
 			<!-- partial -->
 			<div class="main-panel">
 				<div class="content-wrapper">
@@ -56,8 +59,8 @@
 								<div class="card-body">
 									<h4 class="card-title">Danh Sách Kho Hàng</h4>
 									<p class="card-description">
-										<a class="btn btn-inverse-success btn-fw" th:href="@{/manager/addImport}">Thêm
-											Kho Hàng</a>
+										<a class="btn btn-inverse-success btn-fw"
+											th:href="@{/manager/addImport}">Thêm Kho Hàng</a>
 									</p>
 									<table class="table table-hover">
 										<thead>
@@ -77,8 +80,10 @@
 												<td th:text="${import.createDate}"></td>
 												<td th:text="${import.updateDate}"></td>
 												<td th:text="${import.quantity}"></td>
-												<td><a class="btn btn-info" th:href="@{'/manager/updateImport/'+${import.idImport}}">Cập Nhập</a>
-												<a class="btn btn-danger" th:href="@{'/manager/deleteImport/'+${import.idImport}}">Xóa</a></td>
+												<td><a class="btn btn-info"
+													th:href="@{'/manager/updateImport/'+${import.idImport}}">Cập
+														Nhập</a> <a class="btn btn-danger"
+													th:href="@{'/manager/deleteImport/'+${import.idImport}}">Xóa</a></td>
 											</tr>
 										</tbody>
 									</table>
@@ -91,109 +96,14 @@
 					</div>
 				</div>
 				<!-- content-wrapper ends -->
-				 <footer class="footer" th:replace="manager/fragment/footer::footer"></footer>
+				<footer class="footer" th:replace="manager/fragment/footer::footer"></footer>
 				<!-- partial -->
 			</div>
 			<!-- main-panel ends -->
 		</div>
 		<!-- page-body-wrapper ends -->
 	</div>
-	
-	 <div id="addImport" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-		
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h4 class="modal-title">Kho Hàng</h4>
-		      </div>
-		      <div class="modal-body">
-		        <p>Thêm Kho Hàng</p>
-		        
-		        <div class="form-group">
-					<label class="label">Nhân viên</label>
-						<div class="input-group" >
-						<input type="text" id="usersAddImport" class="form-control">
-							</div>
-				</div>
-		        <div class="form-group">
-					<label for="category">Tên Sản Phẩm</label>
-					<div class="input-group">
-						<select class="form-control" id="addProduct">
-								<option></option>
-						</select>
-					</div>
-				</div>
-		        <div class="form-group">
-				    <label for="exampleInputEmail1">Số Lượng</label>
-				    <input type="number" class="form-control" id="quantityAddImport">
-				 </div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" onclick="addImport()" data-dismiss="modal">Lưu</button>
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-		      </div>
-		    </div>
-		
-		  </div>
-		</div>
-		
-		<div id="updateImport" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-		
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h4 class="modal-title">Danh Mục</h4>
-		      </div>
-		      <div class="modal-body">
-			        <p>Sửa Kho Hàng</p>
-			        <input type="hidden" id="idImportUpdate">
-			        <div class="form-group">
-						<label class="label">Nhân viên</label>
-							<div class="input-group" >
-							<input type="text" id="usersUpdateImport" class="form-control">
-							</div>
-					</div>
-			        <div class="form-group">
-						<label for="category">Tên Sản Phẩm</label>
-						<div class="input-group">
-							<input readonly="readonly" type="text" id="updateProduct" class="form-control">
-						</div>
-					</div>
-			        <div class="form-group">
-					    <label for="exampleInputEmail1">Số Lượng</label>
-					    <input type="number" class="form-control" id="quantityImportUpdate">
-					 </div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" onclick="updateImport()" data-dismiss="modal">Lưu</button>
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-		      </div>
-		    </div>
-		
-		  </div>
-		</div>
-		
-		<!-- deleteCategory -->
-		
-		<div id="deleteImport" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-		
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h4 class="modal-title">Bạn thật sự muốn xóa thông tin này</h4>
-		      </div>
-		      <div class="modal-footer">
-		      <input type="hidden" id="idImportDelete" />
-		        <button type="button" class="btn btn-primary" onclick="deleteAjaxImport()" data-dismiss="modal">Xóa</button>
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
-		      </div>
-		    </div>
-		
-		  </div>
-		</div>
+
 	<!-- container-scroller -->
 	<!-- plugins:js -->
 	<script src="../assets/vendors/js/vendor.bundle.base.js"></script>
@@ -207,180 +117,5 @@
 	<!-- endinject -->
 	<!-- Custom js for this page-->
 	<script src="../assets/js/demo_1/dashboard.js"></script>
-	<!-- End custom js for this page-->
-	<!-- <script type="text/javascript">
-	$(document).ready(function() {
-		listImport();
-	});
-	  function listImport(){
-		  $.ajax({
-			  type : "GET",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/manager/listImportAjax",
-				success : function(result){
-					detailHtml(result);
-				},
-				error: function(result){
-					
-					console.log(result);
-					alert('failedd');
-				}
-		  });
-	  }
-	  
-	  function listProductForImport(callBack){
-		  $.ajax({
-			  type : "GET",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/manager/listProductForImport",
-				success : function(result){
-					htmlSelectProduct(result);
-					if(callBack) {
-						callBack(result);
-					}
-				},
-				error: function(result){
-					
-					console.log(result);
-					alert('failedd');
-				}
-		  });
-	  }
-	  
-	  function htmlSelectProduct(result){
-		  var listProduct = result;
-		  if(listProduct == null){
-				alert('failed');
-			}else{
-				$('#addProduct').empty();
-				$('#updateProduct').empty();
-				$.each(listProduct, function(i, item){
-					var html = '<option value = "'+item.idProduct+'">'+item.name+'</option>';
-					$('#addProduct').append(html);
-					$('#updateProduct').append(html);
-				});
-			}
-	  }
-	  
-	  function detailHtml(result){
-		  var listImport = result;
-		  if(listImport == null){
-			  alert('falied');
-		  }else{
-			  $('#dataForm').empty();
-			  $.each(listImport, function(i, item){
-				  var convertCreateDate = new Date(item.createDate);
-				  var convertUpdateDate = new Date(item.updateDate);
-				  var html = '<tr>'
-					+'<td id="idImport-'+item.idImport+'">'+item.idImport+'</td>'
-					+'<td id="userImport-'+item.idImport+'">'+item.users+'</td>'
-					+'<td id="productImport-'+item.idImport+'">'+item.product.name+'</td>'
-					+'<td id="createDateImport-'+item.idImport+'">'+convertCreateDate.toLocaleString()+'</td>'
-					+'<td id="updateDateImport-'+item.idImport+'">'+convertUpdateDate.toLocaleString()+'</td>'
-					+'<td id="quantityImport-'+item.idImport+'">'+item.quantity+'</td>'
-					+'<td>'
-					+'<button class="btn btn-info" onclick="setDataUpdateImport('+item.idImport+')" data-toggle="modal" data-target="#updateImport">Cập Nhập</button>'
-                    +'<button class="btn btn-danger" data-toggle="modal" data-target="#deleteImport" onclick="setDataDeleteImport('+item.idImport+')">Xóa</button>'
-					+'</td>'
-				+'</tr>';
-				$('#dataForm').append(html);
-			  });
-		  }
-	  }
-	  
-	  function addImport(){
-		  const product = {idProduct : $('#addProduct').val()};
-		  var dataImport = {
-				  "product" : product,
-				  "users" : $('#usersAddImport').val(),
-				  "quantity" : parseInt($('#quantityAddImport').val())
-		  };
-		  $.ajax({
-			  	type: "POST",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/manager/addImportAjax",
-				data : JSON.stringify(dataImport),
-				success : function(result){
-					detailHtml(result);
-				},
-				error: function(result){
-					alert('failedd');
-				}
-		  });
-	  }
-	  function setDataUpdateImport(importId){
-		  
-		 /*  listProductForImport(); */
-		  
-		  const product = {name : $('#productImport-'+importId).text()};
-		 /*  for(var i = 0; i <= $("#updateProduct option").length;i++ ){
-				var a = $("#updateProduct option:nth-child("+i+")").text();
-				if(a == product.name){
-					$("#updateProduct option:nth-child("+i+")").prop("selected",true);
-				}
-			}; */
-		  listProductForImport((result) => {
-			result
-				.map(i => i.name)
-				.map((name, i) => {
-				
-					if(product.name == $("#updateProduct option:nth-child("+(i + 1)+")").text()) {
-						console.log(i);
-						return i;
-					}
-					return -1;
-				}) .filter(v => v >=0)
-				.forEach((v) => $("#updateProduct option:nth-child("+(v + 1)+")").prop('selected', 'selected'));
-		  }); 
- 		  $('#idImportUpdate').val($('#idImport-'+importId).text());
-		  $('#usersUpdateImport').val($('#userImport-'+importId).text());
-		  $('#quantityImportUpdate').val($('#quantityImport-'+importId).text());
-	  }
-	  function updateImport(){
-		  var product ={idProduct : $('#updateProduct').val()};
-		  var dataImport = {
-				  "idImport" : $('#idImportUpdate').val(),
-				  "product" : product,
-				  "users" : $('#usersUpdateImport').val(),
-				  "quantity" : $('#quantityImportUpdate').val()
-		  };
-		  $.ajax({
-			  type: "POST",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/manager/updateImportAjax",
-				data : JSON.stringify(dataImport),
-				success : function(result){
-					detailHtml(result);
-				},
-				error: function(result){
-					alert('failedd');
-				}
-		  });
-	  }
-	  function setDataDeleteImport(importId){
-			$('#idImportDelete').val($('#idImport-'+importId).text());
-		}
-	  function deleteAjaxImport(){
-			var idImport = parseInt($('#idImportDelete').parent().find('#idImportDelete').val());
-			$.ajax({
-				type : "POST",
-				contentType : "application/json; charset=utf-8",
-				dataType : 'json',
-				url : "/manager/deleteImportAjax/" +idImport,
-				success : function(result){
-					detailHtml(result);
-				},
-				error : function(result){
-					 alert('failed');
-				}
-				
-				
-			});
-		}
-	</script> -->
 </body>
 </html>

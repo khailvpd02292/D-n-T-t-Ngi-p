@@ -19,7 +19,6 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
-//	private String email;
 	@Column(columnDefinition = "nvarchar(50)")
 	private String fullname;
 	private boolean gender;
@@ -32,17 +31,14 @@ public class Customer {
 	@Column(columnDefinition = "nvarchar(150)")
 	private String address;
 
-	
-	
 	public Customer() {
 		super();
 	}
 
-	public Customer(int customerId, String fullname, boolean gender, Date birthday, String phone,
-			String password, String address) {
+	public Customer(int customerId, String fullname, boolean gender, Date birthday, String phone, String password,
+			String address) {
 		super();
 		this.customerId = customerId;
-//		this.email = email;
 		this.fullname = fullname;
 		this.gender = gender;
 		this.birthday = birthday;
@@ -58,14 +54,6 @@ public class Customer {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
-
-//	public String getEmail() {
-//		return email;
-//	}
-//
-//	public void setEmail(String email) {
-//		this.email = email;
-//	}
 
 	public String getFullname() {
 		return fullname;

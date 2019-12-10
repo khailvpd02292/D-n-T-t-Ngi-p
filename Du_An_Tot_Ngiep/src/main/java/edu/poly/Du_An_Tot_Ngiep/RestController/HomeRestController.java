@@ -1,4 +1,5 @@
 package edu.poly.Du_An_Tot_Ngiep.RestController;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -43,7 +44,7 @@ public class HomeRestController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private OrdersService ordersService;
 
@@ -55,23 +56,12 @@ public class HomeRestController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private CustomerService customerService;
 
 	@Autowired
 	private ImportService importService;
-	
-	@GetMapping("/index/searchAjaxProduct")
-	public List<Product> showListSearchProduct(Model model, @RequestBody Product product,
-			@RequestParam("key") String key) {
-
-		Product p = (Product) this.productService.searchListProductByIdCategory(key);
-		if (p != null) {
-			this.productService.searchListProductByIdCategory(key);
-		}
-		return this.productService.listProduct();
-	}
 
 	@GetMapping("/index/listProductAjax")
 	public ResponseEntity<?> showListProduct() {
@@ -100,7 +90,7 @@ public class HomeRestController {
 		return this.productService.showListProductByIdCategoryFilter(id);
 	}
 
-	//add product in cart
+	// add product in cart
 	@PostMapping("/insertproduct}")
 	@ResponseBody
 	public String insertProduct(@RequestParam(name = "idproduct") int idProduct, @RequestParam int amount,
@@ -127,14 +117,12 @@ public class HomeRestController {
 			}
 			list.add(productOrder);
 			session.setAttribute("cart", list);
-			session.setAttribute("countCart", list.size());
 			return "1";
 		} else {
 			List<Product> list = new ArrayList<>();
 			productOrder.setAmount(amount);
 			list.add(productOrder);
 			session.setAttribute("cart", list);
-			session.setAttribute("countCart", list.size());
 			return "1";
 		}
 	}
@@ -220,60 +208,61 @@ public class HomeRestController {
 					setDetail.add(s);
 					orderDetailsServices.save(s);
 				}
-				session.setAttribute("cart", null);
-				session.setAttribute("countCart", 0);
+				session.setAttribute("cart", new ArrayList<>());
 			} else {
 				return "-1";
 			}
 			return "1";
 		}
 	}
-	
-	//Check status
+
+	// Check status
 	@PostMapping(value = "/updatestatus")
 	@ResponseBody
-	public String updateStatusOrder( @RequestParam(name = "orderid") int orderid, @RequestParam(name = "status") String status ){
+	public String updateStatusOrder(@RequestParam(name = "orderid") int orderid,
+			@RequestParam(name = "status") String status) {
 
-			Invoice acceptInv = (Invoice) ordersService.findInvoiceById(orderid);
-			if(acceptInv==null){
-				return "0";
+
+		Invoice acceptInv =  ordersService.findByIdInvoice(orderid);
+		if (acceptInv == null) {
+			return "0";
+		}
+		// -set new status
+		acceptInv.setStatus(status);
+
+		// tìm product có số lượng nhỏ hơn số lượng đặt hàng
+		for (InvoiceDetail detail : acceptInv.getDetails()) {
+			Imports oldProduct = importService.findQuatityProduct(detail.getProduct().getIdProduct());
+
+			// check tồn tại trong kho
+			if (oldProduct == null) {
+				System.out.println("Return -1");
+				return "-2";
 			}
-			//-set new status
-			acceptInv.setStatus(status);
 
-			//tìm product có số lượng nhỏ hơn số lượng đặt hàng
-			for (InvoiceDetail detail : acceptInv.getDetails() ) {
+			// so sánh oldProduct.amount trong kho và InvoiceDetail.amount
+			if (oldProduct.getQuantity() < detail.getAmount()) {
+				System.out.println("Return -1");
+				return "-1";
+			}
+		}
+
+		System.out.println(status);
+
+		if (status.equals("Hoàn thành")) {
+			// update quantity
+			for (InvoiceDetail detail : acceptInv.getDetails()) {
 				Imports oldProduct = importService.findQuatityProduct(detail.getProduct().getIdProduct());
 
-				//check tồn tại trong kho
-				if(oldProduct==null){
-					System.out.println("Return -1");
-					return "-2";
-				}
+				detail = orderDetailsServices.findInvoiceDetail(detail.getDetailId());
+				oldProduct.setQuantity(oldProduct.getQuantity() - detail.getAmount());
 
-				//so sánh oldProduct.amount trong kho và InvoiceDetail.amount
-				if(oldProduct.getQuantity() < detail.getAmount()){
-					System.out.println("Return -1");
-					return "-1";
-				}
+				importService.save(oldProduct);
 			}
+		}
 
-			System.out.println(status);
-
-			if(status.equals("Hoàn thành")) {
-				// update quantity
-				for (InvoiceDetail detail : acceptInv.getDetails() ) {
-					Imports oldProduct = importService.findQuatityProduct(detail.getProduct().getIdProduct());
-
-					detail = orderDetailsServices.findInvoiceDetail(detail.getDetailId());
-					oldProduct.setQuantity(oldProduct.getQuantity() - detail.getAmount());
-
-					importService.save(oldProduct);
-				}
-			}
-
-			ordersService.save(acceptInv);
-				return "1";
+		ordersService.save(acceptInv);
+		return "1";
 	}
 
 }

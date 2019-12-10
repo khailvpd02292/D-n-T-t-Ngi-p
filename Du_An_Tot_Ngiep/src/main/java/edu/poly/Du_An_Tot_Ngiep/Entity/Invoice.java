@@ -11,89 +11,90 @@ import java.util.Set;
 @Entity
 @Table(name = "Invoice")
 public class Invoice {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int invoiceId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int invoiceId;
 
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "dateorders")
-    private Date dateorders;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "dateorders")
+	private Date dateorders;
 
-    @Column(name = "status",columnDefinition = "nvarchar(50)")
-    private String status;
+	@Column(name = "status", columnDefinition = "nvarchar(50)")
+	private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "customerId",insertable = true, updatable = true)
-    private Customer customerId;
+	@ManyToOne
+	@JoinColumn(name = "customerId", insertable = true, updatable = true)
+	private Customer customerId;
 
-    @Column(name = "total")
-    private double total;
+	@Column(name = "total")
+	private double total;
 
-    @Column(name = "description")
-    private String description;
+	@Column(name = "description")
+	private String description;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "invoiceId")
-    private Set<InvoiceDetail> details;
+	@JsonIgnore
+	@OneToMany(mappedBy = "invoiceId")
+	private Set<InvoiceDetail> details;
 
-    public int getInvoiceId() {
-        return invoiceId;
-    }
+	public int getInvoiceId() {
+		return invoiceId;
+	}
 
-    public void setInvoiceId(int invoiceId) {
-        this.invoiceId = invoiceId;
-    }
+	public void setInvoiceId(int invoiceId) {
+		this.invoiceId = invoiceId;
+	}
 
-    public Date getDateorders() {
-        return dateorders;
-    }
+	public Date getDateorders() {
+		return dateorders;
+	}
 
-    public void setDateorders(Date dateorders) {
-        this.dateorders = dateorders;
-    }
+	public void setDateorders(Date dateorders) {
+		this.dateorders = dateorders;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public Customer getVendor() {
-        return customerId;
-    }
+	public Customer getVendor() {
+		return customerId;
+	}
 
-    public void setVendor(Customer user) {
-        this.customerId = user;
-    }
+	public void setVendor(Customer user) {
+		this.customerId = user;
+	}
 
-    public double getTotal() {
-        return total;
-    }
+	public double getTotal() {
+		return total;
+	}
 
-    public void setTotal(double total) {
-        this.total = total;
-    }
+	public void setTotal(double total) {
+		this.total = total;
+	}
 
-    public Invoice() {
-        super();
-    }
+	public Invoice() {
+		super();
+	}
 
-    public void setDetails(Set<InvoiceDetail> details) {
-        this.details = details;
-    }
+	public void setDetails(Set<InvoiceDetail> details) {
+		this.details = details;
+	}
 
-    public Set<InvoiceDetail> getDetails() {
-        return details;
-    }
+	public Set<InvoiceDetail> getDetails() {
+		return details;
+	}
 
-    public Invoice(@NotNull Date dateorders, String status, @NotNull Customer customerId, double total, String description) {
-        this.dateorders = dateorders;
-        this.status = status;
-        this.customerId = customerId;
-        this.total = total;
-        this.description = description;
-    }
+	public Invoice(@NotNull Date dateorders, String status, @NotNull Customer customerId, double total,
+			String description) {
+		this.dateorders = dateorders;
+		this.status = status;
+		this.customerId = customerId;
+		this.total = total;
+		this.description = description;
+	}
 }

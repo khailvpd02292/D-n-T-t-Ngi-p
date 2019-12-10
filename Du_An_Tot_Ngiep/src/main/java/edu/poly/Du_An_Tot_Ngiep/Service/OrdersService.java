@@ -9,7 +9,6 @@ public interface OrdersService {
 
 	Invoice findInvoiceByDetail(int id);
 
-	List<Invoice> findInvoiceById(int id);
 
 	List<Invoice> listInvoiceByUser(int iduser);
 
@@ -18,5 +17,8 @@ public interface OrdersService {
 	List<InvoiceDetail> listDetailByInvoiceId(int id);
 
 	<S extends Invoice> S save(S entity);
+
+
+	Invoice findByIdInvoice(int idInvoice);
 
 }

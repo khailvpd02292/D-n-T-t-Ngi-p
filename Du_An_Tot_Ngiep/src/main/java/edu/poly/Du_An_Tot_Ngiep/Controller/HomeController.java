@@ -1,5 +1,6 @@
 package edu.poly.Du_An_Tot_Ngiep.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,11 +75,8 @@ public class HomeController {
 			for (int i = 0; i < cookies.length; ++i) {
 				if (cookies[i].getName().equals("accountcustomer")) {
 					Customer customer = this.customerService.findByPhoneCus(cookies[i].getValue()).get();
-					if (session.getAttribute("cart") != null) {
-						List<Product> listpro = (List<Product>) session.getAttribute("cart");
-						session.setAttribute("countCart", listpro.size());
-					} else {
-						session.setAttribute("countCart", 0);
+					if (session.getAttribute("cart") == null) {
+						session.setAttribute("cart", new ArrayList<>());
 					}
 					// show user
 					model.addAttribute("fullname", customer.getFullname());
@@ -87,11 +85,8 @@ public class HomeController {
 				}
 			}
 		} else {
-			if (session.getAttribute("cart") != null) {
-				List<Product> listpro = (List<Product>) session.getAttribute("cart");
-				session.setAttribute("countCart", listpro.size());
-			} else {
-				session.setAttribute("countCart", 0);
+			if (session.getAttribute("cart") == null) {
+				session.setAttribute("cart", new ArrayList<>());
 			}
 			// show user
 			getName(request, model);
@@ -214,4 +209,3 @@ public class HomeController {
 	}
 
 }
-

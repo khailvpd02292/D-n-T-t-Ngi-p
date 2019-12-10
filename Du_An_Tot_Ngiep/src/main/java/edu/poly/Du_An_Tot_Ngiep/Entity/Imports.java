@@ -1,7 +1,5 @@
 package edu.poly.Du_An_Tot_Ngiep.Entity;
 
-
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,24 +21,24 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Imports {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idImport;
-	
+
 	@Column(columnDefinition = "nvarchar(150)")
 	private String users;
-	
+
 	private int quantity;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
-	@Column(name ="createDate",updatable = false)
+	@Column(name = "createDate", updatable = false)
 	private Date createDate;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	@Column(name = "updateDate", updatable = true)
 	private Date updateDate;
-	
+
 	@OneToOne
 	@JoinColumn(name = "idProduct", insertable = true, updatable = true)
 	private Product product;
@@ -106,9 +104,5 @@ public class Imports {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
-	
-	
-	
-	
+
 }

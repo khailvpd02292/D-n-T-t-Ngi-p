@@ -11,6 +11,6 @@ public interface StatisticalService {
 	List<StatisticalForMonthProjections> statisticalForMonth();
 
 	List<StatisticalForYearProjections> statisticalForYear();
-	
+
 	List<StatisticalForProductProjections> statisticalForProduct();
 }
