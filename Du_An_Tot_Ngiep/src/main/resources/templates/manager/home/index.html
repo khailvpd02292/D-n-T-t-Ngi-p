@@ -163,12 +163,14 @@
 													<tr>
 														<th>Tên Sản Phẩm</th>
 														<th>Số Lượng</th>
+														<th>Tổng tiền thu được</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr th:each="product : ${products}">
 														<td class="py-1" th:text="${product.name}">
 														<td th:text="${product.soLuongBanDuoc}"></td>
+														<td th:text="${product.tongTienThuDuoc}"></td>
 													</tr>
 												</tbody>
 											</table>

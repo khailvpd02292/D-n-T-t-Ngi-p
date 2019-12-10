@@ -19,13 +19,11 @@ public class ImportSeviceImpl implements ImportService {
 	@Override
 	public void delete(Imports entity) {
 		importRepository.delete(entity);
-
 	}
 
 	@Override
 	public void deleteById(Integer id) {
 		importRepository.deleteById(id);
-
 	}
 
 	@Override
@@ -43,6 +41,11 @@ public class ImportSeviceImpl implements ImportService {
 		return importRepository.findByIdImport(idImport);
 	}
 
+	@Override
+	public Imports findQuatityProduct(int productid) {
+		return importRepository.findQuatityProduct(productid);
+	}
+	
 	@Override
 	public Iterable<Imports> findAll() {
 		return importRepository.findAll();

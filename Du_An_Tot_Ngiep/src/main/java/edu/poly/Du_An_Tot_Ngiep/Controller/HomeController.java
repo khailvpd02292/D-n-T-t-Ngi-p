@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
 import edu.poly.Du_An_Tot_Ngiep.Entity.FeedBack;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
-import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.CategoryService;
 import edu.poly.Du_An_Tot_Ngiep.Service.CustomerService;
 import edu.poly.Du_An_Tot_Ngiep.Service.FeedBackService;
@@ -43,10 +42,10 @@ public class HomeController {
 
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@Autowired
 	private FeedBackService feedBackService;
-	
+
 	void getName(HttpServletRequest request, ModelMap model) {
 		// show user
 		Cookie[] cookies = request.getCookies();
@@ -66,13 +65,6 @@ public class HomeController {
 		model.addAttribute("feedback", this.feedBackService.listFeedBack());
 	}
 
-//	@GetMapping()
-//		public String Home(ModelMap model) {
-//			initHomeResponse(model);
-//			return "home/index";
-//		}
-//	}
-	
 	@GetMapping()
 	public String Home(ModelMap model, HttpServletRequest request,
 			@CookieValue(value = "accountcustomer", required = false) String phone, HttpServletResponse response,
@@ -89,12 +81,10 @@ public class HomeController {
 						session.setAttribute("countCart", 0);
 					}
 					// show user
-//						cookieDetail(model, request, response);
 					model.addAttribute("fullname", customer.getFullname());
 					this.initHomeResponse(model);
 					return "home/index";
 				}
-
 			}
 		} else {
 			if (session.getAttribute("cart") != null) {
@@ -104,7 +94,6 @@ public class HomeController {
 				session.setAttribute("countCart", 0);
 			}
 			// show user
-//			cookieDetail(model, request, response);
 			getName(request, model);
 			this.initHomeResponse(model);
 			return "home/index";
@@ -113,19 +102,16 @@ public class HomeController {
 		return "home/index";
 	}
 
-
 	@GetMapping("/product")
 	public String ShowListProduct(ModelMap model, RedirectAttributes redirect, HttpServletRequest request,
 			HttpServletResponse response) {
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
 		// show user
-//		cookieDetail(model, request, response);
 		getName(request, model);
 		initHomeResponse(model);
 		model.addAttribute("showProduct", this.productService.listProduct());
-
-		return "shop/shop";
+		return "shop/product";
 	}
 
 	@GetMapping("/about")
@@ -138,7 +124,7 @@ public class HomeController {
 		return "shop/about";
 	}
 
-	@GetMapping("/contact")
+	@GetMapping("/feedback")
 	public String ShowContact(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("product", this.productService.findAll());
 		model.addAttribute("category", this.categoryService.findAll());
@@ -146,10 +132,10 @@ public class HomeController {
 		// show user
 		getName(request, model);
 		initHomeResponse(model);
-		return "shop/contact";
+		return "shop/feedback";
 	}
 
-	// code showCategoryById
+	// showCategoryById
 	@GetMapping(value = "/showProductByIdCategory/{idCategory}")
 	public String ShowProductByIdCategory(ModelMap model, @PathVariable("idCategory") int idCategory,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -196,7 +182,7 @@ public class HomeController {
 		}
 		model.addAttribute("showProductByCategory", list);
 
-		return "shop/product-single";
+		return "shop/productSingle";
 	}
 
 	@GetMapping("/searchProduct")
@@ -217,31 +203,15 @@ public class HomeController {
 		return "shop/searchProduct";
 	}
 
-	@RequestMapping("/logout1")
+	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		initHomeResponse(model);
 		Cookie cookie = new Cookie("accountcustomer", null);
 		cookie.setMaxAge(0);
 		cookie.setPath("/");
 		response.addCookie(cookie);
-//		model.addAttribute("phone", null);
 		return "redirect:/index";
 	}
-	
-}
-//
-//	public void cookieDetail(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-//		Cookie[] cookies = request.getCookies();
-//		if (cookies != null) {
-//			for (int i = 0; i < cookies.length; ++i) {
-//				if (cookies[i].getName().equals("accountcus")) {
-//					User user = this.userService.findByPhone(cookies[i].getValue()).get();
-//					model.addAttribute("fullname", user.getFullname());
-//					break;
-//				}
-//			}
-//		}
-//		initHomeResponse(model);
-//	}
 
-//}
+}
+

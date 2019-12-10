@@ -72,10 +72,6 @@ public class CartController {
 
 	@GetMapping(value = "/orderdetails/{id}")
 	public String viewOrderdetails(@PathVariable("id") int id, ModelMap model, HttpServletRequest request){
-		//-- id hóa đơn
-		//-- findIdInvoice
-		//-CHeck null or not
-		//Sendrect 404
 		List<InvoiceDetail> list = this.orderDetailsService.findDetailByInvoiceId(id);
 		List<Product> productorder = new ArrayList<>();
 		for(int i=0;i<list.size();i++){
@@ -87,7 +83,4 @@ public class CartController {
 		return "shop/oderdetail";
 	}
 	
-	
-
-
 }

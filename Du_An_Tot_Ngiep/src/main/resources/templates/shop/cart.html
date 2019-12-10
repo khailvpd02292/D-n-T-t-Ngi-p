@@ -146,7 +146,6 @@
 								</tr>
 							</thead>
 							<tbody>
-
 								<tr class="text-center" th:each="oneinvoice : ${orders}">
 									<td class="price"><a 
 										th:href="@{'/orderdetails/'+${oneinvoice.invoiceId}}"
@@ -186,17 +185,7 @@
 		</div>
 	</section>
 	
-	<!-- Footer -->
-			<footer class="ftco-footer ftco-section" th:replace="fragment/footer::footer"></footer>
-	<!-- loader -->
-	<div id="ftco-loader" class="show fullscreen">
-		<svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none"
-				stroke-width="4" stroke="#eeeeee" />
-        <circle class="path" cx="24" cy="24" r="22" fill="none"
-				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
-      </svg>
-	</div>
+	<footer class="ftco-footer ftco-section" th:replace="fragment/footer::footer"></footer>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -246,7 +235,7 @@
 			};
 				
 			//console.log(product)
-			$.post("/updatequatities",product).done(function(data,status) {
+			$.post("/updatequantities",product).done(function(data,status) {
 				if (data == "0") {
 					alert("Có lỗi hoặc số lượng đang nhỏ hơn 0! Vui lòng thử lại...");
 				} else if (data == "1") {
@@ -289,7 +278,7 @@
 				};
 				
 			//console.log(product)
-			$.post("/updatequatities",product).done(function(data,status) {
+			$.post("/updatequantities",product).done(function(data,status) {
 				if (data == "0") {
 					alert("Có lỗi hoặc số lượng đang nhỏ hơn 0! Vui lòng thử lại...");
 				} else if (data == "1") {
@@ -302,13 +291,12 @@
 					}
 				});
 			});
-
+			
 			$(".quantity-left-minus").click(function(e) {
 				// Stop acting like a button
 				e.preventDefault();
 				// Get the field name
 				var quantity = parseInt($("#quantity").val());
-
 				// Increment
 				if (quantity > 0) {
 					$("#quantity").val(quantity - 1);

@@ -29,4 +29,5 @@ public interface ImportService {
 
 	Imports findByIdImport(int idImport);
 	
+	Imports findQuatityProduct(int productid);
 }
