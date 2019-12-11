@@ -80,8 +80,8 @@ public class HomeController {
 					}
 					// show user
 					model.addAttribute("fullname", customer.getFullname());
-					this.initHomeResponse(model);
-					return "home/index";
+//					this.initHomeResponse(model);
+//					return "home/index";
 				}
 			}
 		} else {
@@ -89,9 +89,9 @@ public class HomeController {
 				session.setAttribute("cart", new ArrayList<>());
 			}
 			// show user
-			getName(request, model);
-			this.initHomeResponse(model);
-			return "home/index";
+//			getName(request, model);
+//			this.initHomeResponse(model);
+//			return "home/index";
 		}
 		this.initHomeResponse(model);
 		return "home/index";

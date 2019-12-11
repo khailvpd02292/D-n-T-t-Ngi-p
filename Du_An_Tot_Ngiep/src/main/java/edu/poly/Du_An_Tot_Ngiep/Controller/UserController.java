@@ -24,6 +24,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
+import edu.poly.Du_An_Tot_Ngiep.Entity.Imports;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.CustomerService;
 import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
@@ -49,6 +50,7 @@ public class UserController {
 			if (cookies[i].getName().equals("accountuser")) {
 				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
+				model.addAttribute("image",user.getImageBase64());
 				break;
 			}
 		}
@@ -126,7 +128,7 @@ public class UserController {
 	@GetMapping(value = "/manager/addUser")
 	public String addCategory(ModelMap model, @CookieValue(value = "accountuser", required = false) String phone,
 			HttpServletRequest request) {
-
+//		model.addAttribute("user", new User());
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
@@ -150,7 +152,16 @@ public class UserController {
 			model.addAttribute("error", "Số điện thoại đã tồn tại");
 			return "/manager/users/addUser";
 		} else {
-			userService.save(userId);
+			User us = new User();
+			us.setFullname(userId.getFullname());
+			us.setImage(userId.getImage());
+			us.setRole(true);
+			us.setPhone(userId.getPhone());
+			us.setBirthday(userId.getBirthday());
+			us.setPassword(userId.getPassword());
+			us.setGender(userId.isGender());
+			us.setAddress(userId.getAddress());
+			userService.save(us);
 			redirect.addFlashAttribute("success", "Tạo tài khoản mới thành công!");
 			return "redirect:/manager/listUser";
 		}
@@ -176,6 +187,15 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "";
 		} else {
+			
+			usernameID.setFullname(usernameID.getFullname());
+			usernameID.setImage(userService.findById(usernameID.getUserId()).get().getImage());
+			usernameID.setRole(true);
+			usernameID.setPhone(usernameID.getPhone());
+			usernameID.setBirthday(usernameID.getBirthday());
+			usernameID.setPassword(usernameID.getPassword());
+			usernameID.setGender(usernameID.isGender());
+			usernameID.setAddress(usernameID.getAddress());
 			this.userService.save(usernameID);
 		}
 		if (!image.isEmpty()) {
@@ -206,6 +226,31 @@ public class UserController {
 					return "redirect:/manager/listUser";
 				}
 
+			}
+		}
+		return "redirect:/login";
+	}
+	
+	@GetMapping(value = "/manager/info")
+	public String infoUser(ModelMap model, @CookieValue(value = "accountuser") String phone,
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirect) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("accountuser")) {
+					User user = this.userService.findByPhone(cookies[i].getValue()).get();
+					if (user.isRole() == false) {
+						model.addAttribute("fullname", user.getFullname());
+						model.addAttribute("image",user.getImageBase64());
+						model.addAttribute("phone",user.getPhone());
+						model.addAttribute("birthday",user.getBirthday());
+//						model.addAttribute("",user.get)
+						return "/manager/users/info";
+					} else {
+						redirect.addFlashAttribute("fail", "Vui lòng sử dụng tài khoản admin!");
+						return "redirect:/manager/listCategory";
+					}
+				}
 			}
 		}
 		return "redirect:/login";

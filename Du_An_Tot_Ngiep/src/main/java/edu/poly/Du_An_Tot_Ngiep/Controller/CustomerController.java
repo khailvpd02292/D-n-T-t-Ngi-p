@@ -40,7 +40,7 @@ public class CustomerController {
 		for (int i = 0; i < cookies.length; ++i) {
 			if (cookies[i].getName().equals("accountuser")) {
 				User user = this.userService.findByPhone(cookies[i].getValue()).get();
-
+				model.addAttribute("image",user.getImageBase64());
 				model.addAttribute("fullname", user.getFullname());
 				break;
 			}

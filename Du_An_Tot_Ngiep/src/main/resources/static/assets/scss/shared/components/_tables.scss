@@ -23,20 +23,19 @@
       border-top-color: $border-color;
     }
   }
-
   td,
   th {
     vertical-align: middle;
     font-size: $default-font-size;
     line-height: 1;
-    white-space: nowrap;
+    // max-width: 200px;
     height: 35px;
     padding: $table-cell-padding;
 
     img {
       &:not(.thumb-image) {
         @extend .img-ss;
-       
+
       }
 
       &.thumb-image {
