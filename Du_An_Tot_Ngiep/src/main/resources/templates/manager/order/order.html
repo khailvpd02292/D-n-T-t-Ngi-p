@@ -65,18 +65,18 @@
 													</button>
 												</div>
 												<div class="modal-body">
-													<div class="text-center">
-														<select class="optionorder">
-															<option selected value="Chờ duyệt" name="choduyet">Chờ duyệt</option>
-															<option value="Hoàn thành" name="hoanthanh">Hoàn thành</option>
-															<option value="Đã hủy"name="dahuy">Đã hủy</option>
+													<div class="form-group text-center">
+														<select class="form-control optionorder">
+															<option  selected value="Chờ duyệt" name="choduyet">Chờ duyệt</option>
+															<option  value="Hoàn thành" name="hoanthanh">Hoàn thành</option>
+															<option  value="Đã hủy"name="dahuy">Đã hủy</option>
 														</select>
 													</div>
 
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-success submitstatus">Submit</button>
-													<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+													<button type="button" class="btn btn-success submitstatus">Duyệt</button>
+													<button type="button" class="btn btn-light" data-dismiss="modal">Thoát</button>
 												</div>
 											</div>
 										</div>
@@ -86,7 +86,7 @@
 										<thead>
 											<tr>
 												<th>Mã Hóa Đơn</th>
-												 <!-- <th>Tên Khách Hàng</th>  -->
+												 <th>SĐT khách hàng</th> 
 												<th>Ngày đặt hàng</th>
 												<th>Trạng Thái</th>
 												<th>Tổng Tiền</th>
@@ -98,13 +98,13 @@
 												<td>
 												   <a class="btn btn-inverse-success btn-fw" th:href="@{'/manager/orderDetail/'+${order.invoiceId}}" th:text="${order.invoiceId}"> </a>
 												</td> 
+												<td th:text="${order.customerId.phone}"></td>
 												<td th:text="${order.dateorders}"></td>
 												<td th:text="${order.status}" class="status">
 												</td>
 												<td th:text="${order.total}"></td>
 												<td>
-													<a class="btn btn-danger" href="#">Xóa</a>
-														<button th:attr="data-orderid=${order.invoiceId}" type="button" class="btn btn-primary btn-sm editmodal" data-toggle="modal" data-target="#exampleModal-3">Thay đổi</button>
+													<button th:attr="data-orderid=${order.invoiceId}" type="button" class="btn btn-primary editmodal" data-toggle="modal" data-target="#exampleModal-3">Duyệt</button>
 												</td>
 											</tr>
 										</tbody>
@@ -129,7 +129,7 @@
 	<!-- endinject -->
 	<script src="../assets/js/shared/off-canvas.js"></script>
 	<script src="../assets/js/shared/misc.js"></script>
-	<script src="../assets/js/shared/modal-demo.js"></script>
+	<!-- <script th:src="@{/assets/js/shared/modal-demo.js}"></script> -->
 	<!-- endinject -->
 	<!-- Custom js for this page-->
 	<script src="../assets/js/demo_1/dashboard.js"></script>

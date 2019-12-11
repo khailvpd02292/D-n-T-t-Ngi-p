@@ -18,6 +18,7 @@ import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
 import edu.poly.Du_An_Tot_Ngiep.Entity.InvoiceDetail;
 import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
 import edu.poly.Du_An_Tot_Ngiep.Service.CartService;
+import edu.poly.Du_An_Tot_Ngiep.Service.CategoryService;
 import edu.poly.Du_An_Tot_Ngiep.Service.CustomerService;
 import edu.poly.Du_An_Tot_Ngiep.Service.OrderDetailsService;
 import edu.poly.Du_An_Tot_Ngiep.Service.OrdersService;
@@ -41,6 +42,9 @@ public class CartController {
 
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	CategoryService categoryService;
 
 	@Autowired
 	private CustomerService customerService;
@@ -57,6 +61,8 @@ public class CartController {
 
 	@GetMapping("/cart")
 	public String viewCart(ModelMap model, HttpServletRequest request, HttpSession session) {
+		model.addAttribute("product", this.productService.findAll());
+		model.addAttribute("category", this.categoryService.findAll());
 		int id = -1;
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
@@ -93,5 +99,6 @@ public class CartController {
 		model.addAttribute("oldorders", productorder);
 		return "shop/oderdetail";
 	}
+	
 
 }

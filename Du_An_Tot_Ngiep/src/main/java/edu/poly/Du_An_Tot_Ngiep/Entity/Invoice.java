@@ -89,6 +89,22 @@ public class Invoice {
 		return details;
 	}
 
+	public Customer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Customer customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Invoice(@NotNull Date dateorders, String status, @NotNull Customer customerId, double total,
 			String description) {
 		this.dateorders = dateorders;

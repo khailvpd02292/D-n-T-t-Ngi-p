@@ -22,7 +22,11 @@
 		<link rel="shortcut icon" href="../assets/images/favicon.png" />
 			<style>
 		.table td {
-			max-width: 400px;
+			max-width: 300px;
+			white-space: normal;
+		}
+		tbody th{
+			max-width: 300px;
 			white-space: normal;
 		}
 		.btn{
@@ -175,11 +179,11 @@
 	                    +'<td id="subjectsFeedback-'+item.idFeedback+'">'+item.subjects+'</td>'
 	                    +'<td id="contentFeedback-'+item.idFeedback+'">'+item.content+'</td>' 
 	                    +'<td id="createDateFeedback-'+item.idFeedback+'">'+convertCreateDate.toLocaleString()+'</td>'
-	                    +'<td>'
+	                    +'<th>'
 	                   		+'<button class="btn btn-info" onclick="setDateDetailFeedBack('+item.idFeedback+')" data-toggle="modal" data-target="#detailFeedback">Xem chi tiết</button>'
 	                        +'<button class="btn btn-info">Phản hồi</button>'
 	                        +'<button class="btn btn-danger" data-toggle="modal" data-target="#deleteFeedBack" onclick="setDataDeleteFeedBack('+item.idFeedback+')">Xóa</button>'
-	                    +'</td>'
+	                    +'</th>'
 	                  +'</tr>';
 						
 						$('#dataForm').append(html);
