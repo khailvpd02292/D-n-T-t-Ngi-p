@@ -35,6 +35,7 @@ public class statisticalController {
 			if (cookies[i].getName().equals("accountuser")) {
 				Customer customer = this.customerService.findByPhoneCus(cookies[i].getValue()).get();
 				model.addAttribute("fullname", customer.getFullname());
+				
 				break;
 			}
 		}
@@ -51,6 +52,7 @@ public class statisticalController {
 					if (user.isRole() == false) {
 						model.addAttribute("username", phone);
 						model.addAttribute("fullname", user.getFullname());
+						model.addAttribute("image", user.getImageBase64());
 						model.addAttribute("months", statisticalService.statisticalForMonth());
 						model.addAttribute("years", statisticalService.statisticalForYear());
 						model.addAttribute("products", statisticalService.statisticalForProduct());
