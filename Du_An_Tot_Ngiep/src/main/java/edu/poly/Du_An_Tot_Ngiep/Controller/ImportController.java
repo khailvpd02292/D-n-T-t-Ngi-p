@@ -42,6 +42,7 @@ public class ImportController {
 			if (cookies[i].getName().equals("accountuser")) {
 				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
+				model.addAttribute("image", user.getImageBase64());
 				break;
 			}
 		}
@@ -78,6 +79,7 @@ public class ImportController {
 				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
 				impl.setUsers(user.getFullname());
+				model.addAttribute("image", user.getImageBase64());
 				break;
 			}
 		}
