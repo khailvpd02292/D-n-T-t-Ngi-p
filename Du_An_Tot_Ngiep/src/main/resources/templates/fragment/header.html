@@ -25,8 +25,8 @@
 									<li><a th:href="@{/login}"><i class="fa fa-user-o"></i>Đăng
 											Nhập</a></li>
 								</ul>
-							</span> <span class="text" th:if="${fullname != null}"
-								th:text="${fullname}"></span> <span class="text"
+							</span> <span class="text"><a th:if="${fullname != null}"
+								th:text="${fullname}" th:href="@{'/updateProfile/'+${customerId}}"></a></span> <span class="text"
 								th:if="${fullname != null}"
 								style="width: 150px; margin-left: 50px; cursor: pointer;"><a
 								th:href="@{/index/logout}" style="color: white;"><i

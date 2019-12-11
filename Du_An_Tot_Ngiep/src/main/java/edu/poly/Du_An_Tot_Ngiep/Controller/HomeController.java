@@ -54,6 +54,7 @@ public class HomeController {
 			if (cookies[i].getName().equals("accountcustomer")) {
 				Customer customer = this.customerService.findByPhoneCus(cookies[i].getValue()).get();
 				model.addAttribute("fullname", customer.getFullname());
+				model.addAttribute("customerId", customer.getCustomerId());
 				break;
 			}
 		}
@@ -80,6 +81,7 @@ public class HomeController {
 					}
 					// show user
 					model.addAttribute("fullname", customer.getFullname());
+					model.addAttribute("customerId", customer.getCustomerId());
 //					this.initHomeResponse(model);
 //					return "home/index";
 				}
