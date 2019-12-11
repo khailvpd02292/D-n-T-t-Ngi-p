@@ -77,7 +77,7 @@ public class ManagerController {
 	}
 
 	@GetMapping(value = "/manager")
-	public String manager(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,
+	public String manager(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,MultipartFile image,
 			HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
@@ -87,6 +87,7 @@ public class ManagerController {
 
 					model.addAttribute("username", username);
 					model.addAttribute("fullname", user.getFullname());
+					model.addAttribute("image", user.getImageBase64());
 
 					return "redirect:/manager/listCategory";
 				}
@@ -113,6 +114,7 @@ public class ManagerController {
 					model.addAttribute("category", list);
 					model.addAttribute("username", username);
 					model.addAttribute("fullname", user.getFullname());
+					model.addAttribute("image", user.getImageBase64());
 					return "/manager/category/listCategory";
 				}
 
@@ -243,6 +245,7 @@ public class ManagerController {
 					model.addAttribute("product", pages);
 					model.addAttribute("username", username);
 					model.addAttribute("fullname", user.getFullname());
+					model.addAttribute("image", user.getImageBase64());
 
 					return "/manager/product/listProduct";
 				}
@@ -368,6 +371,8 @@ public class ManagerController {
 
 					model.addAttribute("username", username);
 					model.addAttribute("fullname", user.getFullname());
+					model.addAttribute("image", user.getImageBase64());
+
 					this.feedBackService.findAll();
 					return "/manager/feedback/feedback";
 				}
@@ -398,6 +403,7 @@ public class ManagerController {
 
 					model.addAttribute("username", username);
 					model.addAttribute("fullname", user.getFullname());
+					model.addAttribute("image", user.getImageBase64());
 					List<Invoice> list = this.oders.listInvoice();
 					model.addAttribute("listOrder", list);
 					return "manager/order/order";
@@ -420,6 +426,8 @@ public class ManagerController {
 
 					model.addAttribute("username", username);
 					model.addAttribute("fullname", user.getFullname());
+					model.addAttribute("image", user.getImageBase64());
+
 					List<InvoiceDetail> list = this.orderDetailsService.findDetailByInvoiceId(id);
 					List<Product> productorder = new ArrayList<>();
 					for (int i = 0; i < list.size(); i++) {
@@ -434,4 +442,5 @@ public class ManagerController {
 		}
 		return "redirect:/login";
 	}
+	
 }

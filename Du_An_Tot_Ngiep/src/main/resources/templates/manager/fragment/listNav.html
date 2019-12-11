@@ -81,25 +81,18 @@
 					<li
 						class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
 						<a class="nav-link dropdown-toggle" id="UserDropdown" href="#"
-						data-toggle="dropdown" aria-expanded="false"> <img
-							class="img-xs rounded-circle"
-							th:src="@{/assets/images/faces/face8.jpg}" alt="Profile image">
+						data-toggle="dropdown" aria-expanded="false">  <img class="img-xs rounded-circle" th:src="@{'data:image/png;base64,' + ${image}}" alt="profile image">
 					</a>
 						<div class="dropdown-menu dropdown-menu-right navbar-dropdown"
 							aria-labelledby="UserDropdown">
 							<div class="dropdown-header text-center">
-								<img class="img-md rounded-circle"
-									th:src="@{/assets/images/faces/face8.jpg}" alt="Profile image">
+								 <img class="img-md rounded-circle" th:src="@{'data:image/png;base64,' + ${image}}" alt="profile image">
 								<p class="mb-1 mt-3 font-weight-semibold" th:text="${fullname}"></p>
 <!-- 								<p class="font-weight-light text-muted mb-0" -->
 <!-- 									th:text="${username}"></p> -->
 							</div>
 							<a class="dropdown-item" th:href="@{/manager/info}">Thông Tin Tài Khoản <i
 								class="dropdown-item-icon ti-dashboard"></i></a> 
-								<!-- <a class="dropdown-item">Messages<i
-								class="dropdown-item-icon ti-comment-alt"></i></a> <a
-								class="dropdown-item">Activity<i
-								class="dropdown-item-icon ti-location-arrow"></i></a>  -->
 								<a class="dropdown-item" th:href="@{/logout}">Đăng Xuất<i
 								class="dropdown-item-icon ti-power-off"></i></a>
 						</div>

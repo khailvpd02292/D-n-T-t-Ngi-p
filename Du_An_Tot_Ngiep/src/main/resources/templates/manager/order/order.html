@@ -66,10 +66,10 @@
 												</div>
 												<div class="modal-body">
 													<div class="text-center">
-														<select class="optionorder">
-															<option selected value="Chờ duyệt" name="choduyet">Chờ duyệt</option>
-															<option value="Hoàn thành" name="hoanthanh">Hoàn thành</option>
-															<option value="Đã hủy"name="dahuy">Đã hủy</option>
+														<select class="form-group optionorder">
+															<option class="form-control" selected value="Chờ duyệt" name="choduyet">Chờ duyệt</option>
+															<option class="form-control" value="Hoàn thành" name="hoanthanh">Hoàn thành</option>
+															<option class="form-control" value="Đã hủy"name="dahuy">Đã hủy</option>
 														</select>
 													</div>
 
@@ -103,8 +103,7 @@
 												</td>
 												<td th:text="${order.total}"></td>
 												<td>
-													<a class="btn btn-danger" href="#">Xóa</a>
-														<button th:attr="data-orderid=${order.invoiceId}" type="button" class="btn btn-primary btn-sm editmodal" data-toggle="modal" data-target="#exampleModal-3">Thay đổi</button>
+													<button th:attr="data-orderid=${order.invoiceId}" type="button" class="btn btn-primary editmodal" data-toggle="modal" data-target="#exampleModal-3">Thay đổi</button>
 												</td>
 											</tr>
 										</tbody>
