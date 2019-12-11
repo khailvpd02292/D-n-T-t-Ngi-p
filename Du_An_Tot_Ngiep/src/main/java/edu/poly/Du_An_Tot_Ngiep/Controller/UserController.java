@@ -1,5 +1,7 @@
 package edu.poly.Du_An_Tot_Ngiep.Controller;
 
+import java.net.http.HttpRequest;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +52,8 @@ public class UserController {
 			if (cookies[i].getName().equals("accountuser")) {
 				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
-				model.addAttribute("image",user.getImageBase64());
+				model.addAttribute("image", user.getImageBase64());
+				model.addAttribute("ma", user.getUserId());
 				break;
 			}
 		}
@@ -168,10 +171,11 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/manager/updateUser/{userId}")
-	public String updateProduct(ModelMap model, @PathVariable(name = "userId") int id) {
+	public String updateProduct(ModelMap model, @PathVariable(name = "userId") int id, HttpServletRequest request) {
 		model.addAttribute("listuser", this.userService.findAll());
 		model.addAttribute("usernameID",
 				this.userService.findById(id).isPresent() ? this.userService.findById(id).get() : null);
+//		getName(request, model);
 		return "/manager/users/updateUser";
 	}
 
@@ -187,7 +191,7 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "";
 		} else {
-			
+
 			usernameID.setFullname(usernameID.getFullname());
 			usernameID.setImage(userService.findById(usernameID.getUserId()).get().getImage());
 			usernameID.setRole(true);
@@ -230,26 +234,21 @@ public class UserController {
 		}
 		return "redirect:/login";
 	}
-	
+
 	@GetMapping(value = "/manager/info")
-	public String infoUser(ModelMap model, @CookieValue(value = "accountuser") String phone,
-			HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirect) {
+	public String infoUser(ModelMap model, @CookieValue(value = "accountuser") String phone, HttpServletRequest request,
+			HttpServletResponse response, RedirectAttributes redirect) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
 				if (cookies[i].getName().equals("accountuser")) {
 					User user = this.userService.findByPhone(cookies[i].getValue()).get();
-					if (user.isRole() == false) {
-						model.addAttribute("fullname", user.getFullname());
-						model.addAttribute("image",user.getImageBase64());
-						model.addAttribute("phone",user.getPhone());
-						model.addAttribute("birthday",user.getBirthday());
-//						model.addAttribute("",user.get)
-						return "/manager/users/info";
-					} else {
-						redirect.addFlashAttribute("fail", "Vui lòng sử dụng tài khoản admin!");
-						return "redirect:/manager/listCategory";
-					}
+					model.addAttribute("fullname", user.getFullname());
+					model.addAttribute("image", user.getImageBase64());
+					model.addAttribute("phone", user.getPhone());
+					model.addAttribute("birthday", user.getBirthday());
+					return "/manager/users/info";
+
 				}
 			}
 		}
