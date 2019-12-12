@@ -54,6 +54,11 @@ public class UserController {
 				model.addAttribute("fullname", user.getFullname());
 				model.addAttribute("image", user.getImageBase64());
 				model.addAttribute("ma", user.getUserId());
+				model.addAttribute("address", user.getAddress());
+				model.addAttribute("birthday", user.getBirthday());
+				model.addAttribute("phone", user.getPhone());
+				model.addAttribute("gender", user.isGender());
+				model.addAttribute("role", user.isRole());
 				break;
 			}
 		}
@@ -183,38 +188,35 @@ public class UserController {
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
 		binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
 	}
-
 	@PostMapping(value = "/manager/updateUser")
-	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID, BindingResult result,
-			HttpServletRequest request, @RequestParam(value = "image") MultipartFile image) {
+	public String updateProduct(@ModelAttribute(name = "usernameID") @Valid User usernameID,
+			@CookieValue(value = "accountuser", required = false) String username, HttpServletRequest request,
+			@RequestParam(value = "image") MultipartFile image, ModelMap model) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; ++i) {
+				if (cookies[i].getName().equals("accountuser")) {
+					User us = this.userService.findByPhone(cookies[i].getValue()).get();
+					if (us.isRole() == true) {
+						usernameID.setFullname(usernameID.getFullname());
+						usernameID.setImage(userService.findById(usernameID.getUserId()).get().getImage());
+						usernameID.setRole(true);
+						usernameID.setPhone(usernameID.getPhone());
+						usernameID.setBirthday(usernameID.getBirthday());
+						usernameID.setPassword(usernameID.getPassword());
+						usernameID.setGender(usernameID.isGender());
+						usernameID.setAddress(usernameID.getAddress());
+						this.userService.save(usernameID);
+						return "redirect:/manager/listUser";
+					} else {
+						userService.save(usernameID);
+						return "redirect:/manager/listUser";
 
-		if (result.hasErrors()) {
-			return "";
-		} else {
-
-			usernameID.setFullname(usernameID.getFullname());
-			usernameID.setImage(userService.findById(usernameID.getUserId()).get().getImage());
-			usernameID.setRole(true);
-			usernameID.setPhone(usernameID.getPhone());
-			usernameID.setBirthday(usernameID.getBirthday());
-			usernameID.setPassword(usernameID.getPassword());
-			usernameID.setGender(usernameID.isGender());
-			usernameID.setAddress(usernameID.getAddress());
-			this.userService.save(usernameID);
-		}
-		if (!image.isEmpty()) {
-			try {
-				usernameID.setImage(image.getBytes());
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
+					}
+				}
 			}
-		} else {
-			usernameID.setImage(userService.findById(usernameID.getUserId()).get().getImage());
-
 		}
-
-		return "redirect:/manager/listUser";
+		return "redirect:/login";
 	}
 
 	@GetMapping(value = "/manager/deleteUser/{userId}")
@@ -238,21 +240,8 @@ public class UserController {
 	@GetMapping(value = "/manager/info")
 	public String infoUser(ModelMap model, @CookieValue(value = "accountuser") String phone, HttpServletRequest request,
 			HttpServletResponse response, RedirectAttributes redirect) {
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("accountuser")) {
-					User user = this.userService.findByPhone(cookies[i].getValue()).get();
-					model.addAttribute("fullname", user.getFullname());
-					model.addAttribute("image", user.getImageBase64());
-					model.addAttribute("phone", user.getPhone());
-					model.addAttribute("birthday", user.getBirthday());
-					return "/manager/users/info";
-
-				}
-			}
-		}
-		return "redirect:/login";
+		getName(request, model);
+		return "manager/users/info";
 	}
 
 }
