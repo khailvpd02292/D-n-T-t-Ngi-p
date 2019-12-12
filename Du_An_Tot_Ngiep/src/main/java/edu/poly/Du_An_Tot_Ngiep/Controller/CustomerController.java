@@ -44,9 +44,7 @@ public class CustomerController {
 				Customer cus = this.customerService.findByPhoneCus(cookies[i].getValue()).get();
 //				model.addAttribute("image",cus.getImageBase64());
 				model.addAttribute("fullname", cus.getFullname());
-				System.out.println("aaaaaaaaaaa"+ cus.getCustomerId());
-				model.addAttribute("customerId",cus.getCustomerId());
-				System.out.println("aaaaaaaaaaa"+ cus.getCustomerId());
+				model.addAttribute("customerId", cus.getCustomerId());
 				break;
 			}
 		}
@@ -89,33 +87,24 @@ public class CustomerController {
 			return "redirect:login";
 		}
 	}
+
 	@GetMapping(value = "/updateProfile/{customerId}")
-	public String updateCus(ModelMap model, @PathVariable(name = "customerId") int customerId, HttpServletRequest request) {
+	public String updateCus(ModelMap model, @PathVariable(name = "customerId") int customerId,
+			HttpServletRequest request) {
 		model.addAttribute("listuser", this.customerService.findAll());
 		model.addAttribute("customer",
-				this.customerService.findById(customerId).isPresent() ? this.customerService.findById(customerId).get() : null);
-//		getName(request, model);
+				this.customerService.findById(customerId).isPresent() ? this.customerService.findById(customerId).get()
+						: null);
+		getName(request, model);
 		return "/manager/users/updateProfile";
 	}
 
 	@PostMapping(value = "/updateProfile")
 	public String updateCus(@ModelAttribute(name = "customerId") @Valid Customer customerId,
-			@CookieValue(value = "accountcustomer", required = false) String phone,
-			HttpServletRequest request, ModelMap model) {
+			@CookieValue(value = "accountcustomer", required = false) String phone, HttpServletRequest request,
+			ModelMap model) {
 		customerService.save(customerId);
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; ++i) {
-				if (cookies[i].getName().equals("accountcustomer")) {
-					User user = this.userService.findByPhone(cookies[i].getValue()).get();
-					model.addAttribute("listcustomer", this.customerService.findAll());
-					model.addAttribute("username", phone);
-					model.addAttribute("fullname", user.getFullname());
-					return "redirect:/index";
-				}
-			}
-
-		}
+		getName(request, model);
 		return "redirect:/index";
 	}
 
