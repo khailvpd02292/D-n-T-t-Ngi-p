@@ -144,6 +144,7 @@
 	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
 	<script th:src="@{/js/scrollax.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/simple.money.format.js}"></script>
 
 	<script type="text/javascript">
 		$( document ).ready(function() {
@@ -208,7 +209,7 @@
 						+'<div class="d-flex">'
 							+'<div class="pricing">'
 							+'<p class="price">'
-							+'<span class="price-sale">' +listProduct[i]['price']+ '</span>'
+							+'<span class="price-sale">' +listProduct[i]['price']+ ' đ</span>'
 							+'</p>'
 							+'</div>'
 							+'</div>'
@@ -222,7 +223,7 @@
 							+'</div>'
 					+'</div>'
 					+'</div>';
-					
+					$('.price-sale').simpleMoneyFormat();
 					$('#dataProduct').append(html);
 					j++ ;
 			}
@@ -232,6 +233,7 @@
 			
 			
 		}
+		
 					
 		function detailHtmlPage(indexPage , page, active ){
 			$('#pageproduct').empty();

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Imports;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
@@ -69,8 +70,8 @@ public class ImportController {
 	}
 
 	@PostMapping(value = "/manager/addImport")
-	public String addImport(@ModelAttribute(value = "import") @Valid Imports import1, BindingResult result,
-			HttpServletRequest request, ModelMap model) {
+	public String addImport(@ModelAttribute(value = "import")Imports import1,
+			HttpServletRequest request, ModelMap model, RedirectAttributes redirect) {
 
 		Imports impl = new Imports();
 		Cookie[] cookies = request.getCookies();
@@ -86,32 +87,50 @@ public class ImportController {
 
 		impl.setProduct(import1.getProduct());
 		impl.setQuantity(import1.getQuantity());
-		importService.save(impl);
+		this.importService.save(impl);
+		redirect.addFlashAttribute("success", "Thêm mới kho hàng thành công!");
 		return "redirect:/manager/import";
 	}
 
 	@GetMapping(value = "/manager/updateImport/{idImport}")
-	public String updateImport(ModelMap model, @PathVariable(name = "idImport") int id) {
+	public String updateImport(ModelMap model, @PathVariable(name = "idImport") int id, @CookieValue(value = "accountuser", required = false) String username,
+			HttpServletRequest request) {
+		model.addAttribute("username", username);
+		getName(request, model);
 		model.addAttribute("listProduct", productService.findAll());
-		model.addAttribute("import",
-				this.importService.findById(id).isPresent() ? this.importService.findById(id).get() : null);
-
+		model.addAttribute("import",this.importService.findById(id).isPresent() ? this.importService.findById(id).get() : null);
+		
 		return "/manager/import/updateImport";
 	}
 
 	@PostMapping(value = "/manager/updateImport")
-	public String updateImport(@ModelAttribute(value = "import") @Valid Imports import1, BindingResult result,
-			@RequestParam("idImport") int idImport) {
-		if (result.hasErrors()) {
-			return "/manager/updateImport";
+	public String updateImport(@ModelAttribute(value = "import")Imports import1,RedirectAttributes redirect
+			,HttpServletRequest request, ModelMap model) {
+		
+		Imports impl = new Imports();
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; i < cookies.length; ++i) {
+			if (cookies[i].getName().equals("accountuser")) {
+				User user = this.userService.findByPhone(cookies[i].getValue()).get();
+				model.addAttribute("fullname", user.getFullname());
+				import1.setUsers(user.getFullname());
+				model.addAttribute("image", user.getImageBase64());
+				break;
+			}
 		}
+
+		impl.setProduct(import1.getProduct());
+		impl.setQuantity(import1.getQuantity());
 		this.importService.save(import1);
+		redirect.addFlashAttribute("success", "Cập nhập kho hàng thành công!");
+	
 		return "redirect:/manager/import";
 	}
 
 	@GetMapping(value = "/manager/deleteImport/{idImport}")
-	public String deleteImport(@PathVariable(name = "idImport") int idImport) {
+	public String deleteImport(@PathVariable(name = "idImport") int idImport,RedirectAttributes redirect) {
 		this.importService.deleteById(idImport);
+		redirect.addFlashAttribute("success", "Xoá kho hàng thành công!");
 		return "redirect:/manager/import";
 	}
 }
