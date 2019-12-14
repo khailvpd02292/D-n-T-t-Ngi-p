@@ -7,13 +7,6 @@ function clear() {
 }
 function checkempty(formproduct) {
 	clear();
-//	var date1 = new Date(); // current date
-//	var date2 = new Date(formproduct.dateOfManufacture.value); // mm/dd/yyyy format
-//	var timeDiff = Math.abs(date2.getTime() - date1.getTime()); // in miliseconds
-//	var timeDiffInSecond = Math.ceil(timeDiff / 1000); // in second
-//	var days = Math.floor(timeDiffInSecond / 86400);
-//	var hours = Math.floor(res / 3600) % 24;  
-//	 var minutes = Math.floor(res / 60) % 60;
 	if (formproduct.name.value.trim() == "") {
 		document.getElementById("ten").innerHTML = "Không để trống tên!";
 		return false;
@@ -34,7 +27,7 @@ function checkempty(formproduct) {
 		document.getElementById("nguongoc").innerHTML = "Không để trống nguồn gốc!";
 		return false;
 	} 
-	else if (formproduct.price.value.trim() <1000 || formproduct.price.value == 0 ) {
+	else if (formproduct.price.value.trim() <1000  || formproduct.price.value == 0) {
 		document.getElementById("tien").innerHTML = "Giá phải lớn lơn 1000!";
 		return false;
 	} 

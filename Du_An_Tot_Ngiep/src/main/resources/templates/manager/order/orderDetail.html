@@ -79,7 +79,7 @@
 												alt="Colorlib Template"></td>
 											<td th:text="${order.name}">
 											</td>
-											<td class="price" th:text="${order.price}"></td>
+											<td class="price" th:text="${#numbers.formatCurrency(order.price)}"></td>
 											<td class="price" th:text="${order.amount}"></td>
 											<td class="total" th:text="${order.price*order.amount}"></td>
 											</tr>
