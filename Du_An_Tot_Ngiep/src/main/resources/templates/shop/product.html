@@ -145,7 +145,7 @@
 	<script th:src="@{/js/scrollax.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
 	<script th:src="@{/js/simple.money.format.js}"></script>
-
+	<script th:src="@{/js/jquery.number.js}"></script>
 	<script type="text/javascript">
 		$( document ).ready(function() {
 			getProducts();
@@ -163,6 +163,21 @@
 		var pageLimit = 6
 		var pageProduct = 12;
 		var pageNext = 0;
+		
+		// format price
+		$('.price-sale').on('.price-sale', function(e){        
+		    $(this).val(formatCurrency(this.value.replace(/[,VNĐ]/g,'')));
+		}).on('keypress',function(e){
+		    if(!$.isNumeric(String.fromCharCode(e.which))) e.preventDefault();
+		}).on('paste', function(e){    
+		    var cb = e.originalEvent.clipboardData || window.clipboardData;      
+		    if(!$.isNumeric(cb.getData('text'))) e.preventDefault();
+		});
+		function formatCurrency(number){
+		    var n = number.split('').reverse().join("");
+		    var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
+		    return  n2.split('').reverse().join('') + 'VNĐ';
+		}
 		
 		function getProducts(){
 			$.ajax({
@@ -209,7 +224,7 @@
 						+'<div class="d-flex">'
 							+'<div class="pricing">'
 							+'<p class="price">'
-							+'<span class="price-sale">' +listProduct[i]['price']+ ' đ</span>'
+							+'<span class="price-sale formatPrice" id="fomatPrice">' +listProduct[i]['price']+ '</span> <span class="price-sale"> đ</span>'
 							+'</p>'
 							+'</div>'
 							+'</div>'
@@ -223,16 +238,40 @@
 							+'</div>'
 					+'</div>'
 					+'</div>';
-					$('.price-sale').simpleMoneyFormat();
+					$('.formatPrice').number( true, 0,',','.');
 					$('#dataProduct').append(html);
 					j++ ;
+					
+					
 			}
 			if(donit){
 				detailHtmlPage(0,pageTotal,"1")
 			}
-			
+			$('.formatPrice').number( true, 0,',','.');
 			
 		}
+		
+		$(function(){
+			
+			// Xử lý khi người dùng gõ dữ liệu vào ô text			
+			$('.price').on('change',function(){ 
+				var val = $('.price').val();
+				$('#the_number').text( val !== '' ? val : '(empty)' );
+			});
+			
+			$('.price').change(function(){
+				console.log('Second change event...');
+			});	
+						
+			// Hàm chuyển đổi định dạng mặc định phân cách phần nguyên là dấu ., và phần thập phân là dấu , có 3 chữ số đằng sau.			
+			$('.price').number( true, 0,',','.' );			
+						
+			// thực hiện lấy dữ liệu 
+			$('#get_number').on('click',function(){					
+				var val = $('.price').val();					
+				$('#the_number').text( val !== '' ? val : '(empty)' );
+			});
+		});
 		
 					
 		function detailHtmlPage(indexPage , page, active ){
@@ -408,6 +447,8 @@
 						});
 			});
 		});
+		
+		
 	</script>
 </body>
 </html>
