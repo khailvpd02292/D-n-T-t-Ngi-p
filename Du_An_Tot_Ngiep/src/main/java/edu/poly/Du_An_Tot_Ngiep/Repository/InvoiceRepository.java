@@ -16,11 +16,12 @@ import java.util.List;
 public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 	
 	String STATISCAL_FOR_MONTH_QUERY = "SELECT MONTH(dateorders) AS orderMonth, " + 
-			"YEAR(dateorders) AS orderYear, " + 
-			"COUNT(i.invoice_id) as orderCount," + 
-			"SUM(total) AS total," + 
-			"MIN(total) AS minTotal," + 
-			"MAX(total) AS maxTotal FROM invoice i" + 
+			" YEAR(dateorders) AS orderYear, " + 
+			" COUNT(i.invoice_id) as orderCount," + 
+			" SUM(total) AS total," + 
+			" MIN(total) AS minTotal," + 
+			" MAX(total) AS maxTotal FROM invoice i" + 
+			" Where i.status='hoàn thành' "+
 			" GROUP BY MONTH(dateorders), YEAR(dateorders)";
 	
 	String STATISCAL_FOR_YEAR_QUERY = "SELECT" + 
@@ -30,6 +31,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 			" MIN(total) AS minTotal," + 
 			" MAX(total) AS maxTotal" + 
 			" FROM invoice i" + 
+			" Where i.status='hoàn thành' "+
 			" GROUP BY YEAR(dateorders)";
 	
 	String STATISCAL_FOR_PRODUCT_QUERY = "SELECT p.id_product AS id, p.name AS name,  " + 
@@ -46,7 +48,10 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 			"	FROM product p " + 
 			"	LEFT JOIN invoice_detail detail " + 
 			"		ON p.id_product = detail.id_product " + 
-			"		GROUP BY p.id_product, p.name ";
+			"	FULL JOIN invoice " + 
+			"		ON invoice.invoice_id = detail.invoice_id " + 
+			"	Where invoice.status = 'hoàn thành'" +
+			"	GROUP BY p.id_product, p.name ";
 	
     
     
