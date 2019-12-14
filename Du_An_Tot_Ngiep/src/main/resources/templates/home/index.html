@@ -2,44 +2,58 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Bán Hàng Nông Sản</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-	
-	<link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/animate.css}">
-	
-	<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-	<link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-	<link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-	
-	<link rel="stylesheet" th:href="@{/css/aos.css}">
-	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
-	
-	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-	
-	<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
-	<link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
-	
-	<link rel="stylesheet" th:href="@{/css/flaticon.css}">
-	<link rel="stylesheet" th:href="@{/css/icomoon.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
-	<link rel="stylesheet" th:href="@{/css/style1.css}">
-	<link rel="stylesheet" th:href="@{/css/slick-theme.css}">
-	<link rel="stylesheet" th:href="@{/css/slick.css}">
-	<link rel="stylesheet" th:href="@{/css/nouislider.min.css}">
-	<script type="text/javascript" th:href="@{/js/jquery-3.2.1.min.js}"></script>
+<title>Bán Hàng Nông Sản</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
+	rel="stylesheet">
+
+<link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/animate.css}">
+
+<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+<link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+
+<link rel="stylesheet" th:href="@{/css/aos.css}">
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+
+<link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+<link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
+
+<link rel="stylesheet" th:href="@{/css/flaticon.css}">
+<link rel="stylesheet" th:href="@{/css/icomoon.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/style1.css}">
+<link rel="stylesheet" th:href="@{/css/slick-theme.css}">
+<link rel="stylesheet" th:href="@{/css/slick.css}">
+<link rel="stylesheet" th:href="@{/css/nouislider.min.css}">
+<script type="text/javascript" th:href="@{/js/jquery-3.2.1.min.js}"></script>
+<style type="text/css">
+.img-fluid {
+	text-align: center;
+}
+</style>
 </head>
 
 <body class="goto-here">
 	<!-- Header -->
 	<div th:replace="fragment/header::header"></div>
-	
+
 	<!-- Image header -->
 	<section id="home-section" class="hero">
 		<div class="home-slider owl-carousel">
@@ -47,10 +61,16 @@
 				style="background-image: url(/images/bg_1.jpg);">
 				<div class="overlay"></div>
 				<div class="container">
-					<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+					<div
+						class="row slider-text justify-content-center align-items-center"
+						data-scrollax-parent="true">
 						<div class="col-md-12 ftco-animate text-center">
-							<h1 class="mb-2">Chúng tôi phục vụ các mặt hàng nông sản chất lượng</h1>
-							<p><a th:href="@{/index/product}" class="btn btn-primary">Xem Chi Tiết</a></p>
+							<h1 class="mb-2">Chúng tôi phục vụ các mặt hàng nông sản
+								chất lượng</h1>
+							<p>
+								<a th:href="@{/index/product}" class="btn btn-primary">Xem
+									Chi Tiết</a>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -60,10 +80,15 @@
 				style="background-image: url(/images/bg_2.jpg);">
 				<div class="overlay"></div>
 				<div class="container">
-					<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+					<div
+						class="row slider-text justify-content-center align-items-center"
+						data-scrollax-parent="true">
 						<div class="col-sm-12 ftco-animate text-center">
 							<h1 class="mb-2">100% chất lượng an toàn</h1>
-							<p><a th:href="@{/index/product}" class="btn btn-primary">Xem Chi Tiết</a></p>
+							<p>
+								<a th:href="@{/index/product}" class="btn btn-primary">Xem
+									Chi Tiết</a>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -141,16 +166,20 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-lg-3 ftco-animate"
 					th:each="product : ${showProduct}">
 					<div class="product">
 						<a th:href="@{'/index/showProductSingle/'+${product.idProduct}}"
-							class="img-prod"><img class="img-fluid"
-							th:src="'data:image/png;base64,' + ${product.getImageBase64()}"
-							alt="Colorlib Template"> <span class="status">30%</span> </a>
+							class="img-prod">
+							<div style="width: 74%; margin: 0 auto;">
+								<img class="img-fluid"
+									th:src="'data:image/png;base64,' + ${product.getImageBase64()}"
+									alt="Colorlib Template">
+							</div> <span class="status">30%</span>
+						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
 							<h3>
 								<a href="#" th:text="${product.name}"></a>
@@ -158,14 +187,18 @@
 							<div class="d-flex">
 								<div class="pricing">
 									<p class="price">
-										<span class="price-sale" th:text="${#numbers.formatCurrency(product.price)}"></span>
+										<span class="price-sale"
+											th:text="${#numbers.formatCurrency(product.price)}"></span>
 									</p>
 								</div>
 							</div>
-							<div class="bottom-area d-flex px-3" >
+							<div class="bottom-area d-flex px-3">
 								<div class="m-auto d-flex">
-									<a class="buy-now d-flex justify-content-center align-items-center mx-1" >
-										<span class="procart" th:attr="data-productid=${product.idProduct}"><i class="ion-ios-cart" ></i></span>
+									<a
+										class="buy-now d-flex justify-content-center align-items-center mx-1">
+										<span class="procart"
+										th:attr="data-productid=${product.idProduct}"><i
+											class="ion-ios-cart"></i></span>
 									</a>
 								</div>
 							</div>
@@ -195,7 +228,8 @@
 							<div class="testimony-wrap p-4 pb-5">
 								<div class="user-img mb-5"
 									style="background-image: url(/images/person_1.jpg)">
-									<span class="quote d-flex align-items-center justify-content-center">
+									<span
+										class="quote d-flex align-items-center justify-content-center">
 										<i class="icon-quote-left"></i>
 									</span>
 								</div>
@@ -213,14 +247,16 @@
 	</section>
 
 	<hr>
-	
+
 	<!-- Email feedback -->
 	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
 		<div class="container py-4">
 			<div class="row d-flex justify-content-center py-5">
 				<div class="col-md-6">
-					<h2 style="font-size: 22px;" class="mb-0">Theo dõi bản tin của chúng tôi</h2>
-					<span>Nhận cập nhật e-mail về các cửa hàng mới nhất của chúng tôi và ưu đãi đặc biệt</span>
+					<h2 style="font-size: 22px;" class="mb-0">Theo dõi bản tin của
+						chúng tôi</h2>
+					<span>Nhận cập nhật e-mail về các cửa hàng mới nhất của
+						chúng tôi và ưu đãi đặc biệt</span>
 				</div>
 				<div class="col-md-6 d-flex align-items-center">
 					<form action="#" class="subscribe-form">
@@ -234,10 +270,11 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Footer -->
-	<footer class="ftco-footer ftco-section" th:replace="fragment/footer::footer"></footer>
-	
+	<footer class="ftco-footer ftco-section"
+		th:replace="fragment/footer::footer"></footer>
+
 	<script th:src="@{/js/jquery.min.js}"></script>
 	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 	<script th:src="@{/js/popper.min.js}"></script>
@@ -254,40 +291,56 @@
 	<script th:src="@{/js/main.js}"></script>
 
 	<script>
-		$(document).ready(function() {
+		$(document)
+				.ready(
+						function() {
 
-			$('.procart').click(function(e) {
-				e.preventDefault();
-				console.log("---start function--");
-				//var amount = parseInt($('#quantity').val());
-				var amount = 1;
-				var idproduct = $(this).data('productid');
-				$.post("/insertproduct}",
-						{
-							idproduct: idproduct,
-							amount: amount
-						},
-						function (data, status) {
-							console.log(data);
-							if (data =="1") { // them thanh cong. san pham chua nam trong gio hang
-								alert("Thêm thành công !");
-								var so_luong = parseInt($("#so_luong_in_cart").html());
-								so_luong++;
-								$("#so_luong_in_cart").html(so_luong);
-							} else if (data == "5") { // them thanh cong, san pham da nam trong gio hang
-								alert("Thêm thành công ! San pham da ton tai trong gio hang");
-							}else if (data == "2") {
-								alert("Thêm thất bại!");
-							} else if (data == "3") {
-								alert("Có lỗi !");
-							}else if (data == "4") {
-								alert("Đã cộng thêm 1 sản phẩm vào giỏ hàng");
-							}
-							else alert("error:"+data)
+							$('.procart')
+									.click(
+											function(e) {
+												e.preventDefault();
+												console
+														.log("---start function--");
+												//var amount = parseInt($('#quantity').val());
+												var amount = 1;
+												var idproduct = $(this).data(
+														'productid');
+												$
+														.post(
+																"/insertproduct}",
+																{
+																	idproduct : idproduct,
+																	amount : amount
+																},
+																function(data,
+																		status) {
+																	console
+																			.log(data);
+																	if (data == "1") { // them thanh cong. san pham chua nam trong gio hang
+																		alert("Thêm thành công !");
+																		var so_luong = parseInt($(
+																				"#so_luong_in_cart")
+																				.html());
+																		so_luong++;
+																		$(
+																				"#so_luong_in_cart")
+																				.html(
+																						so_luong);
+																	} else if (data == "5") { // them thanh cong, san pham da nam trong gio hang
+																		alert("Thêm thành công ! San pham da ton tai trong gio hang");
+																	} else if (data == "2") {
+																		alert("Thêm thất bại!");
+																	} else if (data == "3") {
+																		alert("Có lỗi !");
+																	} else if (data == "4") {
+																		alert("Đã cộng thêm 1 sản phẩm vào giỏ hàng");
+																	} else
+																		alert("error:"
+																				+ data)
+																});
+											});
 						});
-			});
-		});
 	</script>
-	
+
 </body>
 </html>
