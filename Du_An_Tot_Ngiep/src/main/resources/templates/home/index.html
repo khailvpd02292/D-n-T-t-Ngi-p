@@ -43,11 +43,6 @@
 <link rel="stylesheet" th:href="@{/css/slick.css}">
 <link rel="stylesheet" th:href="@{/css/nouislider.min.css}">
 <script type="text/javascript" th:href="@{/js/jquery-3.2.1.min.js}"></script>
-<style type="text/css">
-.img-fluid {
-	text-align: center;
-}
-</style>
 </head>
 
 <body class="goto-here">
@@ -178,7 +173,7 @@
 								<img class="img-fluid"
 									th:src="'data:image/png;base64,' + ${product.getImageBase64()}"
 									alt="Colorlib Template">
-							</div> <span class="status">30%</span>
+							</div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
 							<h3>
