@@ -43,11 +43,6 @@
 <link rel="stylesheet" th:href="@{/css/slick.css}">
 <link rel="stylesheet" th:href="@{/css/nouislider.min.css}">
 <script type="text/javascript" th:href="@{/js/jquery-3.2.1.min.js}"></script>
-<style type="text/css">
-.img-fluid {
-	text-align: center;
-}
-</style>
 </head>
 
 <body class="goto-here">
@@ -178,7 +173,7 @@
 								<img class="img-fluid"
 									th:src="'data:image/png;base64,' + ${product.getImageBase64()}"
 									alt="Colorlib Template">
-							</div> <span class="status">30%</span>
+							</div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
 							<h3>
@@ -289,58 +284,6 @@
 	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
 	<script th:src="@{/js/scrollax.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-
-	<script>
-		$(document)
-				.ready(
-						function() {
-
-							$('.procart')
-									.click(
-											function(e) {
-												e.preventDefault();
-												console
-														.log("---start function--");
-												//var amount = parseInt($('#quantity').val());
-												var amount = 1;
-												var idproduct = $(this).data(
-														'productid');
-												$
-														.post(
-																"/insertproduct}",
-																{
-																	idproduct : idproduct,
-																	amount : amount
-																},
-																function(data,
-																		status) {
-																	console
-																			.log(data);
-																	if (data == "1") { // them thanh cong. san pham chua nam trong gio hang
-																		alert("Thêm thành công !");
-																		var so_luong = parseInt($(
-																				"#so_luong_in_cart")
-																				.html());
-																		so_luong++;
-																		$(
-																				"#so_luong_in_cart")
-																				.html(
-																						so_luong);
-																	} else if (data == "5") { // them thanh cong, san pham da nam trong gio hang
-																		alert("Thêm thành công ! San pham da ton tai trong gio hang");
-																	} else if (data == "2") {
-																		alert("Thêm thất bại!");
-																	} else if (data == "3") {
-																		alert("Có lỗi !");
-																	} else if (data == "4") {
-																		alert("Đã cộng thêm 1 sản phẩm vào giỏ hàng");
-																	} else
-																		alert("error:"
-																				+ data)
-																});
-											});
-						});
-	</script>
-
+<script th:src="@{/js/addtocart.js}"></script>
 </body>
 </html>

@@ -69,9 +69,13 @@
 					th:each="product : ${showProductByIdCategory}">
 					<div class="product">
 						<a th:href="@{'/index/showProductSingle/'+${product.idProduct}}"
-							class="img-prod"><img class="img-fluid"
-							th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}"
-							alt="Colorlib Template"> <span class="status"></span> </a>
+							class="img-prod">
+							<div style="width: 74%; margin: 0 auto;">
+								<img class="img-fluid"
+									th:src="@{'data:image/png;base64,' + ${product.getImageBase64()}}"
+									alt="Colorlib Template">
+							</div>
+						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
 							<h3>
 								<a href="#" th:text="${product.name}"></a>
@@ -79,16 +83,18 @@
 							<div class="d-flex">
 								<div class="pricing">
 									<p class="price">
-										<span class="price-sale" th:text="${#numbers.formatCurrency(product.price)}"></span>
+										<span class="price-sale"
+											th:text="${#numbers.formatCurrency(product.price)}"></span>
 									</p>
 								</div>
 							</div>
 							<div class="bottom-area d-flex px-3">
 								<div class="m-auto d-flex">
 									<a
-										th:href="@{'/index/showProductSingle/'+${product.idProduct}}"
 										class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
+										<span class="procart"
+										th:attr="data-productid=${product.idProduct}"><i
+											class="ion-ios-cart"></i></span>
 									</a>
 								</div>
 							</div>
@@ -120,7 +126,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<footer class="ftco-footer ftco-section"
 		th:replace="fragment/footer::footer"></footer>
 
@@ -138,6 +144,6 @@
 	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
 	<script th:src="@{/js/scrollax.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-
+<script th:src="@{/js/addtocart.js}"></script>
 </body>
 </html>

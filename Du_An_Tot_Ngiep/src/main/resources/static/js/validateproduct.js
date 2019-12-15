@@ -7,13 +7,8 @@ function clear() {
 }
 function checkempty(formproduct) {
 	clear();
-//	var date1 = new Date(); // current date
-//	var date2 = new Date(formproduct.dateOfManufacture.value); // mm/dd/yyyy format
-//	var timeDiff = Math.abs(date2.getTime() - date1.getTime()); // in miliseconds
-//	var timeDiffInSecond = Math.ceil(timeDiff / 1000); // in second
-//	var days = Math.floor(timeDiffInSecond / 86400);
-//	var hours = Math.floor(res / 3600) % 24;  
-//	 var minutes = Math.floor(res / 60) % 60;
+	var date1 = new Date().getTime(); // current date
+	var date2 = new Date(formproduct.dateOfManufacture.value).getTime();
 	if (formproduct.name.value.trim() == "") {
 		document.getElementById("ten").innerHTML = "Không để trống tên!";
 		return false;
@@ -38,8 +33,12 @@ function checkempty(formproduct) {
 		document.getElementById("tien").innerHTML = "Giá phải lớn lơn 1000!";
 		return false;
 	} 
+	else if(date2 < date1){
+		document.getElementById("ngayhethang").innerHTML = "Ngày hết hạn phải lớn hơn ngày hiện tại!";
+		return false;
+	}
 	else {
-		return true;
+		return false;
 	}
 
 }
