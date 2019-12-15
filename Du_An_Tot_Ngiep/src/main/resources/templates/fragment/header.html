@@ -20,14 +20,16 @@
 
 						<div
 							class="col-md-6 pr-4 d-flex topper align-items-center text-lg-right">
-							<span th:if="${fullname == null}" class="text" style="margin-left:320px;">
+							<span th:if="${fullname == null}" class="text"
+								style="margin-left: 320px;">
 								<ul class="header-links pull-right">
 									<li><a th:href="@{/login}"><i class="fa fa-user-o"></i>Đăng
 											Nhập</a></li>
 								</ul>
 							</span> <span class="text"><a th:if="${fullname != null}"
-								th:text="${fullname}" th:href="@{'/updateProfile/'+${customerId}}"></a></span> <span class="text"
-								th:if="${fullname != null}"
+								th:text="${fullname}"
+								th:href="@{'/updateProfile/'+${customerId}}"></a></span> <span
+								class="text" th:if="${fullname != null}"
 								style="width: 150px; margin-left: 50px; cursor: pointer;"><a
 								th:href="@{/index/logout}" style="color: white;"><i
 									class="fa fa-user-o"></i> Đăng xuất</a></span>
@@ -37,7 +39,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<nav
 		class="navbar navbar-expand-lg  ftco-navbar-dark bg-dark ftco-navbar-light ">
 		<div class="container">
@@ -56,7 +58,8 @@
 						<span class="text">
 							<div class="header-search">
 								<form th:action="@{/index/searchProduct}" method="get">
-									 <input type="search" name="key" class="input" placeholder="từ khóa">
+									<input type="search" name="key" class="input"
+										placeholder="từ khóa">
 									<button type="submit" class="search-btn">Tìm</button>
 								</form>
 							</div>
@@ -100,8 +103,20 @@
 						class="nav-link">Giới Thiệu</a></li>
 					<li class="nav-item"><a th:href="@{/index/feedback}"
 						class="nav-link">Liên Hệ</a></li>
-					<li class="nav-item cta cta-colored"><a th:href="@{/cart}"
-															class="nav-link"><span id ="so_luong_in_cart" class="icon-shopping_cart" th:utext="${#lists.size(session.cart)}" />  </a></li>
+					<li class="nav-item cta cta-colored">
+					<span
+						th:if="${(#lists.size(session.cart)) == null}">
+								<a th:href="@{/cart}" class="nav-link" style="margin-top:18px;"><p 
+							id="so_luong_in_cart" class="icon-shopping_cart"
+							th:text="0"></p> </a>
+					</span> 
+					<span
+						th:if="${(#lists.size(session.cart)) != null}">
+								<a th:href="@{/cart}" class="nav-link" style="margin-top:18px;"><p
+							id="so_luong_in_cart" class="icon-shopping_cart"
+							th:utext="${#lists.size(session.cart)}"></p> </a>
+					</span> 
+							</li>
 				</ul>
 			</div>
 		</div>
