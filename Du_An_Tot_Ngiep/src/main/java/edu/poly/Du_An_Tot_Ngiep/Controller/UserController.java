@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import edu.poly.Du_An_Tot_Ngiep.Entity.Customer;
-import edu.poly.Du_An_Tot_Ngiep.Entity.Imports;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.CustomerService;
 import edu.poly.Du_An_Tot_Ngiep.Service.UserService;
@@ -135,12 +133,12 @@ public class UserController {
 	@GetMapping(value = "/manager/addUser")
 	public String addCategory(ModelMap model, @CookieValue(value = "accountuser", required = false) String phone,
 			HttpServletRequest request) {
-//		model.addAttribute("user", new User());
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
 				if (cookies[i].getName().equals("accountuser")) {
 					model.addAttribute("userId", new User());
+					getName(request, model);
 					return "/manager/users/addUser";
 
 				}
@@ -179,7 +177,7 @@ public class UserController {
 		model.addAttribute("listuser", this.userService.findAll());
 		model.addAttribute("usernameID",
 				this.userService.findById(id).isPresent() ? this.userService.findById(id).get() : null);
-//		getName(request, model);
+		getName(request, model);
 		return "/manager/users/updateUser";
 	}
 
