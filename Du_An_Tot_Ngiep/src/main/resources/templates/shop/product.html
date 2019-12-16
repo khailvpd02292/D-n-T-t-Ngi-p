@@ -232,7 +232,7 @@
 							+'<div class="bottom-area d-flex px-3">'
 							+'<div class="m-auto d-flex">'
 							+'<a class="buy-now d-flex justify-content-center align-items-center mx-1">'
-							+'<span class="procart" id="data-productid-'+ listProduct[i]['idProduct']+'"><i class="ion-ios-cart"></i></span>'
+							+'<span class="procart" data-productid='+ listProduct[i]['idProduct']+'><i class="ion-ios-cart"></i></span>'
 							+'</a>'
 							+'</div>'
 							+'</div>'
@@ -417,7 +417,7 @@
 		
 		$(document).ready(function() {
 		
-			$('.procart').click(function(e) {
+			$(document).on('click',".procart",function(e) {
 				e.preventDefault();
 				console.log("---start function--");
 				//var amount = parseInt($('#quantity').val());

@@ -104,18 +104,7 @@
 					<li class="nav-item"><a th:href="@{/index/feedback}"
 						class="nav-link">Liên Hệ</a></li>
 					<li class="nav-item cta cta-colored">
-					<span
-						th:if="${(#lists.size(session.cart)) == null}">
-								<a th:href="@{/cart}" class="nav-link" style="margin-top:18px;"><p 
-							id="so_luong_in_cart" class="icon-shopping_cart"
-							th:text="0"></p> </a>
-					</span> 
-					<span
-						th:if="${(#lists.size(session.cart)) != null}">
-								<a th:href="@{/cart}" class="nav-link" style="margin-top:18px;"><p
-							id="so_luong_in_cart" class="icon-shopping_cart"
-							th:utext="${#lists.size(session.cart)}"></p> </a>
-					</span> 
+					<a th:href="@{/cart}" class="nav-link"><span id ="so_luong_in_cart" class="icon-shopping_cart" th:utext="${#lists.size(session.cart)}"  />  </a>
 							</li>
 				</ul>
 			</div>

@@ -30,9 +30,6 @@ public class Invoice {
 	@Column(name = "total")
 	private double total;
 
-	@Column(name = "description")
-	private String description;
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "invoiceId")
 	private Set<InvoiceDetail> details;
@@ -97,13 +94,6 @@ public class Invoice {
 		this.customerId = customerId;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public Invoice(@NotNull Date dateorders, String status, @NotNull Customer customerId, double total,
 			String description) {
@@ -111,6 +101,5 @@ public class Invoice {
 		this.status = status;
 		this.customerId = customerId;
 		this.total = total;
-		this.description = description;
 	}
 }
