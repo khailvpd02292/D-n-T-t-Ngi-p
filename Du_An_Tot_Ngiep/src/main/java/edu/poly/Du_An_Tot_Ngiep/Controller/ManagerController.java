@@ -71,14 +71,15 @@ public class ManagerController {
 			if (cookies[i].getName().equals("accountuser")) {
 				User user = this.userService.findByPhone(cookies[i].getValue()).get();
 				model.addAttribute("fullname", user.getFullname());
+				model.addAttribute("image", user.getImageBase64());
 				break;
 			}
 		}
 	}
 
 	@GetMapping(value = "/manager")
-	public String manager(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,MultipartFile image,
-			HttpServletRequest request, HttpServletResponse response) {
+	public String manager(ModelMap model, @CookieValue(value = "accountuser", required = false) String username,
+			MultipartFile image, HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; ++i) {
@@ -134,6 +135,7 @@ public class ManagerController {
 				if (cookies[i].getName().equals("accountuser")) {
 					this.userService.findByPhone(cookies[i].getValue()).get();
 					model.addAttribute("category", new Category());
+					getName(request, model);
 					return "/manager/category/addCategory";
 				}
 			}
@@ -159,7 +161,7 @@ public class ManagerController {
 			for (int i = 0; i < cookies.length; ++i) {
 				if (cookies[i].getName().equals("accountuser")) {
 					this.userService.findByPhone(cookies[i].getValue()).get();
-
+					getName(request, model);
 					model.addAttribute("category", categoryService.findById(idCategory));
 					return "/manager/category/updateCategory";
 				}
@@ -263,7 +265,7 @@ public class ManagerController {
 			for (int i = 0; i < cookies.length; ++i) {
 				if (cookies[i].getName().equals("accountuser")) {
 					this.userService.findByPhone(cookies[i].getValue()).get();
-
+					getName(request, model);
 					model.addAttribute("product", new Product());
 					model.addAttribute("listCategory", categoryService.findAll());
 					return "/manager/product/addProduct";
@@ -305,6 +307,7 @@ public class ManagerController {
 					model.addAttribute("product",
 							this.productService.findById(id).isPresent() ? this.productService.findById(id).get()
 									: null);
+					getName(request, model);
 					return "/manager/product/updateProduct";
 				}
 
@@ -442,5 +445,5 @@ public class ManagerController {
 		}
 		return "redirect:/login";
 	}
-	
+
 }
