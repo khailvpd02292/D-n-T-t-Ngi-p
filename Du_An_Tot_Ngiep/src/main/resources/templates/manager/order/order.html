@@ -181,13 +181,22 @@
 							var quantity = parseInt(data);
 							console.log(quantity);
 							if (quantity==0) {
-								alert("Có lỗi ! Vui lòng thử lại...");
+								Swal.fire({
+									  icon: 'error',
+									  title: 'Có lỗi ! Vui lòng thử lại...'
+									})
 							}
 							else if (quantity==-1) {
-								alert("Số lượng trong kho quá ít !");
+								Swal.fire({
+									  icon: 'error',
+									  title: 'Số lượng trong kho không đủ !'
+									})
 							}
 							else if (quantity==-2) {
-								alert("Sản phẩm chưa được cập nhật trong kho !");
+								Swal.fire({
+									  icon: 'error',
+									  title: 'Sản phẩm chưa được cập nhật trong kho !'
+									})
 							}
 							else if (quantity<0) {
 								alert("Có gì đó sai sai...^^ !");

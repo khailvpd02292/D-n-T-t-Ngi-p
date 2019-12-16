@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.poly.Du_An_Tot_Ngiep.Entity.Imports;
+import edu.poly.Du_An_Tot_Ngiep.Entity.Product;
 import edu.poly.Du_An_Tot_Ngiep.Entity.User;
 import edu.poly.Du_An_Tot_Ngiep.Service.ImportService;
 import edu.poly.Du_An_Tot_Ngiep.Service.ProductService;
@@ -70,8 +71,8 @@ public class ImportController {
 	}
 
 	@PostMapping(value = "/manager/addImport")
-	public String addImport(@ModelAttribute(value = "import")Imports import1,
-			HttpServletRequest request, ModelMap model, RedirectAttributes redirect) {
+	public String addImport(@ModelAttribute(value = "import") Imports import1, HttpServletRequest request,
+			ModelMap model, RedirectAttributes redirect) {
 
 		Imports impl = new Imports();
 		Cookie[] cookies = request.getCookies();
@@ -84,29 +85,31 @@ public class ImportController {
 				break;
 			}
 		}
-
-		impl.setProduct(import1.getProduct());
-		impl.setQuantity(import1.getQuantity());
-		this.importService.save(impl);
-		redirect.addFlashAttribute("success", "Thêm mới kho hàng thành công!");
+		if(this.importService.findById(import1.getProduct().getIdProduct()).isPresent()) {
+			impl.setProduct(import1.getProduct());
+			impl.setQuantity(import1.getQuantity());
+			this.importService.save(impl);
+			redirect.addFlashAttribute("success", "Nhập kho thành công!");
+		}else {
+		redirect.addFlashAttribute("success", "Sản phẩm đang tồn tại trong kho!");
+		}
 		return "redirect:/manager/import";
 	}
 
 	@GetMapping(value = "/manager/updateImport/{idImport}")
-	public String updateImport(ModelMap model, @PathVariable(name = "idImport") int id, @CookieValue(value = "accountuser", required = false) String username,
-			HttpServletRequest request) {
+	public String updateImport(ModelMap model, @PathVariable(name = "idImport") int id,
+			@CookieValue(value = "accountuser", required = false) String username, HttpServletRequest request) {
 		model.addAttribute("username", username);
 		getName(request, model);
 		model.addAttribute("listProduct", productService.findAll());
-		model.addAttribute("import",this.importService.findById(id).isPresent() ? this.importService.findById(id).get() : null);
-		
+		model.addAttribute("import",
+				this.importService.findById(id).isPresent() ? this.importService.findById(id).get() : null);
 		return "/manager/import/updateImport";
 	}
 
 	@PostMapping(value = "/manager/updateImport")
-	public String updateImport(@ModelAttribute(value = "import")Imports import1,RedirectAttributes redirect
-			,HttpServletRequest request, ModelMap model) {
-		
+	public String updateImport(@ModelAttribute(value = "import") Imports import1, @RequestParam int idImport,
+			RedirectAttributes redirect, HttpServletRequest request, ModelMap model) {
 		Imports impl = new Imports();
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; ++i) {
@@ -118,17 +121,17 @@ public class ImportController {
 				break;
 			}
 		}
-
+		int a = this.importService.findByIdImport(idImport).getQuantity();
 		impl.setProduct(import1.getProduct());
-		impl.setQuantity(import1.getQuantity());
+		import1.setQuantity((a + import1.getQuantity()));
 		this.importService.save(import1);
 		redirect.addFlashAttribute("success", "Cập nhập kho hàng thành công!");
-	
+
 		return "redirect:/manager/import";
 	}
 
 	@GetMapping(value = "/manager/deleteImport/{idImport}")
-	public String deleteImport(@PathVariable(name = "idImport") int idImport,RedirectAttributes redirect) {
+	public String deleteImport(@PathVariable(name = "idImport") int idImport, RedirectAttributes redirect) {
 		this.importService.deleteById(idImport);
 		redirect.addFlashAttribute("success", "Xoá kho hàng thành công!");
 		return "redirect:/manager/import";
