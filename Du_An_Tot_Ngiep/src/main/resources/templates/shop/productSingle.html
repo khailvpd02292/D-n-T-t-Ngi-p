@@ -98,7 +98,7 @@
 						</p>
 						<div class="card_area">
 							<p>
-								<a class="btn btn-black py-3 px-5" id="themclick1">Thêm</a>
+								<a class="btn btn-black py-3 px-5" id="themclick1" style="color: white;">Thêm</a>
 							</p>
 						</div>
 
@@ -197,7 +197,9 @@
 	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
 	<script th:src="@{/js/scrollax.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-
+<script
+		src="https://cdn.jsdelivr.net/npm/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 	<script>
 		$(document).ready(function() {
 
@@ -235,13 +237,25 @@
 								so_luong++;
 								$("#so_luong_in_cart").html(so_luong);
 							} else if (data == "5") { // them thanh cong, san pham da nam trong gio hang
-								alert("Thêm thành công ! San pham da ton tai trong gio hang");
+								Swal.fire({
+									  icon: 'success',
+									  title: 'Đã cộng thêm một sản phẩm vào giỏ hàng'
+									})
 							}else if (data == "2") {
-								alert("Thêm thất bại!");
+								Swal.fire({
+									  icon: 'error',
+									  title: 'Thêm sản phẩm thất bại'
+									})
 							} else if (data == "3") {
-								alert("Có lỗi !");
+								Swal.fire({
+									  icon: 'error',
+									  title: 'Lỗi'
+									})
 							}else if (data == "4") {
-								alert("Đã cộng thêm 1 sản phẩm vào giỏ hàng");
+								Swal.fire({
+									  icon: 'success',
+									  title: 'Đã cộng thêm một sản phẩm vào giỏ hàng'
+									})
 							}
 							else alert("error:"+data)
 						});
