@@ -137,6 +137,8 @@
 	<!-- DataTables -->
 	<script th:src="@{/assets/vendors/datatables/jquery.dataTables.js}"></script>
 	<script th:src="@{/assets/vendors/datatables/dataTables.bootstrap4.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 		  $("#myInput").on("keyup", function() {
@@ -198,10 +200,18 @@
 									  title: 'Sản phẩm chưa được cập nhật trong kho !'
 									})
 							}
+							else if (quantity==1) {
+								Swal.fire({
+									  icon: 'success',
+									  title: 'Thêm thành công !'
+									})
+							}
 							else if (quantity<0) {
 								alert("Có gì đó sai sai...^^ !");
 							}
-							window.location.reload();
+							setTimeout(function(){
+								window.location.reload();
+							}, 2000);
 						});
 
 			});

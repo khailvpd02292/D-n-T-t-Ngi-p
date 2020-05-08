@@ -85,7 +85,7 @@ public class ImportController {
 				break;
 			}
 		}
-		if(this.importService.findById(import1.getProduct().getIdProduct()).isPresent()) {
+		if(!this.importService.findById(import1.getProduct().getIdProduct()).isPresent()) {
 			impl.setProduct(import1.getProduct());
 			impl.setQuantity(import1.getQuantity());
 			this.importService.save(impl);

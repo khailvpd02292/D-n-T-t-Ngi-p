@@ -73,7 +73,9 @@ $(document).ready(function() {
 						  icon: 'success',
 						  title: 'Đặt hàng thành công!'
 						})
-					window.location.reload();
+						setTimeout(function(){
+							window.location.reload();
+						}, 3000);
 					} else {
 						alert("Có gì đó sai sai...^^ !");
 					}
